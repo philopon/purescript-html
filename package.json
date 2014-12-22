@@ -1,0 +1,15 @@
+{
+  "name": "purescript-html",
+  "version": "0.1.0",
+  "description": "middle level virtual-dom wrapper",
+  "scripts": {},
+  "author": "HirotomoMoriwaki",
+  "license": "MIT",
+  "devDependencies": {
+    "dom-delegator": "^12.0.0",
+    "gulp": "^3.8.10",
+    "gulp-purescript": "^0.1.2",
+    "virtual-dom": "0.0.24",
+    "webpack": "^1.4.14"
+  }
+}
