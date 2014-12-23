@@ -20,6 +20,7 @@
   ],
   "dependencies": {
     "purescript-dom": "~0.1.1",
-    "purescript-refs": "~0.1.2"
+    "purescript-refs": "~0.1.2",
+    "purescript-strings": "~0.4.2"
   }
 }

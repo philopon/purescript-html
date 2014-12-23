@@ -79,3 +79,204 @@ module Html.Attributes.Html5 where
 
   readonly :: Boolean -> Attribute
   readonly = booleanAttribute "readonly"
+
+  required :: Boolean -> Attribute
+  required = booleanAttribute "required"
+
+  size :: Number -> Attribute
+  size = numberAttribute "size"
+
+  for :: String -> Attribute
+  for = stringAttribute "for"
+
+  form :: String -> Attribute
+  form = stringAttribute "form"
+
+  max :: String -> Attribute
+  max = stringAttribute "max"
+
+  min :: String -> Attribute
+  min = stringAttribute "min"
+
+  step :: Number -> Attribute
+  step = numberAttribute "step"
+
+  cols :: Number -> Attribute
+  cols = numberAttribute "cols"
+
+  rows :: Number -> Attribute
+  rows = numberAttribute "rows"
+
+  wrap :: String -> Attribute
+  wrap = stringAttribute "wrap"
+
+  href :: String -> Attribute
+  href = stringAttribute "href"
+
+  target :: String -> Attribute
+  target = stringAttribute "target"
+
+  download :: Boolean -> Attribute
+  download = booleanAttribute "download"
+
+  downloadAs :: String -> Attribute
+  downloadAs = stringAttribute "downloadAs"
+
+  hreflang :: String -> Attribute
+  hreflang = stringAttribute "hreflang"
+
+  media :: String -> Attribute
+  media = stringAttribute "media"
+
+  ping :: String -> Attribute
+  ping = stringAttribute "ping"
+
+  rel :: String -> Attribute
+  rel = stringAttribute "rel"
+
+  ismap :: String -> Attribute
+  ismap = stringAttribute "ismap"
+
+  usemap :: String -> Attribute
+  usemap = stringAttribute "usemap"
+
+  shape :: String -> Attribute
+  shape = stringAttribute "shape"
+
+  coords :: String -> Attribute
+  coords = stringAttribute "coords"
+
+  src :: String -> Attribute
+  src = stringAttribute "src"
+
+  height :: Number -> Attribute
+  height = numberAttribute "height"
+
+  width :: Number -> Attribute
+  width = numberAttribute "width"
+
+  alt :: String -> Attribute
+  alt = stringAttribute "alt"
+
+  autoplay :: Boolean -> Attribute
+  autoplay = booleanAttribute "autoplay"
+
+  controls :: Boolean -> Attribute
+  controls = booleanAttribute "controls"
+
+  loop :: Boolean -> Attribute
+  loop = booleanAttribute "loop"
+
+  preload :: Boolean -> Attribute
+  preload = booleanAttribute "preload"
+
+  poster :: String -> Attribute
+  poster = stringAttribute "poster"
+
+  default :: Boolean -> Attribute
+  default = booleanAttribute "default"
+
+  kind :: String -> Attribute
+  kind = stringAttribute "kind"
+
+  srclang :: String -> Attribute
+  srclang = stringAttribute "srclang"
+
+  sandbox :: String -> Attribute
+  sandbox = stringAttribute "sandbox"
+
+  seamless :: Boolean -> Attribute
+  seamless = booleanAttribute "seamless"
+
+  srcdoc :: String -> Attribute
+  srcdoc = stringAttribute "srcdoc"
+
+  reversed :: Boolean -> Attribute
+  reversed = booleanAttribute "reversed"
+
+  start :: Number -> Attribute
+  start = numberAttribute "start"
+
+  align :: String -> Attribute
+  align = stringAttribute "align"
+
+  colspan :: String -> Attribute
+  colspan = stringAttribute "colspan"
+
+  rowspan :: String -> Attribute
+  rowspan = stringAttribute "rowspan"
+
+  headers :: String -> Attribute
+  headers = stringAttribute "headers"
+
+  scope :: String -> Attribute
+  scope = stringAttribute "scope"
+
+  async :: Boolean -> Attribute
+  async = booleanAttribute "async"
+
+  charset :: String -> Attribute
+  charset = stringAttribute "charset"
+
+  content :: String -> Attribute
+  content = stringAttribute "content"
+
+  defer :: Boolean -> Attribute
+  defer = booleanAttribute "defer"
+
+  httpEquiv :: String -> Attribute
+  httpEquiv = stringAttribute "http-equiv"
+
+  language :: String -> Attribute
+  language = stringAttribute "language"
+
+  scoped :: Boolean -> Attribute
+  scoped = booleanAttribute "scoped"
+
+  accesskey :: String -> Attribute
+  accesskey = stringAttribute "accesskey"
+
+  contenteditable :: Boolean -> Attribute
+  contenteditable = booleanAttribute "contenteditable"
+
+  contextmenu :: String -> Attribute
+  contextmenu = stringAttribute "contextmenu"
+
+  dir :: String -> Attribute
+  dir = stringAttribute "dir"
+
+  draggable :: String -> Attribute
+  draggable = stringAttribute "draggable"
+
+  dropzone :: String -> Attribute
+  dropzone = stringAttribute "dropzone"
+
+  itemporp :: String -> Attribute
+  itemporp = stringAttribute "itemporp"
+
+  lang :: String -> Attribute
+  lang = stringAttribute "lang"
+
+  spellcheck :: Boolean -> Attribute
+  spellcheck = booleanAttribute "spellcheck"
+
+  tabindex :: Number -> Attribute
+  tabindex = numberAttribute "tabindex"
+
+  challenge :: String -> Attribute
+  challenge = stringAttribute "challenge"
+
+  keytype :: String -> Attribute
+  keytype = stringAttribute "keytype"
+
+  cite :: String -> Attribute
+  cite = stringAttribute "cite"
+
+  datetime :: String -> Attribute
+  datetime = stringAttribute "datetime"
+
+  pubdate :: String -> Attribute
+  pubdate = stringAttribute "pubdate"
+
+  manifest :: String -> Attribute
+  manifest = stringAttribute "manifest"

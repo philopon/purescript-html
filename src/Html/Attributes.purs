@@ -5,7 +5,7 @@ module Html.Attributes
   , numberAttribute
   , style
   , key
-  , Event(..), on_
+  , Event(), on_
   , data_
   , namespace
   ) where
@@ -41,35 +41,12 @@ module Html.Attributes
   data_ :: String -> String -> Attribute
   data_ nm dat = I.attribute ("data-" ++ nm) $ I.unsafeCoerce (virtualDOM.dsHook dat)
 
-  type Event =
-    { altKey     :: Boolean
-    , bubbles    :: Boolean
-    , button     :: Number
-    , buttons    :: Number
-    , cancalable :: Boolean
-    , clientX    :: Number
-    , clientY    :: Number
-    , ctrlKey    :: Boolean
-    , eventPhase :: Number
-    , layerX     :: Number
-    , layerY     :: Number
-    , metaKey    :: Boolean
-    , offsetX    :: Number
-    , offsetY    :: Number
-    , pageX      :: Number
-    , pageY      :: Number
-    , screenX    :: Number
-    , screenY    :: Number
-    , shiftKey   :: Boolean
-    , timeStamp  :: Number
-    , type       :: String
-    , which      :: Number
-    }
+  foreign import data Event :: *
 
   foreign import mkEvHook """
     function mkEvHook (eh, fn) {
       return eh(function(ev){fn(ev)()});
-    }""" :: forall eh e. Fn2 eh (Event -> Eff e Unit) I.Attr
+    }""" :: forall eh event e. Fn2 eh (Event -> Eff e Unit) I.Attr
 
-  on_ :: forall e. String -> (Event -> Eff e Unit) -> Attribute
+  on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
   on_ ev fn = I.attribute ("ev-" ++ ev) $ I.unsafeCoerce (runFn2 mkEvHook virtualDOM.evHook fn)
