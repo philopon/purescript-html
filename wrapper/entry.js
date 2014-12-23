@@ -9,6 +9,9 @@ var evHook = require('virtual-dom/virtual-hyperscript/hooks/ev-hook');
 
 var delegator = require('dom-delegator');
 
+var thunk = require('vdom-thunk');
+var partial = require('vdom-thunk/partial');
+
 virtualDOM =
   { diff:   diff
   , patch:  patch
@@ -18,4 +21,6 @@ virtualDOM =
   , dsHook: dsHook
   , evHook: evHook
   , delegator: delegator()
+  , thunk: thunk
+  , partial: partial
   }

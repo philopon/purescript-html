@@ -9,6 +9,7 @@
     "dom-delegator": "^12.0.0",
     "gulp": "^3.8.10",
     "gulp-purescript": "^0.1.2",
+    "vdom-thunk": "^3.0.0",
     "virtual-dom": "0.0.24",
     "webpack": "^1.4.14"
   }
