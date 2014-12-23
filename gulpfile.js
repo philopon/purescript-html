@@ -31,9 +31,13 @@ gulp.task('pscDocs', function(){
   return gulp
     .src('src/**/*.purs')
     .pipe(foreach(function(stream, file){
+      var p = path.resolve(
+        'docs',
+        path.dirname(file.relative),
+        path.basename(file.relative, ".purs") + ".md")
       return stream
         .pipe(purescript.pscDocs())
-        .pipe(gulp.dest(path.join('docs', file.relative)));
+        .pipe(gulp.dest(p));
     }));
 });
 
