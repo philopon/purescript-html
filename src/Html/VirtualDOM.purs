@@ -57,10 +57,10 @@ var virtualDOM = null;
 	var dsHook = __webpack_require__(9);
 	var evHook = __webpack_require__(10);
 
-	var delegator = __webpack_require__(3);
+	var delegator = __webpack_require__(1);
 
-	var thunk = __webpack_require__(1);
-	var partial = __webpack_require__(2);
+	var thunk = __webpack_require__(2);
+	var partial = __webpack_require__(3);
 
 	virtualDOM =
 	  { diff:   diff
@@ -80,58 +80,11 @@ var virtualDOM = null;
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Partial = __webpack_require__(2);
-
-	module.exports = Partial();
-
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var shallowEq = __webpack_require__(11);
-	var Thunk = __webpack_require__(12);
-
-	module.exports = createPartial;
-
-	function createPartial(eq) {
-	    return function partial(fn) {
-	        var args = copyOver(arguments, 1);
-	        var firstArg = args[0];
-	        var key;
-
-	        var eqArgs = eq || shallowEq;
-
-	        if (typeof firstArg === 'object' && firstArg !== null) {
-	            if ('key' in firstArg) {
-	                key = firstArg.key;
-	            } else if ('id' in firstArg) {
-	                key = firstArg.id;
-	            }
-	        }
-
-	        return new Thunk(fn, args, key, eqArgs);
-	    };
-	}
-
-	function copyOver(list, offset) {
-	    var newList = [];
-	    for (var i = list.length - 1; i >= offset; i--) {
-	        newList[i - offset] = list[i];
-	    }
-	    return newList;
-	}
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Individual = __webpack_require__(25)
+	var Individual = __webpack_require__(22)
 	var cuid = __webpack_require__(34)
-	var globalDocument = __webpack_require__(26)
+	var globalDocument = __webpack_require__(27)
 
-	var DOMDelegator = __webpack_require__(13)
+	var DOMDelegator = __webpack_require__(11)
 
 	var versionKey = "12"
 	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
@@ -187,6 +140,53 @@ var virtualDOM = null;
 
 	Delegator.allocateHandle = DOMDelegator.allocateHandle;
 	Delegator.transformHandle = DOMDelegator.transformHandle;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Partial = __webpack_require__(3);
+
+	module.exports = Partial();
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var shallowEq = __webpack_require__(12);
+	var Thunk = __webpack_require__(13);
+
+	module.exports = createPartial;
+
+	function createPartial(eq) {
+	    return function partial(fn) {
+	        var args = copyOver(arguments, 1);
+	        var firstArg = args[0];
+	        var key;
+
+	        var eqArgs = eq || shallowEq;
+
+	        if (typeof firstArg === 'object' && firstArg !== null) {
+	            if ('key' in firstArg) {
+	                key = firstArg.key;
+	            } else if ('id' in firstArg) {
+	                key = firstArg.id;
+	            }
+	        }
+
+	        return new Thunk(fn, args, key, eqArgs);
+	    };
+	}
+
+	function copyOver(list, offset) {
+	    var newList = [];
+	    for (var i = list.length - 1; i >= offset; i--) {
+	        newList[i - offset] = list[i];
+	    }
+	    return newList;
+	}
 
 
 /***/ },
@@ -314,7 +314,7 @@ var virtualDOM = null;
 /* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(27)
+	var DataSet = __webpack_require__(26)
 
 	module.exports = DataSetHook;
 
@@ -338,7 +338,7 @@ var virtualDOM = null;
 /* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(27)
+	var DataSet = __webpack_require__(26)
 
 	module.exports = DataSetHook;
 
@@ -369,75 +369,13 @@ var virtualDOM = null;
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = shallowEq;
-
-	function shallowEq(currentArgs, previousArgs) {
-	    if (currentArgs.length === 0 && previousArgs.length === 0) {
-	        return true;
-	    }
-
-	    if (currentArgs.length !== previousArgs.length) {
-	        return false;
-	    }
-
-	    var len = currentArgs.length;
-
-	    for (var i = 0; i < len; i++) {
-	        if (currentArgs[i] !== previousArgs[i]) {
-	            return false;
-	        }
-	    }
-
-	    return true;
-	}
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function Thunk(fn, args, key, eqArgs) {
-	    this.fn = fn;
-	    this.args = args;
-	    this.key = key;
-	    this.eqArgs = eqArgs;
-	}
-
-	Thunk.prototype.type = 'Thunk';
-	Thunk.prototype.render = render;
-	module.exports = Thunk;
-
-	function shouldUpdate(current, previous) {
-	    if (!current || !previous || current.fn !== previous.fn) {
-	        return true;
-	    }
-
-	    var cargs = current.args;
-	    var pargs = previous.args;
-
-	    return !current.eqArgs(cargs, pargs);
-	}
-
-	function render(previous) {
-	    if (shouldUpdate(this, previous)) {
-	        return this.fn.apply(null, this.args);
-	    } else {
-	        return previous.vnode;
-	    }
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var globalDocument = __webpack_require__(26)
+	var globalDocument = __webpack_require__(27)
 	var DataSet = __webpack_require__(35)
 	var createStore = __webpack_require__(37)
 
-	var addEvent = __webpack_require__(22)
-	var removeEvent = __webpack_require__(23)
-	var ProxyEvent = __webpack_require__(24)
+	var addEvent = __webpack_require__(23)
+	var removeEvent = __webpack_require__(24)
+	var ProxyEvent = __webpack_require__(25)
 
 	var HANDLER_STORE = createStore()
 
@@ -617,6 +555,68 @@ var virtualDOM = null;
 
 	function Handle() {
 	    this.type = "dom-delegator-handle"
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = shallowEq;
+
+	function shallowEq(currentArgs, previousArgs) {
+	    if (currentArgs.length === 0 && previousArgs.length === 0) {
+	        return true;
+	    }
+
+	    if (currentArgs.length !== previousArgs.length) {
+	        return false;
+	    }
+
+	    var len = currentArgs.length;
+
+	    for (var i = 0; i < len; i++) {
+	        if (currentArgs[i] !== previousArgs[i]) {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function Thunk(fn, args, key, eqArgs) {
+	    this.fn = fn;
+	    this.args = args;
+	    this.key = key;
+	    this.eqArgs = eqArgs;
+	}
+
+	Thunk.prototype.type = 'Thunk';
+	Thunk.prototype.render = render;
+	module.exports = Thunk;
+
+	function shouldUpdate(current, previous) {
+	    if (!current || !previous || current.fn !== previous.fn) {
+	        return true;
+	    }
+
+	    var cargs = current.args;
+	    var pargs = previous.args;
+
+	    return !current.eqArgs(cargs, pargs);
+	}
+
+	function render(previous) {
+	    if (shouldUpdate(this, previous)) {
+	        return this.fn.apply(null, this.args);
+	    } else {
+	        return previous.vnode;
+	    }
 	}
 
 
@@ -1194,6 +1194,31 @@ var virtualDOM = null;
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
+	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
+	    window : typeof global !== 'undefined' ?
+	    global : {};
+
+	module.exports = Individual
+
+	function Individual(key, value) {
+	    if (root[key]) {
+	        return root[key]
+	    }
+
+	    Object.defineProperty(root, key, {
+	        value: value
+	        , configurable: true
+	    })
+
+	    return value
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var DataSet = __webpack_require__(35)
 
 	module.exports = addEvent
@@ -1215,7 +1240,7 @@ var virtualDOM = null;
 
 
 /***/ },
-/* 23 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DataSet = __webpack_require__(35)
@@ -1240,10 +1265,10 @@ var virtualDOM = null;
 
 
 /***/ },
-/* 24 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var inherits = __webpack_require__(44)
+	var inherits = __webpack_require__(45)
 
 	var ALL_PROPS = [
 	    "altKey", "bubbles", "cancelable", "ctrlKey",
@@ -1324,54 +1349,7 @@ var virtualDOM = null;
 
 
 /***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
 /* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(36);
-
-	if (typeof document !== 'undefined') {
-	    module.exports = document;
-	} else {
-	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-	    if (!doccy) {
-	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-	    }
-
-	    module.exports = doccy;
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var createStore = __webpack_require__(48)
@@ -1393,6 +1371,28 @@ var virtualDOM = null;
 	    return store.hash
 	}
 
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
+	    typeof window !== 'undefined' ? window : {}
+	var minDoc = __webpack_require__(36);
+
+	if (typeof document !== 'undefined') {
+	    module.exports = document;
+	} else {
+	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
+
+	    if (!doccy) {
+	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
+	    }
+
+	    module.exports = doccy;
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 28 */
@@ -1969,7 +1969,7 @@ var virtualDOM = null;
 /***/ function(module, exports, __webpack_require__) {
 
 	var createStore = __webpack_require__(49)
-	var Individual = __webpack_require__(25)
+	var Individual = __webpack_require__(22)
 
 	var createHash = __webpack_require__(43)
 
@@ -1998,7 +1998,7 @@ var virtualDOM = null;
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var hiddenStore = __webpack_require__(45);
+	var hiddenStore = __webpack_require__(44);
 
 	module.exports = createStore;
 
@@ -2147,6 +2147,28 @@ var virtualDOM = null;
 /* 44 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = hiddenStore;
+
+	function hiddenStore(obj, key) {
+	    var store = { identity: key };
+	    var valueOf = obj.valueOf;
+
+	    Object.defineProperty(obj, "valueOf", {
+	        value: function (value) {
+	            return value !== key ?
+	                valueOf.apply(this, arguments) : store;
+	        },
+	        writable: true
+	    });
+
+	    return store;
+	}
+
+
+/***/ },
+/* 45 */
+/***/ function(module, exports, __webpack_require__) {
+
 	if (typeof Object.create === 'function') {
 	  // implementation from standard node.js 'util' module
 	  module.exports = function inherits(ctor, superCtor) {
@@ -2169,28 +2191,6 @@ var virtualDOM = null;
 	    ctor.prototype = new TempCtor()
 	    ctor.prototype.constructor = ctor
 	  }
-	}
-
-
-/***/ },
-/* 45 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
 	}
 
 
