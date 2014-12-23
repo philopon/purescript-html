@@ -1,5 +1,6 @@
 module Html.Lazy
   ( thunk1, thunk2, thunk3, thunk4, thunk5
+  , A2(..), A3(..)
   , partial1, partial2, partial3
   ) where
   
