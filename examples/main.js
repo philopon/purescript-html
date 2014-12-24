@@ -617,7 +617,7 @@ PS.Html_VirtualDOM = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     
-var virtualDOM = null;
+var virtualDOM =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -678,7 +678,7 @@ var virtualDOM = null;
 	var thunk = __webpack_require__(2);
 	var partial = __webpack_require__(3);
 
-	virtualDOM =
+	module.exports =
 	  { diff:   diff
 	  , patch:  patch
 	  , create: create

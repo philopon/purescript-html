@@ -12,7 +12,7 @@ var delegator = require('dom-delegator');
 var thunk = require('vdom-thunk');
 var partial = require('vdom-thunk/partial');
 
-virtualDOM =
+module.exports =
   { diff:   diff
   , patch:  patch
   , create: create

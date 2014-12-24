@@ -43,9 +43,9 @@ gulp.task('pscDocs', function(){
 
 gulp.task('example', function(){
   return gulp
-    .src(sources.concat('example/Main.purs'))
+    .src(sources.concat('examples/Main.purs'))
     .pipe(purescript.psc({main: "Main", output: 'main.js'}))
-    .pipe(gulp.dest('example/'));
+    .pipe(gulp.dest('examples/'));
 });
 
 gulp.task('default', function(callback){

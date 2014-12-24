@@ -8,7 +8,6 @@ cat <<EOC
 module $1 (virtualDOM) where
 
 foreign import virtualDOM """
-var virtualDOM = null;
 EOC
 
 cat bundle.js | tr -d '\r'
