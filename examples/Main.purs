@@ -8,6 +8,16 @@ module Main where
   import Html.Attributes.Html5
   import Control.Timer
   import Debug.Trace
+  import Data.Function
+  import DOM
+
+  foreign import appendSelector """
+    function appendSelector(sel, node) {
+      return function(){
+        var elm = document.querySelector(sel);
+        if(elm) { elm.appendChild(node) }
+      }
+    }""" :: forall e. Fn2 String Node (HtmlEff e Unit)
 
   test1 color = vnode "div"
     [ class_ "neko"
@@ -26,10 +36,10 @@ module Main where
   foreign import logging "function logging(a){console.log(a); return a}"
     :: forall a. a -> a
 
-  main = onDOMContentLoaded $ do
+  main = do
     listenMouseMove
     html <- createElement $ partial1 (==) test1 "blue"
-    appendSelector "div" html
+    getNode html >>= runFn2 appendSelector "div"
     timeout 100 $ do
       patch (partial2 (\a b -> a.a == b.b) (\a b -> test1 a) "red" "blue") html
       timeout 1000 $ patch  test2 html

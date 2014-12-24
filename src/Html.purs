@@ -3,9 +3,8 @@ module Html
   , text
   , Html(), HtmlEff()
   , createElementOptions, createElement
-  , appendBody, appendSelector
   , patch
-  , onDOMContentLoaded
+  , getNode
   ) where
 
   import Control.Monad.Eff
@@ -69,6 +68,10 @@ module Html
 
   data Html = Html (RefVal {node :: Node, vtree :: VTree})
 
+  getNode :: forall e. Html -> HtmlEff e Node
+  getNode (Html ref) = do
+    readRef ref >>= \h -> return h.node
+
   createElementOptions :: forall opts e. { | opts } -> VTree -> HtmlEff e Html
   createElementOptions opts vtree = do
     let n = runFn2 virtualDOM.create vtree opts
@@ -80,38 +83,6 @@ module Html
     let n = virtualDOM.create vtree
     ref <- newRef {node: n, vtree: vtree}
     return $ Html ref
-
-  foreign import appendBodyImpl """
-    function appendBodyImpl(node){
-      return function(){
-        document.body.appendChild(node);
-      }
-    }""" :: forall e. Node -> HtmlEff e Unit
-
-  appendBody :: forall e. Html -> HtmlEff e Unit
-  appendBody (Html ref) = do
-    h <- readRef ref
-    appendBodyImpl h.node
-
-  foreign import appendSelectorImpl """
-    function appendSelectorImpl(sel, node) {
-      return function(){
-        var elm = document.querySelector(sel);
-        if(elm) { elm.appendChild(node) }
-      }
-    }""" :: forall e. Fn2 String Node (HtmlEff e Unit)
-
-  appendSelector :: forall e. String -> Html -> HtmlEff e Unit
-  appendSelector sel (Html ref) = do
-    h <- readRef ref
-    runFn2 appendSelectorImpl sel h.node
-
-  foreign import onDOMContentLoaded """
-    function onDOMContentLoaded(f){
-      return function(){
-        document.addEventListener("DOMContentLoaded", f);
-      }
-    }""" :: forall e. Eff (dom :: DOM | e) Unit -> Eff (dom :: DOM | e) Unit
 
   patch :: forall e. VTree -> Html -> HtmlEff e Unit
   patch new (Html ref) = do
