@@ -27,9 +27,10 @@ module Html.Lazy
 
   foreign import eq1Func """
     function eq1Func(f){
-      return function(a,b){
+      function eq1Func_apply(a,b){
         return f(a[0], b[0]);
       }
+      return eq1Func_apply;
     }""" :: forall a. a
 
   partial1 :: forall a. (a -> a -> Boolean) -> (a -> VTree) -> a -> VTree
@@ -37,9 +38,10 @@ module Html.Lazy
 
   foreign import eq2Func """
     function eq2Func(f){
-      return function(a,b){
+      function eq2Func_apply(a,b){
         return f({a:a[0], b:a[1]}, {a:b[0], b:b[1]});
       }
+      return eq2Func_apply;
     }""" :: forall a. a
 
   type A2 a b = { a :: a, b :: b }
@@ -49,10 +51,11 @@ module Html.Lazy
 
   foreign import eq3Func """
     function eq3Func(f){
-      return function(a,b){
+      function eq3Func_apply(a,b){
         return f( {a:a[0], b:a[1], c:a[2]}
                 , {a:b[0], b:b[1], c:b[2]});
       }
+      return eq3Func_apply;
     }""" :: forall a. a
 
   type A3 a b c = { a :: a, b :: b, c :: c}

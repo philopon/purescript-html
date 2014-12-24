@@ -3391,7 +3391,10 @@ PS.Html_Attributes = (function () {
     var Prelude = PS.Prelude;
     
     function mkEvHook (eh, fn) {
-      return eh(function(ev){fn(ev)()});
+      function mkEvHook_callback(ev){
+        fn(ev)();
+      }
+      return eh(mkEvHook_callback);
     };
     var style = function (v) {
         return Html_Attributes_Internal.attribute("style")(Html_Attributes_Internal.unsafeCoerce(v));
@@ -5529,9 +5532,10 @@ PS.Html_Events_Heavy = (function () {
     var Html_Events_Internal = PS.Html_Events_Internal;
     
     function listenToImpl(d, l){
-      return function(){
+      function listenToImpl_Eff(){
         d.listenTo(l);
       }
+      return listenToImpl_Eff;
     };
     var onMouseOver = function (f) {
         return Html_Attributes.on_("mouseover")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
@@ -5696,22 +5700,25 @@ PS.Html_Lazy = (function () {
     var Prelude = PS.Prelude;
     
     function eq1Func(f){
-      return function(a,b){
+      function eq1Func_apply(a,b){
         return f(a[0], b[0]);
       }
+      return eq1Func_apply;
     };
     
     function eq2Func(f){
-      return function(a,b){
+      function eq2Func_apply(a,b){
         return f({a:a[0], b:a[1]}, {a:b[0], b:b[1]});
       }
+      return eq2Func_apply;
     };
     
     function eq3Func(f){
-      return function(a,b){
+      function eq3Func_apply(a,b){
         return f( {a:a[0], b:a[1], c:a[2]}
                 , {a:b[0], b:b[1], c:b[2]});
       }
+      return eq3Func_apply;
     };
     var thunk5 = function (f) {
         return Data_Function.runFn6(Html_VirtualDOM.virtualDOM.thunk)(Data_Function.mkFn5(f));

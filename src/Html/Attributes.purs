@@ -45,7 +45,10 @@ module Html.Attributes
 
   foreign import mkEvHook """
     function mkEvHook (eh, fn) {
-      return eh(function(ev){fn(ev)()});
+      function mkEvHook_callback(ev){
+        fn(ev)();
+      }
+      return eh(mkEvHook_callback);
     }""" :: forall eh event e. Fn2 eh (Event -> Eff e Unit) I.Attr
 
   on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute

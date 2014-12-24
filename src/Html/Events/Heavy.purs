@@ -18,9 +18,10 @@ module Html.Events.Heavy
 
   foreign import listenToImpl """
     function listenToImpl(d, l){
-      return function(){
+      function listenToImpl_Eff(){
         d.listenTo(l);
       }
+      return listenToImpl_Eff;
     }""" :: forall delegator e. Fn2 delegator String (HtmlEff e Unit)
 
   listenTo :: forall e. String -> HtmlEff e Unit
