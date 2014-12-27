@@ -1,0 +1,16 @@
+{
+  "name": "purescript-html",
+  "scripts": {},
+  "devDependencies": {
+    "dom-delegator": "^12.0.0",
+    "gulp": "^3.8.10",
+    "gulp-foreach": "^0.1.0",
+    "gulp-purescript": "^0.1.2",
+    "gulp-rename": "^1.2.0",
+    "gulp-shell": "^0.2.11",
+    "run-sequence": "^1.0.2",
+    "vdom-thunk": "^3.0.0",
+    "virtual-dom": "0.0.24",
+    "webpack": "^1.4.14"
+  }
+}

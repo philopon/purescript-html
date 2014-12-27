@@ -1,0 +1,26 @@
+{
+  "name": "purescript-html",
+  "version": "0.1.0",
+  "authors": [
+    "Hirotomo Moriwaki"
+  ],
+  "description": "middle level virtual-dom wrapper",
+  "keywords": [
+    "PureScript",
+    "Html"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/philopon/purescript-html",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "purescript-dom": "~0.1.1",
+    "purescript-refs": "~0.1.2",
+    "purescript-strings": "~0.4.2"
+  }
+}
