@@ -48,12 +48,12 @@ var stringify =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(2).encode;
-	var isVNode = __webpack_require__(3);
-	var isVText = __webpack_require__(4);
-	var htmlAttrs = __webpack_require__(5);
-	var svgAttrs = __webpack_require__(6);
-	var selfClosingTags = __webpack_require__(1);
+	var encode = __webpack_require__(3).encode;
+	var isVNode = __webpack_require__(6);
+	var isVText = __webpack_require__(7);
+	var htmlAttrs = __webpack_require__(4);
+	var svgAttrs = __webpack_require__(5);
+	var selfClosingTags = __webpack_require__(2);
 
 	/**
 	 * Stringify given virtual dom tree and return html.
@@ -174,6 +174,13 @@ var stringify =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = "1"
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
 	module.exports = [
 	  'area',
 	  'base',
@@ -195,7 +202,7 @@ var stringify =
 
 
 /***/ },
-/* 2 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! http://mths.be/he v0.5.0 by @mathias | MIT license */
@@ -529,33 +536,7 @@ var stringify =
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(8)(module), (function() { return this; }())))
 
 /***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var version = __webpack_require__(7)
-
-	module.exports = isVirtualNode
-
-	function isVirtualNode(x) {
-	    return x && x.type === "VirtualNode" && x.version === version
-	}
-
-
-/***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var version = __webpack_require__(7)
-
-	module.exports = isVirtualText
-
-	function isVirtualText(x) {
-	    return x && x.type === "VirtualText" && x.version === version
-	}
-
-
-/***/ },
-/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -698,7 +679,7 @@ var stringify =
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*!
@@ -981,10 +962,29 @@ var stringify =
 
 
 /***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var version = __webpack_require__(1)
+
+	module.exports = isVirtualNode
+
+	function isVirtualNode(x) {
+	    return x && x.type === "VirtualNode" && x.version === version
+	}
+
+
+/***/ },
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "1"
+	var version = __webpack_require__(1)
+
+	module.exports = isVirtualText
+
+	function isVirtualText(x) {
+	    return x && x.type === "VirtualText" && x.version === version
+	}
 
 
 /***/ },
