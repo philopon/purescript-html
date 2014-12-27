@@ -43,7 +43,11 @@ gulp.task('pscDocs', function(){
 gulp.task('example', function(){
   return gulp
     .src(sources)
-    .pipe(purescript.psc({main: "Main", output: 'main.js'}))
+    .pipe(purescript.psc(
+      { main: "Main"
+      , output: 'main.js'
+      , modules: ['Main', "Control.Timer"]
+      }))
     .pipe(gulp.dest('examples/'));
 });
 
