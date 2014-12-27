@@ -664,19 +664,19 @@ var virtualDOM =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff    = __webpack_require__(2);
-	var patch   = __webpack_require__(3);
-	var create  = __webpack_require__(4);
-	var VNode   = __webpack_require__(5);
-	var VText   = __webpack_require__(6);
+	var diff    = __webpack_require__(4);
+	var patch   = __webpack_require__(5);
+	var create  = __webpack_require__(6);
+	var VNode   = __webpack_require__(7);
+	var VText   = __webpack_require__(8);
 
-	var dsHook = __webpack_require__(7);
-	var evHook = __webpack_require__(8);
+	var dsHook = __webpack_require__(9);
+	var evHook = __webpack_require__(10);
 
-	var delegator = __webpack_require__(1);
+	var delegator = __webpack_require__(3);
 
-	var thunk = __webpack_require__(9);
-	var partial = __webpack_require__(10);
+	var thunk = __webpack_require__(1);
+	var partial = __webpack_require__(2);
 
 	module.exports =
 	  { diff:   diff
@@ -696,11 +696,58 @@ var virtualDOM =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var Partial = __webpack_require__(2);
+
+	module.exports = Partial();
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var shallowEq = __webpack_require__(11);
+	var Thunk = __webpack_require__(12);
+
+	module.exports = createPartial;
+
+	function createPartial(eq) {
+	    return function partial(fn) {
+	        var args = copyOver(arguments, 1);
+	        var firstArg = args[0];
+	        var key;
+
+	        var eqArgs = eq || shallowEq;
+
+	        if (typeof firstArg === 'object' && firstArg !== null) {
+	            if ('key' in firstArg) {
+	                key = firstArg.key;
+	            } else if ('id' in firstArg) {
+	                key = firstArg.id;
+	            }
+	        }
+
+	        return new Thunk(fn, args, key, eqArgs);
+	    };
+	}
+
+	function copyOver(list, offset) {
+	    var newList = [];
+	    for (var i = list.length - 1; i >= offset; i--) {
+	        newList[i - offset] = list[i];
+	    }
+	    return newList;
+	}
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var Individual = __webpack_require__(22)
 	var cuid = __webpack_require__(34)
 	var globalDocument = __webpack_require__(27)
 
-	var DOMDelegator = __webpack_require__(11)
+	var DOMDelegator = __webpack_require__(13)
 
 	var versionKey = "12"
 	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
@@ -759,7 +806,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 2 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var diff = __webpack_require__(19)
@@ -768,7 +815,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 3 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var patch = __webpack_require__(20)
@@ -777,7 +824,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 4 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var createElement = __webpack_require__(21)
@@ -786,14 +833,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 5 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(12)
-	var isVNode = __webpack_require__(13)
-	var isWidget = __webpack_require__(14)
-	var isThunk = __webpack_require__(15)
-	var isVHook = __webpack_require__(16)
+	var version = __webpack_require__(14)
+	var isVNode = __webpack_require__(15)
+	var isWidget = __webpack_require__(16)
+	var isThunk = __webpack_require__(17)
+	var isVHook = __webpack_require__(18)
 
 	module.exports = VirtualNode
 
@@ -864,10 +911,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 6 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(12)
+	var version = __webpack_require__(14)
 
 	module.exports = VirtualText
 
@@ -880,7 +927,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 7 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DataSet = __webpack_require__(26)
@@ -904,7 +951,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 8 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var DataSet = __webpack_require__(26)
@@ -935,59 +982,74 @@ var virtualDOM =
 
 
 /***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Partial = __webpack_require__(10);
-
-	module.exports = Partial();
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var shallowEq = __webpack_require__(17);
-	var Thunk = __webpack_require__(18);
-
-	module.exports = createPartial;
-
-	function createPartial(eq) {
-	    return function partial(fn) {
-	        var args = copyOver(arguments, 1);
-	        var firstArg = args[0];
-	        var key;
-
-	        var eqArgs = eq || shallowEq;
-
-	        if (typeof firstArg === 'object' && firstArg !== null) {
-	            if ('key' in firstArg) {
-	                key = firstArg.key;
-	            } else if ('id' in firstArg) {
-	                key = firstArg.id;
-	            }
-	        }
-
-	        return new Thunk(fn, args, key, eqArgs);
-	    };
-	}
-
-	function copyOver(list, offset) {
-	    var newList = [];
-	    for (var i = list.length - 1; i >= offset; i--) {
-	        newList[i - offset] = list[i];
-	    }
-	    return newList;
-	}
-
-
-/***/ },
 /* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = shallowEq;
+
+	function shallowEq(currentArgs, previousArgs) {
+	    if (currentArgs.length === 0 && previousArgs.length === 0) {
+	        return true;
+	    }
+
+	    if (currentArgs.length !== previousArgs.length) {
+	        return false;
+	    }
+
+	    var len = currentArgs.length;
+
+	    for (var i = 0; i < len; i++) {
+	        if (currentArgs[i] !== previousArgs[i]) {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function Thunk(fn, args, key, eqArgs) {
+	    this.fn = fn;
+	    this.args = args;
+	    this.key = key;
+	    this.eqArgs = eqArgs;
+	}
+
+	Thunk.prototype.type = 'Thunk';
+	Thunk.prototype.render = render;
+	module.exports = Thunk;
+
+	function shouldUpdate(current, previous) {
+	    if (!current || !previous || current.fn !== previous.fn) {
+	        return true;
+	    }
+
+	    var cargs = current.args;
+	    var pargs = previous.args;
+
+	    return !current.eqArgs(cargs, pargs);
+	}
+
+	function render(previous) {
+	    if (shouldUpdate(this, previous)) {
+	        return this.fn.apply(null, this.args);
+	    } else {
+	        return previous.vnode;
+	    }
+	}
+
+
+/***/ },
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var globalDocument = __webpack_require__(27)
 	var DataSet = __webpack_require__(35)
-	var createStore = __webpack_require__(37)
+	var createStore = __webpack_require__(38)
 
 	var addEvent = __webpack_require__(23)
 	var removeEvent = __webpack_require__(24)
@@ -1175,17 +1237,17 @@ var virtualDOM =
 
 
 /***/ },
-/* 12 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "1"
 
 
 /***/ },
-/* 13 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(12)
+	var version = __webpack_require__(14)
 
 	module.exports = isVirtualNode
 
@@ -1195,7 +1257,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 14 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isWidget
@@ -1206,7 +1268,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 15 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isThunk
@@ -1217,7 +1279,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 16 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isHook
@@ -1229,80 +1291,18 @@ var virtualDOM =
 
 
 /***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = shallowEq;
-
-	function shallowEq(currentArgs, previousArgs) {
-	    if (currentArgs.length === 0 && previousArgs.length === 0) {
-	        return true;
-	    }
-
-	    if (currentArgs.length !== previousArgs.length) {
-	        return false;
-	    }
-
-	    var len = currentArgs.length;
-
-	    for (var i = 0; i < len; i++) {
-	        if (currentArgs[i] !== previousArgs[i]) {
-	            return false;
-	        }
-	    }
-
-	    return true;
-	}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function Thunk(fn, args, key, eqArgs) {
-	    this.fn = fn;
-	    this.args = args;
-	    this.key = key;
-	    this.eqArgs = eqArgs;
-	}
-
-	Thunk.prototype.type = 'Thunk';
-	Thunk.prototype.render = render;
-	module.exports = Thunk;
-
-	function shouldUpdate(current, previous) {
-	    if (!current || !previous || current.fn !== previous.fn) {
-	        return true;
-	    }
-
-	    var cargs = current.args;
-	    var pargs = previous.args;
-
-	    return !current.eqArgs(cargs, pargs);
-	}
-
-	function render(previous) {
-	    if (shouldUpdate(this, previous)) {
-	        return this.fn.apply(null, this.args);
-	    } else {
-	        return previous.vnode;
-	    }
-	}
-
-
-/***/ },
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(38)
+	var isArray = __webpack_require__(37)
 	var isObject = __webpack_require__(39)
 
 	var VPatch = __webpack_require__(28)
-	var isVNode = __webpack_require__(13)
+	var isVNode = __webpack_require__(15)
 	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(14)
-	var isThunk = __webpack_require__(15)
-	var isHook = __webpack_require__(16)
+	var isWidget = __webpack_require__(16)
+	var isThunk = __webpack_require__(17)
+	var isHook = __webpack_require__(18)
 	var handleThunk = __webpack_require__(30)
 
 	module.exports = diff
@@ -1677,7 +1677,7 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var document = __webpack_require__(41)
-	var isArray = __webpack_require__(38)
+	var isArray = __webpack_require__(37)
 
 	var domIndex = __webpack_require__(31)
 	var patchOp = __webpack_require__(32)
@@ -1762,9 +1762,9 @@ var virtualDOM =
 
 	var applyProperties = __webpack_require__(33)
 
-	var isVNode = __webpack_require__(13)
+	var isVNode = __webpack_require__(15)
 	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(14)
+	var isWidget = __webpack_require__(16)
 	var handleThunk = __webpack_require__(30)
 
 	module.exports = createElement
@@ -2014,7 +2014,7 @@ var virtualDOM =
 /* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(12)
+	var version = __webpack_require__(14)
 
 	VirtualPatch.NONE = 0
 	VirtualPatch.VTEXT = 1
@@ -2042,7 +2042,7 @@ var virtualDOM =
 /* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(12)
+	var version = __webpack_require__(14)
 
 	module.exports = isVirtualText
 
@@ -2055,10 +2055,10 @@ var virtualDOM =
 /* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isVNode = __webpack_require__(13)
+	var isVNode = __webpack_require__(15)
 	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(14)
-	var isThunk = __webpack_require__(15)
+	var isWidget = __webpack_require__(16)
+	var isThunk = __webpack_require__(17)
 
 	module.exports = handleThunk
 
@@ -2194,7 +2194,7 @@ var virtualDOM =
 
 	var applyProperties = __webpack_require__(33)
 
-	var isWidget = __webpack_require__(14)
+	var isWidget = __webpack_require__(16)
 	var VPatch = __webpack_require__(28)
 
 	var render = __webpack_require__(21)
@@ -2369,7 +2369,7 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(39)
-	var isHook = __webpack_require__(16)
+	var isHook = __webpack_require__(18)
 
 	module.exports = applyProperties
 
@@ -2614,6 +2614,20 @@ var virtualDOM =
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
+	var nativeIsArray = Array.isArray
+	var toString = Object.prototype.toString
+
+	module.exports = nativeIsArray || isArray
+
+	function isArray(obj) {
+	    return toString.call(obj) === "[object Array]"
+	}
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var hiddenStore = __webpack_require__(44);
 
 	module.exports = createStore;
@@ -2632,20 +2646,6 @@ var virtualDOM =
 	        return store && store.identity === key ?
 	            store : hiddenStore(obj, key);
 	    };
-	}
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var nativeIsArray = Array.isArray
-	var toString = Object.prototype.toString
-
-	module.exports = nativeIsArray || isArray
-
-	function isArray(obj) {
-	    return toString.call(obj) === "[object Array]"
 	}
 
 
@@ -2714,7 +2714,7 @@ var virtualDOM =
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isWidget = __webpack_require__(14)
+	var isWidget = __webpack_require__(16)
 
 	module.exports = updateWidget
 
