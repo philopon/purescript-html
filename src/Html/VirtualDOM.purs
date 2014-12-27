@@ -57,10 +57,10 @@ var virtualDOM =
 	var dsHook = __webpack_require__(9);
 	var evHook = __webpack_require__(10);
 
-	var delegator = __webpack_require__(3);
+	var delegator = __webpack_require__(1);
 
-	var thunk = __webpack_require__(1);
-	var partial = __webpack_require__(2);
+	var thunk = __webpack_require__(2);
+	var partial = __webpack_require__(3);
 
 	module.exports =
 	  { diff:   diff
@@ -80,58 +80,11 @@ var virtualDOM =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Partial = __webpack_require__(2);
-
-	module.exports = Partial();
-
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var shallowEq = __webpack_require__(11);
-	var Thunk = __webpack_require__(12);
-
-	module.exports = createPartial;
-
-	function createPartial(eq) {
-	    return function partial(fn) {
-	        var args = copyOver(arguments, 1);
-	        var firstArg = args[0];
-	        var key;
-
-	        var eqArgs = eq || shallowEq;
-
-	        if (typeof firstArg === 'object' && firstArg !== null) {
-	            if ('key' in firstArg) {
-	                key = firstArg.key;
-	            } else if ('id' in firstArg) {
-	                key = firstArg.id;
-	            }
-	        }
-
-	        return new Thunk(fn, args, key, eqArgs);
-	    };
-	}
-
-	function copyOver(list, offset) {
-	    var newList = [];
-	    for (var i = list.length - 1; i >= offset; i--) {
-	        newList[i - offset] = list[i];
-	    }
-	    return newList;
-	}
-
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var Individual = __webpack_require__(22)
 	var cuid = __webpack_require__(34)
 	var globalDocument = __webpack_require__(27)
 
-	var DOMDelegator = __webpack_require__(13)
+	var DOMDelegator = __webpack_require__(11)
 
 	var versionKey = "12"
 	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
@@ -187,6 +140,53 @@ var virtualDOM =
 
 	Delegator.allocateHandle = DOMDelegator.allocateHandle;
 	Delegator.transformHandle = DOMDelegator.transformHandle;
+
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Partial = __webpack_require__(3);
+
+	module.exports = Partial();
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var shallowEq = __webpack_require__(12);
+	var Thunk = __webpack_require__(13);
+
+	module.exports = createPartial;
+
+	function createPartial(eq) {
+	    return function partial(fn) {
+	        var args = copyOver(arguments, 1);
+	        var firstArg = args[0];
+	        var key;
+
+	        var eqArgs = eq || shallowEq;
+
+	        if (typeof firstArg === 'object' && firstArg !== null) {
+	            if ('key' in firstArg) {
+	                key = firstArg.key;
+	            } else if ('id' in firstArg) {
+	                key = firstArg.id;
+	            }
+	        }
+
+	        return new Thunk(fn, args, key, eqArgs);
+	    };
+	}
+
+	function copyOver(list, offset) {
+	    var newList = [];
+	    for (var i = list.length - 1; i >= offset; i--) {
+	        newList[i - offset] = list[i];
+	    }
+	    return newList;
+	}
 
 
 /***/ },
@@ -369,71 +369,9 @@ var virtualDOM =
 /* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = shallowEq;
-
-	function shallowEq(currentArgs, previousArgs) {
-	    if (currentArgs.length === 0 && previousArgs.length === 0) {
-	        return true;
-	    }
-
-	    if (currentArgs.length !== previousArgs.length) {
-	        return false;
-	    }
-
-	    var len = currentArgs.length;
-
-	    for (var i = 0; i < len; i++) {
-	        if (currentArgs[i] !== previousArgs[i]) {
-	            return false;
-	        }
-	    }
-
-	    return true;
-	}
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function Thunk(fn, args, key, eqArgs) {
-	    this.fn = fn;
-	    this.args = args;
-	    this.key = key;
-	    this.eqArgs = eqArgs;
-	}
-
-	Thunk.prototype.type = 'Thunk';
-	Thunk.prototype.render = render;
-	module.exports = Thunk;
-
-	function shouldUpdate(current, previous) {
-	    if (!current || !previous || current.fn !== previous.fn) {
-	        return true;
-	    }
-
-	    var cargs = current.args;
-	    var pargs = previous.args;
-
-	    return !current.eqArgs(cargs, pargs);
-	}
-
-	function render(previous) {
-	    if (shouldUpdate(this, previous)) {
-	        return this.fn.apply(null, this.args);
-	    } else {
-	        return previous.vnode;
-	    }
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var globalDocument = __webpack_require__(27)
 	var DataSet = __webpack_require__(35)
-	var createStore = __webpack_require__(38)
+	var createStore = __webpack_require__(37)
 
 	var addEvent = __webpack_require__(23)
 	var removeEvent = __webpack_require__(24)
@@ -621,6 +559,68 @@ var virtualDOM =
 
 
 /***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = shallowEq;
+
+	function shallowEq(currentArgs, previousArgs) {
+	    if (currentArgs.length === 0 && previousArgs.length === 0) {
+	        return true;
+	    }
+
+	    if (currentArgs.length !== previousArgs.length) {
+	        return false;
+	    }
+
+	    var len = currentArgs.length;
+
+	    for (var i = 0; i < len; i++) {
+	        if (currentArgs[i] !== previousArgs[i]) {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	function Thunk(fn, args, key, eqArgs) {
+	    this.fn = fn;
+	    this.args = args;
+	    this.key = key;
+	    this.eqArgs = eqArgs;
+	}
+
+	Thunk.prototype.type = 'Thunk';
+	Thunk.prototype.render = render;
+	module.exports = Thunk;
+
+	function shouldUpdate(current, previous) {
+	    if (!current || !previous || current.fn !== previous.fn) {
+	        return true;
+	    }
+
+	    var cargs = current.args;
+	    var pargs = previous.args;
+
+	    return !current.eqArgs(cargs, pargs);
+	}
+
+	function render(previous) {
+	    if (shouldUpdate(this, previous)) {
+	        return this.fn.apply(null, this.args);
+	    } else {
+	        return previous.vnode;
+	    }
+	}
+
+
+/***/ },
 /* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -678,7 +678,7 @@ var virtualDOM =
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(37)
+	var isArray = __webpack_require__(38)
 	var isObject = __webpack_require__(39)
 
 	var VPatch = __webpack_require__(28)
@@ -1061,7 +1061,7 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var document = __webpack_require__(41)
-	var isArray = __webpack_require__(37)
+	var isArray = __webpack_require__(38)
 
 	var domIndex = __webpack_require__(31)
 	var patchOp = __webpack_require__(32)
@@ -1998,20 +1998,6 @@ var virtualDOM =
 /* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var nativeIsArray = Array.isArray
-	var toString = Object.prototype.toString
-
-	module.exports = nativeIsArray || isArray
-
-	function isArray(obj) {
-	    return toString.call(obj) === "[object Array]"
-	}
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
 	var hiddenStore = __webpack_require__(44);
 
 	module.exports = createStore;
@@ -2030,6 +2016,20 @@ var virtualDOM =
 	        return store && store.identity === key ?
 	            store : hiddenStore(obj, key);
 	    };
+	}
+
+
+/***/ },
+/* 38 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeIsArray = Array.isArray
+	var toString = Object.prototype.toString
+
+	module.exports = nativeIsArray || isArray
+
+	function isArray(obj) {
+	    return toString.call(obj) === "[object Array]"
 	}
 
 

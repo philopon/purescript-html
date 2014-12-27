@@ -3,3 +3,4 @@ node_modules
 output
 wrapper/bundle.js
 .psci
+wrapper/stringify.js

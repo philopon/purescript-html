@@ -8,11 +8,10 @@ var sequence   = require('run-sequence');
 var path       = require('path');
 
 var bowerPurs = 'bower_components/purescript-*/src/**/*.purs';
-var sources = [bowerPurs, 'src/**/*.purs'];
-
+var sources = [bowerPurs, 'src/**/*.purs', 'examples/**/*.purs'];
 
 gulp.task('wrapper', shell.task([
-  './wrapper/generate.sh Html.VirtualDOM > src/Html/VirtualDOM.purs'
+  './wrapper/generate.sh'
 ]));
 
 gulp.task('pscMake', function(){
@@ -43,7 +42,7 @@ gulp.task('pscDocs', function(){
 
 gulp.task('example', function(){
   return gulp
-    .src(sources.concat('examples/Main.purs'))
+    .src(sources)
     .pipe(purescript.psc({main: "Main", output: 'main.js'}))
     .pipe(gulp.dest('examples/'));
 });
