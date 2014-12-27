@@ -11,37 +11,36 @@ module Html.Attributes.Internal
   , getNamespaceString
   ) where
   
-  import Data.Function
+import Data.Function
 
-  foreign import data Attr :: *
+foreign import data Attr :: *
 
-  data Attribute
-    = Attribute String Attr
-    | Key       String
-    | Namespace String
+data Attribute
+  = Attribute String Attr
+  | Key       String
+  | Namespace String
 
-  foreign import unsafeCoerce """
-    function unsafeCoerce(a) {
-      return a;
-    }
-  """ :: forall a b. a -> b
+foreign import unsafeCoerce """
+function unsafeCoerce(a) {
+  return a;
+}""" :: forall a b. a -> b
 
-  attribute :: String -> Attr -> Attribute
-  attribute = Attribute
+attribute :: String -> Attr -> Attribute
+attribute = Attribute
 
-  attrType :: Attribute -> String
-  attrType (Attribute _ _) = "a"
-  attrType (Namespace _)   = "n"
-  attrType (Key _)         = "k"
+attrType :: Attribute -> String
+attrType (Attribute _ _) = "a"
+attrType (Namespace _)   = "n"
+attrType (Key _)         = "k"
 
-  getAttrKey :: Attribute -> String
-  getAttrKey (Attribute s _) = s
+getAttrKey :: Attribute -> String
+getAttrKey (Attribute s _) = s
 
-  getAttrValue :: Attribute -> Attr
-  getAttrValue (Attribute _ v) = v
+getAttrValue :: Attribute -> Attr
+getAttrValue (Attribute _ v) = v
 
-  getKeyString :: Attribute -> String
-  getKeyString (Key k) = k
+getKeyString :: Attribute -> String
+getKeyString (Key k) = k
 
-  getNamespaceString :: Attribute -> String
-  getNamespaceString (Namespace n) = n
+getNamespaceString :: Attribute -> String
+getNamespaceString (Namespace n) = n

@@ -1,7 +1,7 @@
 module Html.Events.Internal where
 
-  import Html.Attributes
+import Html.Attributes
 
-  newtype KeyEvent   = KeyEvent   Event
-  newtype MouseButtonEvent = MouseButtonEvent Event
-  newtype MouseHoverEvent = MouseHoverEvent Event
+newtype KeyEvent = KeyEvent Event
+newtype MouseButtonEvent = MouseButtonEvent Event
+newtype MouseHoverEvent = MouseHoverEvent Event

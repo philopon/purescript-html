@@ -1,282 +1,282 @@
 module Html.Attributes.Html5 where
 
-  import Html.Attributes
+import Html.Attributes
 
-  class_ :: String -> Attribute
-  class_ = stringAttribute "className"
+class_ :: String -> Attribute
+class_ = stringAttribute "className"
 
-  id_ :: String -> Attribute
-  id_ = stringAttribute "id"
+id_ :: String -> Attribute
+id_ = stringAttribute "id"
 
-  title :: String -> Attribute
-  title = stringAttribute "title"
+title :: String -> Attribute
+title = stringAttribute "title"
 
-  hidden :: Boolean -> Attribute
-  hidden = booleanAttribute "hidden"
+hidden :: Boolean -> Attribute
+hidden = booleanAttribute "hidden"
 
-  type_ :: String -> Attribute
-  type_ = stringAttribute "type"
+type_ :: String -> Attribute
+type_ = stringAttribute "type"
 
-  value :: String -> Attribute
-  value = stringAttribute "value"
+value :: String -> Attribute
+value = stringAttribute "value"
 
-  checked :: Boolean -> Attribute
-  checked = booleanAttribute "checked"
+checked :: Boolean -> Attribute
+checked = booleanAttribute "checked"
 
-  placeholder :: String -> Attribute
-  placeholder = stringAttribute "placeholder"
+placeholder :: String -> Attribute
+placeholder = stringAttribute "placeholder"
 
-  selected :: Boolean -> Attribute
-  selected = booleanAttribute "selected"
+selected :: Boolean -> Attribute
+selected = booleanAttribute "selected"
 
-  accept :: String -> Attribute
-  accept = stringAttribute "accept"
+accept :: String -> Attribute
+accept = stringAttribute "accept"
 
-  acceptCharset :: String -> Attribute
-  acceptCharset = stringAttribute "accept-charset"
+acceptCharset :: String -> Attribute
+acceptCharset = stringAttribute "accept-charset"
 
-  action :: String -> Attribute
-  action = stringAttribute "action"
+action :: String -> Attribute
+action = stringAttribute "action"
 
-  autocomplete :: Boolean -> Attribute
-  autocomplete = booleanAttribute "autocomplete"
+autocomplete :: Boolean -> Attribute
+autocomplete = booleanAttribute "autocomplete"
 
-  autofocus :: Boolean -> Attribute
-  autofocus = booleanAttribute "autofocus"
+autofocus :: Boolean -> Attribute
+autofocus = booleanAttribute "autofocus"
 
-  autosave :: Boolean -> Attribute
-  autosave = booleanAttribute "autosave"
+autosave :: Boolean -> Attribute
+autosave = booleanAttribute "autosave"
 
-  disabled :: Boolean -> Attribute
-  disabled = booleanAttribute "disabled"
+disabled :: Boolean -> Attribute
+disabled = booleanAttribute "disabled"
 
-  enctype :: String -> Attribute
-  enctype = stringAttribute "enctype"
+enctype :: String -> Attribute
+enctype = stringAttribute "enctype"
 
-  formaction :: String -> Attribute
-  formaction = stringAttribute "formaction"
+formaction :: String -> Attribute
+formaction = stringAttribute "formaction"
 
-  list :: String -> Attribute
-  list = stringAttribute "list"
+list :: String -> Attribute
+list = stringAttribute "list"
 
-  maxlength :: Number -> Attribute
-  maxlength = numberAttribute "maxlength"
+maxlength :: Number -> Attribute
+maxlength = numberAttribute "maxlength"
 
-  method :: String -> Attribute
-  method = stringAttribute "method"
+method :: String -> Attribute
+method = stringAttribute "method"
 
-  multiple :: Boolean -> Attribute
-  multiple = booleanAttribute "multiple"
+multiple :: Boolean -> Attribute
+multiple = booleanAttribute "multiple"
 
-  name :: String -> Attribute
-  name = stringAttribute "name"
+name :: String -> Attribute
+name = stringAttribute "name"
 
-  novalidate :: Boolean -> Attribute
-  novalidate = booleanAttribute "novalidate"
+novalidate :: Boolean -> Attribute
+novalidate = booleanAttribute "novalidate"
 
-  pattern :: String -> Attribute
-  pattern = stringAttribute "pattern"
+pattern :: String -> Attribute
+pattern = stringAttribute "pattern"
 
-  readonly :: Boolean -> Attribute
-  readonly = booleanAttribute "readonly"
+readonly :: Boolean -> Attribute
+readonly = booleanAttribute "readonly"
 
-  required :: Boolean -> Attribute
-  required = booleanAttribute "required"
+required :: Boolean -> Attribute
+required = booleanAttribute "required"
 
-  size :: Number -> Attribute
-  size = numberAttribute "size"
+size :: Number -> Attribute
+size = numberAttribute "size"
 
-  for :: String -> Attribute
-  for = stringAttribute "for"
+for :: String -> Attribute
+for = stringAttribute "for"
 
-  form :: String -> Attribute
-  form = stringAttribute "form"
+form :: String -> Attribute
+form = stringAttribute "form"
 
-  max :: String -> Attribute
-  max = stringAttribute "max"
+max :: String -> Attribute
+max = stringAttribute "max"
 
-  min :: String -> Attribute
-  min = stringAttribute "min"
+min :: String -> Attribute
+min = stringAttribute "min"
 
-  step :: Number -> Attribute
-  step = numberAttribute "step"
+step :: Number -> Attribute
+step = numberAttribute "step"
 
-  cols :: Number -> Attribute
-  cols = numberAttribute "cols"
+cols :: Number -> Attribute
+cols = numberAttribute "cols"
 
-  rows :: Number -> Attribute
-  rows = numberAttribute "rows"
+rows :: Number -> Attribute
+rows = numberAttribute "rows"
 
-  wrap :: String -> Attribute
-  wrap = stringAttribute "wrap"
+wrap :: String -> Attribute
+wrap = stringAttribute "wrap"
 
-  href :: String -> Attribute
-  href = stringAttribute "href"
+href :: String -> Attribute
+href = stringAttribute "href"
 
-  target :: String -> Attribute
-  target = stringAttribute "target"
+target :: String -> Attribute
+target = stringAttribute "target"
 
-  download :: Boolean -> Attribute
-  download = booleanAttribute "download"
+download :: Boolean -> Attribute
+download = booleanAttribute "download"
 
-  downloadAs :: String -> Attribute
-  downloadAs = stringAttribute "downloadAs"
+downloadAs :: String -> Attribute
+downloadAs = stringAttribute "downloadAs"
 
-  hreflang :: String -> Attribute
-  hreflang = stringAttribute "hreflang"
+hreflang :: String -> Attribute
+hreflang = stringAttribute "hreflang"
 
-  media :: String -> Attribute
-  media = stringAttribute "media"
+media :: String -> Attribute
+media = stringAttribute "media"
 
-  ping :: String -> Attribute
-  ping = stringAttribute "ping"
+ping :: String -> Attribute
+ping = stringAttribute "ping"
 
-  rel :: String -> Attribute
-  rel = stringAttribute "rel"
+rel :: String -> Attribute
+rel = stringAttribute "rel"
 
-  ismap :: String -> Attribute
-  ismap = stringAttribute "ismap"
+ismap :: String -> Attribute
+ismap = stringAttribute "ismap"
 
-  usemap :: String -> Attribute
-  usemap = stringAttribute "usemap"
+usemap :: String -> Attribute
+usemap = stringAttribute "usemap"
 
-  shape :: String -> Attribute
-  shape = stringAttribute "shape"
+shape :: String -> Attribute
+shape = stringAttribute "shape"
 
-  coords :: String -> Attribute
-  coords = stringAttribute "coords"
+coords :: String -> Attribute
+coords = stringAttribute "coords"
 
-  src :: String -> Attribute
-  src = stringAttribute "src"
+src :: String -> Attribute
+src = stringAttribute "src"
 
-  height :: Number -> Attribute
-  height = numberAttribute "height"
+height :: Number -> Attribute
+height = numberAttribute "height"
 
-  width :: Number -> Attribute
-  width = numberAttribute "width"
+width :: Number -> Attribute
+width = numberAttribute "width"
 
-  alt :: String -> Attribute
-  alt = stringAttribute "alt"
+alt :: String -> Attribute
+alt = stringAttribute "alt"
 
-  autoplay :: Boolean -> Attribute
-  autoplay = booleanAttribute "autoplay"
+autoplay :: Boolean -> Attribute
+autoplay = booleanAttribute "autoplay"
 
-  controls :: Boolean -> Attribute
-  controls = booleanAttribute "controls"
+controls :: Boolean -> Attribute
+controls = booleanAttribute "controls"
 
-  loop :: Boolean -> Attribute
-  loop = booleanAttribute "loop"
+loop :: Boolean -> Attribute
+loop = booleanAttribute "loop"
 
-  preload :: Boolean -> Attribute
-  preload = booleanAttribute "preload"
+preload :: Boolean -> Attribute
+preload = booleanAttribute "preload"
 
-  poster :: String -> Attribute
-  poster = stringAttribute "poster"
+poster :: String -> Attribute
+poster = stringAttribute "poster"
 
-  default :: Boolean -> Attribute
-  default = booleanAttribute "default"
+default :: Boolean -> Attribute
+default = booleanAttribute "default"
 
-  kind :: String -> Attribute
-  kind = stringAttribute "kind"
+kind :: String -> Attribute
+kind = stringAttribute "kind"
 
-  srclang :: String -> Attribute
-  srclang = stringAttribute "srclang"
+srclang :: String -> Attribute
+srclang = stringAttribute "srclang"
 
-  sandbox :: String -> Attribute
-  sandbox = stringAttribute "sandbox"
+sandbox :: String -> Attribute
+sandbox = stringAttribute "sandbox"
 
-  seamless :: Boolean -> Attribute
-  seamless = booleanAttribute "seamless"
+seamless :: Boolean -> Attribute
+seamless = booleanAttribute "seamless"
 
-  srcdoc :: String -> Attribute
-  srcdoc = stringAttribute "srcdoc"
+srcdoc :: String -> Attribute
+srcdoc = stringAttribute "srcdoc"
 
-  reversed :: Boolean -> Attribute
-  reversed = booleanAttribute "reversed"
+reversed :: Boolean -> Attribute
+reversed = booleanAttribute "reversed"
 
-  start :: Number -> Attribute
-  start = numberAttribute "start"
+start :: Number -> Attribute
+start = numberAttribute "start"
 
-  align :: String -> Attribute
-  align = stringAttribute "align"
+align :: String -> Attribute
+align = stringAttribute "align"
 
-  colspan :: String -> Attribute
-  colspan = stringAttribute "colspan"
+colspan :: String -> Attribute
+colspan = stringAttribute "colspan"
 
-  rowspan :: String -> Attribute
-  rowspan = stringAttribute "rowspan"
+rowspan :: String -> Attribute
+rowspan = stringAttribute "rowspan"
 
-  headers :: String -> Attribute
-  headers = stringAttribute "headers"
+headers :: String -> Attribute
+headers = stringAttribute "headers"
 
-  scope :: String -> Attribute
-  scope = stringAttribute "scope"
+scope :: String -> Attribute
+scope = stringAttribute "scope"
 
-  async :: Boolean -> Attribute
-  async = booleanAttribute "async"
+async :: Boolean -> Attribute
+async = booleanAttribute "async"
 
-  charset :: String -> Attribute
-  charset = stringAttribute "charset"
+charset :: String -> Attribute
+charset = stringAttribute "charset"
 
-  content :: String -> Attribute
-  content = stringAttribute "content"
+content :: String -> Attribute
+content = stringAttribute "content"
 
-  defer :: Boolean -> Attribute
-  defer = booleanAttribute "defer"
+defer :: Boolean -> Attribute
+defer = booleanAttribute "defer"
 
-  httpEquiv :: String -> Attribute
-  httpEquiv = stringAttribute "http-equiv"
+httpEquiv :: String -> Attribute
+httpEquiv = stringAttribute "http-equiv"
 
-  language :: String -> Attribute
-  language = stringAttribute "language"
+language :: String -> Attribute
+language = stringAttribute "language"
 
-  scoped :: Boolean -> Attribute
-  scoped = booleanAttribute "scoped"
+scoped :: Boolean -> Attribute
+scoped = booleanAttribute "scoped"
 
-  accesskey :: String -> Attribute
-  accesskey = stringAttribute "accesskey"
+accesskey :: String -> Attribute
+accesskey = stringAttribute "accesskey"
 
-  contenteditable :: Boolean -> Attribute
-  contenteditable = booleanAttribute "contenteditable"
+contenteditable :: Boolean -> Attribute
+contenteditable = booleanAttribute "contenteditable"
 
-  contextmenu :: String -> Attribute
-  contextmenu = stringAttribute "contextmenu"
+contextmenu :: String -> Attribute
+contextmenu = stringAttribute "contextmenu"
 
-  dir :: String -> Attribute
-  dir = stringAttribute "dir"
+dir :: String -> Attribute
+dir = stringAttribute "dir"
 
-  draggable :: String -> Attribute
-  draggable = stringAttribute "draggable"
+draggable :: String -> Attribute
+draggable = stringAttribute "draggable"
 
-  dropzone :: String -> Attribute
-  dropzone = stringAttribute "dropzone"
+dropzone :: String -> Attribute
+dropzone = stringAttribute "dropzone"
 
-  itemporp :: String -> Attribute
-  itemporp = stringAttribute "itemporp"
+itemporp :: String -> Attribute
+itemporp = stringAttribute "itemporp"
 
-  lang :: String -> Attribute
-  lang = stringAttribute "lang"
+lang :: String -> Attribute
+lang = stringAttribute "lang"
 
-  spellcheck :: Boolean -> Attribute
-  spellcheck = booleanAttribute "spellcheck"
+spellcheck :: Boolean -> Attribute
+spellcheck = booleanAttribute "spellcheck"
 
-  tabindex :: Number -> Attribute
-  tabindex = numberAttribute "tabindex"
+tabindex :: Number -> Attribute
+tabindex = numberAttribute "tabindex"
 
-  challenge :: String -> Attribute
-  challenge = stringAttribute "challenge"
+challenge :: String -> Attribute
+challenge = stringAttribute "challenge"
 
-  keytype :: String -> Attribute
-  keytype = stringAttribute "keytype"
+keytype :: String -> Attribute
+keytype = stringAttribute "keytype"
 
-  cite :: String -> Attribute
-  cite = stringAttribute "cite"
+cite :: String -> Attribute
+cite = stringAttribute "cite"
 
-  datetime :: String -> Attribute
-  datetime = stringAttribute "datetime"
+datetime :: String -> Attribute
+datetime = stringAttribute "datetime"
 
-  pubdate :: String -> Attribute
-  pubdate = stringAttribute "pubdate"
+pubdate :: String -> Attribute
+pubdate = stringAttribute "pubdate"
 
-  manifest :: String -> Attribute
-  manifest = stringAttribute "manifest"
+manifest :: String -> Attribute
+manifest = stringAttribute "manifest"
