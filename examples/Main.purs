@@ -1,17 +1,17 @@
 module Main where
 
-import Html
-import Html.Lazy
-import Html.Events
-import Html.Events.Heavy
-import Html.Attributes
-import Html.Attributes.Html5
+import Data.Html
+import qualified Data.Html.Elements.Html5 as E
+import qualified Data.Html.Attributes.Html5 as A
+import Data.Html.Lazy
+import Data.Html.Events
+import Data.Html.Events.Heavy
 import Control.Timer
 import Debug.Trace
 import Data.Function
 import DOM
 
-import Html.Stringify
+import Data.Html.Stringify
 
 foreign import appendSelector """
   function appendSelector(sel, node) {
@@ -21,18 +21,18 @@ foreign import appendSelector """
     }
   }""" :: forall e. Fn2 String Node (HtmlEff e Unit)
 
-test1 color = vnode "div"
-  [ class_ "neko"
-  , title "title"
-  , id_   "idnt"
-  , style {color: color}
+test1 color = E.div
+  [ A.class_ "neko"
+  , A.title "title"
+  , A.id_   "idnt"
+  , A.style {color: color}
 --    , on_ "click" (\e -> print e.pageX)
-  ] [text "neko"]
+  ] [E.text "neko"]
 
-test2 = vnode "div" [onMouseMove print] 
-  [ text "inu"
-  , vnode "span" [style {color: "red"}] [text "bowow"]
-  , vnode "input" [] []
+test2 = E.div [onMouseMove print] 
+  [ E.text "inu"
+  , E.span [A.style {color: "red"}] [E.text "bowow"]
+  , E.input [] []
   ]
 
 foreign import logging "function logging(a){console.log(a); return a}"
