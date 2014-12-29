@@ -21,24 +21,24 @@ function listenToImpl(d, l){
   return function listenToImpl_Eff(){
     d.listenTo(l);
   }
-}""" :: forall delegator e. Fn2 delegator String (HtmlEff e Unit)
+}""" :: forall delegator e. Fn2 delegator String (EffHtml e Unit)
 
-listenTo :: forall e. String -> HtmlEff e Unit
+listenTo :: forall e. String -> EffHtml e Unit
 listenTo = runFn2 listenToImpl virtualDOM.delegator
 
-listenMouseMove :: forall e. HtmlEff e Unit
+listenMouseMove :: forall e. EffHtml e Unit
 listenMouseMove = listenTo "mousemove"
 
-listenMouseEnter :: forall e. HtmlEff e Unit
+listenMouseEnter :: forall e. EffHtml e Unit
 listenMouseEnter = listenTo "mouseenter"
 
-listenMouseLeave :: forall e. HtmlEff e Unit
+listenMouseLeave :: forall e. EffHtml e Unit
 listenMouseLeave = listenTo "mouseleave"
 
-listenMouseOver :: forall e. HtmlEff e Unit
+listenMouseOver :: forall e. EffHtml e Unit
 listenMouseOver = listenTo "mouseover"
 
-listenMouseOut :: forall e. HtmlEff e Unit
+listenMouseOut :: forall e. EffHtml e Unit
 listenMouseOut = listenTo "mouseout"
 
 onMouseMove :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute

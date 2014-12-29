@@ -1,5 +1,5 @@
 module Data.Html
-  ( Html(), HtmlEff()
+  ( Html(), EffHtml()
   , createElementOptions, createElement
   , patch
   , getNode
@@ -17,7 +17,7 @@ import Data.Html.Internal.VirtualDOM
 import Data.Function
 import DOM
 
-type HtmlEff e a = Eff (dom :: DOM, ref :: Ref | e) a
+type EffHtml e a = Eff (dom :: DOM, ref :: Ref | e) a
 
 type VNodeFs a = 
   { attrType :: Attribute -> String
@@ -50,23 +50,23 @@ function vnodeImpl (fn, name, attrs, children) {
 
 data Html = Html (RefVal {node :: Node, vtree :: VTree})
 
-getNode :: forall e. Html -> HtmlEff e Node
+getNode :: forall e. Html -> EffHtml e Node
 getNode (Html ref) = do
   readRef ref >>= \h -> return h.node
 
-createElementOptions :: forall opts e. { | opts } -> VTree -> HtmlEff e Html
+createElementOptions :: forall opts e. { | opts } -> VTree -> EffHtml e Html
 createElementOptions opts vtree = do
   let n = runFn2 virtualDOM.create vtree opts
   ref <- newRef {node: n, vtree: vtree}
   return $ Html ref
 
-createElement :: forall e. VTree -> HtmlEff e Html
+createElement :: forall e. VTree -> EffHtml e Html
 createElement vtree = do
   let n = virtualDOM.create vtree
   ref <- newRef {node: n, vtree: vtree}
   return $ Html ref
 
-patch :: forall e. VTree -> Html -> HtmlEff e Unit
+patch :: forall e. VTree -> Html -> EffHtml e Unit
 patch new (Html ref) = do
   h <- readRef ref
   let patch = runFn2 virtualDOM.diff h.vtree new
