@@ -3,6 +3,7 @@ var purescript = require('gulp-purescript');
 var foreach    = require('gulp-foreach');
 var shell      = require('gulp-shell');
 var rename     = require('gulp-rename');
+var mocha      = require('gulp-mocha');
 var sequence   = require('run-sequence');
 
 var path       = require('path');
@@ -40,6 +41,14 @@ gulp.task('pscDocs', function(){
     }));
 });
 
+gulp.task('test', function(){
+  return gulp
+    .src(sources.concat('tests/**/*.purs'))
+    .pipe(purescript.psc({main: "Test.Main", output: "test.js", modules: ['Test.Main']}))
+    .pipe(gulp.dest('tmp'))
+    .pipe(mocha());
+});
+
 gulp.task('example', function(){
   return gulp
     .src(sources)
@@ -54,7 +63,7 @@ gulp.task('example', function(){
 gulp.task('default', function(callback){
   return sequence(
     'wrapper',
-    ['pscMake', 'dotPsci', 'pscDocs', 'example'],
+    ['pscMake', 'dotPsci', 'pscDocs', 'example', 'test'],
     callback
   );
 });

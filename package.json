@@ -5,6 +5,7 @@
     "dom-delegator": "^12.0.0",
     "gulp": "^3.8.10",
     "gulp-foreach": "^0.1.0",
+    "gulp-mocha": "^2.0.0",
     "gulp-purescript": "^0.1.2",
     "gulp-rename": "^1.2.0",
     "gulp-shell": "^0.2.11",
