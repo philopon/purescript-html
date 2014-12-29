@@ -1,6 +1,8 @@
 {
   "name": "purescript-html",
-  "scripts": {},
+  "scripts": {
+    "test": "gulp test"
+  },
   "devDependencies": {
     "dom-delegator": "^12.0.0",
     "gulp": "^3.8.10",
