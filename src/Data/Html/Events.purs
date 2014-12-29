@@ -1,5 +1,6 @@
 module Data.Html.Events
   ( KeyEvent(), MouseButtonEvent(), MouseHoverEvent()
+  , listen
   , Button(..)
   , HasModifier
   , altKey, ctrlKey, metaKey, shiftKey
@@ -30,6 +31,9 @@ type MouseButtonEvent = I.MouseButtonEvent
 type MouseHoverEvent  = I.MouseHoverEvent
 
 type Position = {x :: Number, y :: Number}
+
+listen :: forall e. EffHtml e Unit
+listen = let _ = delegator in return unit
 
 showPosition :: Position -> String
 showPosition p = "(" ++ show p.x ++ "," ++ show p.y ++ ")"
