@@ -19,7 +19,7 @@ foreign import appendSelector """
       var elm = document.querySelector(sel);
       if(elm) { elm.appendChild(node) }
     }
-  }""" :: forall e. Fn2 String Node (HtmlEff e Unit)
+  }""" :: forall e. Fn2 String Node (EffHtml e Unit)
 
 test1 color = E.div
   [ A.class_ "neko"
