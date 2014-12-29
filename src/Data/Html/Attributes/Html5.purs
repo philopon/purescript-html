@@ -7,9 +7,6 @@ type Attribute = A.Attribute
 style :: forall styles. {|styles} -> Attribute
 style = A.style
 
-data_ :: String -> String -> Attribute
-data_ = A.data_
-
 class_ :: String -> Attribute
 class_ = A.stringAttribute "className"
 

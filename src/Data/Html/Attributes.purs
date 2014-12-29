@@ -6,7 +6,6 @@ module Data.Html.Attributes
   , style
   , key
   , Event(), on_
-  , data_
   , namespace
   ) where
 
@@ -37,9 +36,6 @@ key = I.Key
 
 namespace :: String -> Attribute
 namespace = I.Namespace
-
-data_ :: String -> String -> Attribute
-data_ nm dat = I.attribute ("data-" ++ nm) $ I.unsafeCoerce (virtualDOM.dsHook dat)
 
 foreign import data Event :: *
 

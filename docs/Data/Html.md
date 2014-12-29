@@ -4,20 +4,20 @@
 
 ### Types
 
-    data Html
+    type EffHtml e a = Eff (ref :: Ref, dom :: DOM | e) a
 
-    type HtmlEff e a = Eff (ref :: Ref, dom :: DOM | e) a
+    data Html
 
 
 ### Values
 
-    createElement :: forall e. VTree -> HtmlEff e Html
+    createElement :: forall e. VTree -> EffHtml e Html
 
-    createElementOptions :: forall opts e. {  | opts } -> VTree -> HtmlEff e Html
+    createElementOptions :: forall opts e. {  | opts } -> VTree -> EffHtml e Html
 
-    getNode :: forall e. Html -> HtmlEff e Node
+    getNode :: forall e. Html -> EffHtml e Node
 
-    patch :: forall e. VTree -> Html -> HtmlEff e Unit
+    patch :: forall e. VTree -> Html -> EffHtml e Unit
 
 
 

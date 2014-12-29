@@ -55,8 +55,6 @@
 
     coords :: String -> Attribute
 
-    data_ :: String -> String -> Attribute
-
     datetime :: String -> Attribute
 
     default :: Boolean -> Attribute

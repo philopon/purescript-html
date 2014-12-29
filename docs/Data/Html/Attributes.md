@@ -13,8 +13,6 @@
 
     booleanAttribute :: String -> Boolean -> Attribute
 
-    data_ :: String -> String -> Attribute
-
     key :: String -> Attribute
 
     namespace :: String -> Attribute

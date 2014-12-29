@@ -11,10 +11,10 @@ module Data.Html.Events.Heavy
 import Control.Monad.Eff
 import Data.Html
 import Data.Html.Attributes
-import Data.Html.Internal.VirtualDOM
 import Data.Html.Events
 import qualified Data.Html.Internal.Events as I
 import Data.Function
+import Data.Html.Internal.Delegator
 
 foreign import listenToImpl """
 function listenToImpl(d, l){
@@ -24,7 +24,7 @@ function listenToImpl(d, l){
 }""" :: forall delegator e. Fn2 delegator String (EffHtml e Unit)
 
 listenTo :: forall e. String -> EffHtml e Unit
-listenTo = runFn2 listenToImpl virtualDOM.delegator
+listenTo = runFn2 listenToImpl delegator
 
 listenMouseMove :: forall e. EffHtml e Unit
 listenMouseMove = listenTo "mousemove"

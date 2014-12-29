@@ -16,7 +16,7 @@ EOC
 cat bundle.js | tr -d '\r' >> $OUT
 
 cat <<EOC >> $OUT
-""" :: forall diff patch vnode vtext create dsHook evHook delegator thunk partial.
+""" :: forall diff patch vnode vtext create dsHook evHook thunk partial.
   { diff   :: diff
   , patch  :: patch
   , create :: create
@@ -24,12 +24,28 @@ cat <<EOC >> $OUT
   , vtext  :: vtext
   , dsHook :: dsHook
   , evHook :: evHook
-  , delegator :: delegator
   , thunk     :: thunk
   , partial   :: partial
   }
 EOC
 
+##################
+
+$WEBPACK --output-library delegator delegator.js delegator-bundle.js 1>&2
+
+OUT=../src/Data/Html/Internal/Delegator.purs
+
+cat <<EOC > $OUT
+module Data.Html.Internal.Delegator (delegator) where
+
+foreign import delegator """
+EOC
+
+cat delegator-bundle.js | tr -d '\r' >> $OUT
+
+cat <<EOC >> $OUT
+""" :: forall delegator. delegator
+EOC
 
 ##################
 

@@ -23,6 +23,8 @@ import Data.Html.Attributes
 import Data.Html.Internal.VirtualDOM
 import qualified Data.Html.Internal.Events as I
 
+import Data.Html.Internal.Delegator
+
 type KeyEvent = I.KeyEvent
 type MouseButtonEvent = I.MouseButtonEvent
 type MouseHoverEvent  = I.MouseHoverEvent

@@ -48,19 +48,16 @@ var virtualDOM =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff    = __webpack_require__(35);
-	var patch   = __webpack_require__(40);
-	var create  = __webpack_require__(34);
-	var VNode   = __webpack_require__(47);
-	var VText   = __webpack_require__(48);
+	var diff    = __webpack_require__(19);
+	var patch   = __webpack_require__(25);
+	var create  = __webpack_require__(18);
+	var VNode   = __webpack_require__(31);
+	var VText   = __webpack_require__(32);
 
-	var dsHook = __webpack_require__(45);
-	var evHook = __webpack_require__(46);
+	var evHook = __webpack_require__(30);
 
-	var delegator = __webpack_require__(21);
-
-	var thunk = __webpack_require__(32);
-	var partial = __webpack_require__(10);
+	var thunk = __webpack_require__(16);
+	var partial = __webpack_require__(7);
 
 	module.exports =
 	  { diff:   diff
@@ -68,9 +65,7 @@ var virtualDOM =
 	  , create: create
 	  , vnode:  VNode
 	  , vtext:  VText
-	  , dsHook: dsHook
 	  , evHook: evHook
-	  , delegator: delegator()
 	  , thunk: thunk
 	  , partial: partial
 	  }
@@ -111,30 +106,6 @@ var virtualDOM =
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createStore = __webpack_require__(24)
-	var Individual = __webpack_require__(9)
-
-	var createHash = __webpack_require__(23)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
 	module.exports = isThunk
 
 	function isThunk(t) {
@@ -143,7 +114,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 6 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isHook
@@ -155,7 +126,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -168,58 +139,11 @@ var virtualDOM =
 
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(50);
-
-	if (typeof document !== 'undefined') {
-	    module.exports = document;
-	} else {
-	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-	    if (!doccy) {
-	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-	    }
-
-	    module.exports = doccy;
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var shallowEq = __webpack_require__(33);
-	var Thunk = __webpack_require__(31);
+	var shallowEq = __webpack_require__(17);
+	var Thunk = __webpack_require__(15);
 
 	module.exports = createPartial;
 
@@ -253,36 +177,12 @@ var virtualDOM =
 
 
 /***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createStore = __webpack_require__(38)
-	var Individual = __webpack_require__(37)
-
-	var createHash = __webpack_require__(36)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 12 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(51);
+	var minDoc = __webpack_require__(34);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -299,7 +199,7 @@ var virtualDOM =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 13 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -310,7 +210,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 14 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var nativeIsArray = Array.isArray
@@ -324,11 +224,11 @@ var virtualDOM =
 
 
 /***/ },
-/* 15 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(13)
-	var isHook = __webpack_require__(6)
+	var isObject = __webpack_require__(9)
+	var isHook = __webpack_require__(5)
 
 	module.exports = applyProperties
 
@@ -424,17 +324,17 @@ var virtualDOM =
 
 
 /***/ },
-/* 16 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(12)
+	var document = __webpack_require__(8)
 
-	var applyProperties = __webpack_require__(15)
+	var applyProperties = __webpack_require__(11)
 
 	var isVNode = __webpack_require__(3)
-	var isVText = __webpack_require__(7)
+	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var handleThunk = __webpack_require__(17)
+	var handleThunk = __webpack_require__(13)
 
 	module.exports = createElement
 
@@ -476,13 +376,13 @@ var virtualDOM =
 
 
 /***/ },
-/* 17 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isVNode = __webpack_require__(3)
-	var isVText = __webpack_require__(7)
+	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(5)
+	var isThunk = __webpack_require__(4)
 
 	module.exports = handleThunk
 
@@ -522,7 +422,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 18 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -550,664 +450,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(4)
-
-	module.exports = addEvent
-
-	function addEvent(target, type, handler) {
-	    var ds = DataSet(target)
-	    var events = ds[type]
-
-	    if (!events) {
-	        ds[type] = handler
-	    } else if (Array.isArray(events)) {
-	        if (events.indexOf(handler) === -1) {
-	            events.push(handler)
-	        }
-	    } else if (events !== handler) {
-	        ds[type] = [events, handler]
-	    }
-	}
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var globalDocument = __webpack_require__(8)
-	var DataSet = __webpack_require__(4)
-	var createStore = __webpack_require__(27)
-
-	var addEvent = __webpack_require__(19)
-	var removeEvent = __webpack_require__(30)
-	var ProxyEvent = __webpack_require__(29)
-
-	var HANDLER_STORE = createStore()
-
-	module.exports = DOMDelegator
-
-	function DOMDelegator(document) {
-	    if (!(this instanceof DOMDelegator)) {
-	        return new DOMDelegator(document);
-	    }
-
-	    document = document || globalDocument
-
-	    this.target = document.documentElement
-	    this.events = {}
-	    this.rawEventListeners = {}
-	    this.globalListeners = {}
-	}
-
-	DOMDelegator.prototype.addEventListener = addEvent
-	DOMDelegator.prototype.removeEventListener = removeEvent
-
-	DOMDelegator.allocateHandle =
-	    function allocateHandle(func) {
-	        var handle = new Handle()
-
-	        HANDLER_STORE(handle).func = func;
-
-	        return handle
-	    }
-
-	DOMDelegator.transformHandle =
-	    function transformHandle(handle, broadcast) {
-	        var func = HANDLER_STORE(handle).func
-
-	        return this.allocateHandle(function (ev) {
-	            broadcast(ev, func);
-	        })
-	    }
-
-	DOMDelegator.prototype.addGlobalEventListener =
-	    function addGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-	        if (listeners.indexOf(fn) === -1) {
-	            listeners.push(fn)
-	        }
-
-	        this.globalListeners[eventName] = listeners;
-	    }
-
-	DOMDelegator.prototype.removeGlobalEventListener =
-	    function removeGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-
-	        var index = listeners.indexOf(fn)
-	        if (index !== -1) {
-	            listeners.splice(index, 1)
-	        }
-	    }
-
-	DOMDelegator.prototype.listenTo = function listenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    this.events[eventName]++;
-
-	    if (this.events[eventName] !== 1) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-	    if (!listener) {
-	        listener = this.rawEventListeners[eventName] =
-	            createHandler(eventName, this)
-	    }
-
-	    this.target.addEventListener(eventName, listener, true)
-	}
-
-	DOMDelegator.prototype.unlistenTo = function unlistenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    if (this.events[eventName] === 0) {
-	        throw new Error("already unlistened to event.");
-	    }
-
-	    this.events[eventName]--;
-
-	    if (this.events[eventName] !== 0) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-
-	    if (!listener) {
-	        throw new Error("dom-delegator#unlistenTo: cannot " +
-	            "unlisten to " + eventName)
-	    }
-
-	    this.target.removeEventListener(eventName, listener, true)
-	}
-
-	function createHandler(eventName, delegator) {
-	    var globalListeners = delegator.globalListeners;
-	    var delegatorTarget = delegator.target;
-
-	    return handler
-
-	    function handler(ev) {
-	        var globalHandlers = globalListeners[eventName] || []
-
-	        if (globalHandlers.length > 0) {
-	            var globalEvent = new ProxyEvent(ev);
-	            globalEvent.currentTarget = delegatorTarget;
-	            callListeners(globalHandlers, globalEvent)
-	        }
-
-	        findAndInvokeListeners(ev.target, ev, eventName)
-	    }
-	}
-
-	function findAndInvokeListeners(elem, ev, eventName) {
-	    var listener = getListener(elem, eventName)
-
-	    if (listener && listener.handlers.length > 0) {
-	        var listenerEvent = new ProxyEvent(ev);
-	        listenerEvent.currentTarget = listener.currentTarget
-	        callListeners(listener.handlers, listenerEvent)
-
-	        if (listenerEvent._bubbles) {
-	            var nextTarget = listener.currentTarget.parentNode
-	            findAndInvokeListeners(nextTarget, ev, eventName)
-	        }
-	    }
-	}
-
-	function getListener(target, type) {
-	    // terminate recursion if parent is `null`
-	    if (target === null) {
-	        return null
-	    }
-
-	    var ds = DataSet(target)
-	    // fetch list of handler fns for this event
-	    var handler = ds[type]
-	    var allHandler = ds.event
-
-	    if (!handler && !allHandler) {
-	        return getListener(target.parentNode, type)
-	    }
-
-	    var handlers = [].concat(handler || [], allHandler || [])
-	    return new Listener(target, handlers)
-	}
-
-	function callListeners(handlers, ev) {
-	    handlers.forEach(function (handler) {
-	        if (typeof handler === "function") {
-	            handler(ev)
-	        } else if (typeof handler.handleEvent === "function") {
-	            handler.handleEvent(ev)
-	        } else if (handler.type === "dom-delegator-handle") {
-	            HANDLER_STORE(handler).func(ev)
-	        } else {
-	            throw new Error("dom-delegator: unknown handler " +
-	                "found: " + JSON.stringify(handlers));
-	        }
-	    })
-	}
-
-	function Listener(target, handlers) {
-	    this.currentTarget = target
-	    this.handlers = handlers
-	}
-
-	function Handle() {
-	    this.type = "dom-delegator-handle"
-	}
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Individual = __webpack_require__(9)
-	var cuid = __webpack_require__(22)
-	var globalDocument = __webpack_require__(8)
-
-	var DOMDelegator = __webpack_require__(20)
-
-	var versionKey = "12"
-	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
-	var cacheTokenKey = "__DOM_DELEGATOR_CACHE_TOKEN@" + versionKey
-	var delegatorCache = Individual(cacheKey, {
-	    delegators: {}
-	})
-	var commonEvents = [
-	    "blur", "change", "click",  "contextmenu", "dblclick",
-	    "error","focus", "focusin", "focusout", "input", "keydown",
-	    "keypress", "keyup", "load", "mousedown", "mouseup",
-	    "resize", "select", "submit", "touchcancel",
-	    "touchend", "touchstart", "unload"
-	]
-
-	/*  Delegator is a thin wrapper around a singleton `DOMDelegator`
-	        instance.
-
-	    Only one DOMDelegator should exist because we do not want
-	        duplicate event listeners bound to the DOM.
-
-	    `Delegator` will also `listenTo()` all events unless
-	        every caller opts out of it
-	*/
-	module.exports = Delegator
-
-	function Delegator(opts) {
-	    opts = opts || {}
-	    var document = opts.document || globalDocument
-
-	    var cacheKey = document[cacheTokenKey]
-
-	    if (!cacheKey) {
-	        cacheKey =
-	            document[cacheTokenKey] = cuid()
-	    }
-
-	    var delegator = delegatorCache.delegators[cacheKey]
-
-	    if (!delegator) {
-	        delegator = delegatorCache.delegators[cacheKey] =
-	            new DOMDelegator(document)
-	    }
-
-	    if (opts.defaultEvents !== false) {
-	        for (var i = 0; i < commonEvents.length; i++) {
-	            delegator.listenTo(commonEvents[i])
-	        }
-	    }
-
-	    return delegator
-	}
-
-	Delegator.allocateHandle = DOMDelegator.allocateHandle;
-	Delegator.transformHandle = DOMDelegator.transformHandle;
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * cuid.js
-	 * Collision-resistant UID generator for browsers and node.
-	 * Sequential for fast db lookups and recency sorting.
-	 * Safe for element IDs and server-side lookups.
-	 *
-	 * Extracted from CLCTR
-	 * 
-	 * Copyright (c) Eric Elliott 2012
-	 * MIT License
-	 */
-
-	/*global window, navigator, document, require, process, module */
-	(function (app) {
-	  'use strict';
-	  var namespace = 'cuid',
-	    c = 0,
-	    blockSize = 4,
-	    base = 36,
-	    discreteValues = Math.pow(base, blockSize),
-
-	    pad = function pad(num, size) {
-	      var s = "000000000" + num;
-	      return s.substr(s.length-size);
-	    },
-
-	    randomBlock = function randomBlock() {
-	      return pad((Math.random() *
-	            discreteValues << 0)
-	            .toString(base), blockSize);
-	    },
-
-	    safeCounter = function () {
-	      c = (c < discreteValues) ? c : 0;
-	      c++; // this is not subliminal
-	      return c - 1;
-	    },
-
-	    api = function cuid() {
-	      // Starting with a lowercase letter makes
-	      // it HTML element ID friendly.
-	      var letter = 'c', // hard-coded allows for sequential access
-
-	        // timestamp
-	        // warning: this exposes the exact date and time
-	        // that the uid was created.
-	        timestamp = (new Date().getTime()).toString(base),
-
-	        // Prevent same-machine collisions.
-	        counter,
-
-	        // A few chars to generate distinct ids for different
-	        // clients (so different computers are far less
-	        // likely to generate the same id)
-	        fingerprint = api.fingerprint(),
-
-	        // Grab some more chars from Math.random()
-	        random = randomBlock() + randomBlock();
-
-	        counter = pad(safeCounter().toString(base), blockSize);
-
-	      return  (letter + timestamp + counter + fingerprint + random);
-	    };
-
-	  api.slug = function slug() {
-	    var date = new Date().getTime().toString(36),
-	      counter,
-	      print = api.fingerprint().slice(0,1) +
-	        api.fingerprint().slice(-1),
-	      random = randomBlock().slice(-2);
-
-	      counter = safeCounter().toString(36).slice(-4);
-
-	    return date.slice(-2) + 
-	      counter + print + random;
-	  };
-
-	  api.globalCount = function globalCount() {
-	    // We want to cache the results of this
-	    var cache = (function calc() {
-	        var i,
-	          count = 0;
-
-	        for (i in window) {
-	          count++;
-	        }
-
-	        return count;
-	      }());
-
-	    api.globalCount = function () { return cache; };
-	    return cache;
-	  };
-
-	  api.fingerprint = function browserPrint() {
-	    return pad((navigator.mimeTypes.length +
-	      navigator.userAgent.length).toString(36) +
-	      api.globalCount().toString(36), 4);
-	  };
-
-	  // don't change anything from here down.
-	  if (app.register) {
-	    app.register(namespace, api);
-	  } else if (true) {
-	    module.exports = api;
-	  } else {
-	    app[namespace] = api;
-	  }
-
-	}(this.applitude || this));
-
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(25);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	if (typeof Object.create === 'function') {
-	  // implementation from standard node.js 'util' module
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  // old school shim for old browsers
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    var TempCtor = function () {}
-	    TempCtor.prototype = superCtor.prototype
-	    ctor.prototype = new TempCtor()
-	    ctor.prototype.constructor = ctor
-	  }
-	}
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(28);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if ((typeof obj !== 'object' || obj === null) &&
-	            typeof obj !== 'function'
-	        ) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var inherits = __webpack_require__(26)
-
-	var ALL_PROPS = [
-	    "altKey", "bubbles", "cancelable", "ctrlKey",
-	    "eventPhase", "metaKey", "relatedTarget", "shiftKey",
-	    "target", "timeStamp", "type", "view", "which"
-	]
-	var KEY_PROPS = ["char", "charCode", "key", "keyCode"]
-	var MOUSE_PROPS = [
-	    "button", "buttons", "clientX", "clientY", "layerX",
-	    "layerY", "offsetX", "offsetY", "pageX", "pageY",
-	    "screenX", "screenY", "toElement"
-	]
-
-	var rkeyEvent = /^key|input/
-	var rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/
-
-	module.exports = ProxyEvent
-
-	function ProxyEvent(ev) {
-	    if (!(this instanceof ProxyEvent)) {
-	        return new ProxyEvent(ev)
-	    }
-
-	    if (rkeyEvent.test(ev.type)) {
-	        return new KeyEvent(ev)
-	    } else if (rmouseEvent.test(ev.type)) {
-	        return new MouseEvent(ev)
-	    }
-
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    this._rawEvent = ev
-	    this._bubbles = false;
-	}
-
-	ProxyEvent.prototype.preventDefault = function () {
-	    this._rawEvent.preventDefault()
-	}
-
-	ProxyEvent.prototype.startPropagation = function () {
-	    this._bubbles = true;
-	}
-
-	function MouseEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < MOUSE_PROPS.length; j++) {
-	        var mousePropKey = MOUSE_PROPS[j]
-	        this[mousePropKey] = ev[mousePropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(MouseEvent, ProxyEvent)
-
-	function KeyEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < KEY_PROPS.length; j++) {
-	        var keyPropKey = KEY_PROPS[j]
-	        this[keyPropKey] = ev[keyPropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(KeyEvent, ProxyEvent)
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(4)
-
-	module.exports = removeEvent
-
-	function removeEvent(target, type, handler) {
-	    var ds = DataSet(target)
-	    var events = ds[type]
-
-	    if (!events) {
-	        return
-	    } else if (Array.isArray(events)) {
-	        var index = events.indexOf(handler)
-	        if (index !== -1) {
-	            events.splice(index, 1)
-	        }
-	    } else if (events === handler) {
-	        ds[type] = null
-	    }
-	}
-
-
-/***/ },
-/* 31 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
 	function Thunk(fn, args, key, eqArgs) {
@@ -1242,16 +485,16 @@ var virtualDOM =
 
 
 /***/ },
-/* 32 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Partial = __webpack_require__(10);
+	var Partial = __webpack_require__(7);
 
 	module.exports = Partial();
 
 
 /***/ },
-/* 33 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = shallowEq;
@@ -1278,25 +521,25 @@ var virtualDOM =
 
 
 /***/ },
-/* 34 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createElement = __webpack_require__(16)
+	var createElement = __webpack_require__(12)
 
 	module.exports = createElement
 
 
 /***/ },
-/* 35 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(49)
+	var diff = __webpack_require__(33)
 
 	module.exports = diff
 
 
 /***/ },
-/* 36 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = createHash
@@ -1324,7 +567,31 @@ var virtualDOM =
 
 
 /***/ },
-/* 37 */
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createStore = __webpack_require__(23)
+	var Individual = __webpack_require__(22)
+
+	var createHash = __webpack_require__(20)
+
+	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
+
+	module.exports = DataSet
+
+	function DataSet(elem) {
+	    var store = hashStore(elem)
+
+	    if (!store.hash) {
+	        store.hash = createHash(elem)
+	    }
+
+	    return store.hash
+	}
+
+
+/***/ },
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
@@ -1349,10 +616,10 @@ var virtualDOM =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 38 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var hiddenStore = __webpack_require__(39);
+	var hiddenStore = __webpack_require__(24);
 
 	module.exports = createStore;
 
@@ -1372,7 +639,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 39 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = hiddenStore;
@@ -1394,16 +661,16 @@ var virtualDOM =
 
 
 /***/ },
-/* 40 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var patch = __webpack_require__(43)
+	var patch = __webpack_require__(28)
 
 	module.exports = patch
 
 
 /***/ },
-/* 41 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
@@ -1494,16 +761,16 @@ var virtualDOM =
 
 
 /***/ },
-/* 42 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var applyProperties = __webpack_require__(15)
+	var applyProperties = __webpack_require__(11)
 
 	var isWidget = __webpack_require__(1)
-	var VPatch = __webpack_require__(18)
+	var VPatch = __webpack_require__(14)
 
-	var render = __webpack_require__(16)
-	var updateWidget = __webpack_require__(44)
+	var render = __webpack_require__(12)
+	var updateWidget = __webpack_require__(29)
 
 	module.exports = applyPatch
 
@@ -1670,14 +937,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 43 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(12)
-	var isArray = __webpack_require__(14)
+	var document = __webpack_require__(8)
+	var isArray = __webpack_require__(10)
 
-	var domIndex = __webpack_require__(41)
-	var patchOp = __webpack_require__(42)
+	var domIndex = __webpack_require__(26)
+	var patchOp = __webpack_require__(27)
 	module.exports = patch
 
 	function patch(rootNode, patches) {
@@ -1752,7 +1019,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 44 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isWidget = __webpack_require__(1)
@@ -1773,34 +1040,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 45 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(11)
-
-	module.exports = DataSetHook;
-
-	function DataSetHook(value) {
-	    if (!(this instanceof DataSetHook)) {
-	        return new DataSetHook(value);
-	    }
-
-	    this.value = value;
-	}
-
-	DataSetHook.prototype.hook = function (node, propertyName) {
-	    var ds = DataSet(node)
-	    var propName = propertyName.substr(5)
-
-	    ds[propName] = this.value;
-	};
-
-
-/***/ },
-/* 46 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(11)
+	var DataSet = __webpack_require__(21)
 
 	module.exports = DataSetHook;
 
@@ -1828,14 +1071,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 47 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
 	var isVNode = __webpack_require__(3)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(5)
-	var isVHook = __webpack_require__(6)
+	var isThunk = __webpack_require__(4)
+	var isVHook = __webpack_require__(5)
 
 	module.exports = VirtualNode
 
@@ -1906,7 +1149,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 48 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1922,19 +1165,19 @@ var virtualDOM =
 
 
 /***/ },
-/* 49 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(14)
-	var isObject = __webpack_require__(13)
+	var isArray = __webpack_require__(10)
+	var isObject = __webpack_require__(9)
 
-	var VPatch = __webpack_require__(18)
+	var VPatch = __webpack_require__(14)
 	var isVNode = __webpack_require__(3)
-	var isVText = __webpack_require__(7)
+	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(5)
-	var isHook = __webpack_require__(6)
-	var handleThunk = __webpack_require__(17)
+	var isThunk = __webpack_require__(4)
+	var isHook = __webpack_require__(5)
+	var handleThunk = __webpack_require__(13)
 
 	module.exports = diff
 
@@ -2304,19 +1547,13 @@ var virtualDOM =
 
 
 /***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* (ignored) */
-
-/***/ },
-/* 51 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
 
 /***/ }
-/******/ ])""" :: forall diff patch vnode vtext create dsHook evHook delegator thunk partial.
+/******/ ])""" :: forall diff patch vnode vtext create dsHook evHook thunk partial.
   { diff   :: diff
   , patch  :: patch
   , create :: create
@@ -2324,7 +1561,6 @@ var virtualDOM =
   , vtext  :: vtext
   , dsHook :: dsHook
   , evHook :: evHook
-  , delegator :: delegator
   , thunk     :: thunk
   , partial   :: partial
   }
