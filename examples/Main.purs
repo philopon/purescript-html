@@ -1,46 +1,44 @@
 module Main where
 
-  import Html
-  import Html.Lazy
-  import Html.Events
-  import Html.Events.Heavy
-  import Html.Attributes
-  import Html.Attributes.Html5
-  import Control.Timer
-  import Debug.Trace
-  import Data.Function
-  import DOM
+-- virtual-dom example(https://github.com/Matt-Esch/virtual-dom#example) clone with click event.
 
-  foreign import appendSelector """
-    function appendSelector(sel, node) {
-      return function(){
-        var elm = document.querySelector(sel);
-        if(elm) { elm.appendChild(node) }
-      }
-    }""" :: forall e. Fn2 String Node (HtmlEff e Unit)
+import Data.Html
+import Data.Html.Events
+import qualified Data.Html.Elements.Html5 as E
+import qualified Data.Html.Attributes.Html5 as A
 
-  test1 color = vnode "div"
-    [ class_ "neko"
-    , title "title"
-    , id_   "idnt"
-    , style {color: color}
---    , on_ "click" (\e -> print e.pageX)
-    ] [text "neko"]
+import Control.Monad.Eff.Ref
+import Control.Timer
+import DOM
 
-  test2 = vnode "div" [onMouseMove print] 
-    [ text "inu"
-    , vnode "span" [style {color: "red"}] [text "bowow"]
-    , vnode "input" [] []
-    ]
+foreign import appendBody """
+function appendBody (e) {
+  return function appendBodyEff(){
+    document.body.appendChild(e);
+  }
+}""" :: forall e. Node -> EffHtml e Unit
 
-  foreign import logging "function logging(a){console.log(a); return a}"
-    :: forall a. a -> a
+render :: RefVal Number -> Number -> E.VTree
+render ref count = E.div
+  [ A.style
+    { textAlign: "center"
+    , lineHeight: show (100 + count) ++ "px"
+    , border: "1px solid red"
+    , width: show (100 + count) ++ "px"
+    , height: show (100 + count) ++ "px"
+    }
+  , onClick (\_ -> writeRef ref 0)
+  ]
+  [E.text $ show count]
 
-  main = do
-    listenMouseMove
-    html <- createElement $ partial1 (==) test1 "blue"
-    getNode html >>= runFn2 appendSelector "div"
-    timeout 100 $ do
-      patch (partial2 (\a b -> a.a == b.b) (\a b -> test1 a) "red" "blue") html
-      timeout 1000 $ patch  test2 html
-    return unit
+main :: forall e. EffHtml (timer :: Timer | e) Unit
+main = do
+  listen -- dummy function to save event listener from dead code elimination. 
+  ref <- newRef 0
+  html <- createElement $ render ref 0
+  getNode html >>= appendBody
+  interval 100 $ do
+    c' <- modifyRef' ref (\r -> let r' = r + 1 in {retVal: r', newState: r'})
+    patch (render ref c') html
+
+  return unit

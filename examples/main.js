@@ -7,24 +7,8 @@ PS.Prelude = (function () {
             return value;
         }
     };
-    function LT() {
-
-    };
-    LT.value = new LT();
-    function GT() {
-
-    };
-    GT.value = new GT();
-    function EQ() {
-
-    };
-    EQ.value = new EQ();
     function Semigroupoid($less$less$less) {
         this["<<<"] = $less$less$less;
-    };
-    function Category(__superclass_Prelude$dotSemigroupoid_0, id) {
-        this["__superclass_Prelude.Semigroupoid_0"] = __superclass_Prelude$dotSemigroupoid_0;
-        this.id = id;
     };
     function Show(show) {
         this.show = show;
@@ -56,64 +40,19 @@ PS.Prelude = (function () {
         this["/"] = $div;
         this.negate = negate;
     };
-    function Eq($div$eq, $eq$eq) {
-        this["/="] = $div$eq;
-        this["=="] = $eq$eq;
-    };
-    function Ord(__superclass_Prelude$dotEq_0, compare) {
-        this["__superclass_Prelude.Eq_0"] = __superclass_Prelude$dotEq_0;
-        this.compare = compare;
-    };
-    function Bits($dot$amp$dot, $dot$up$dot, $dot$bar$dot, complement, shl, shr, zshr) {
-        this[".&."] = $dot$amp$dot;
-        this[".^."] = $dot$up$dot;
-        this[".|."] = $dot$bar$dot;
-        this.complement = complement;
-        this.shl = shl;
-        this.shr = shr;
-        this.zshr = zshr;
-    };
-    function BoolLike($amp$amp, not, $bar$bar) {
-        this["&&"] = $amp$amp;
-        this.not = not;
-        this["||"] = $bar$bar;
-    };
     function Semigroup($less$greater) {
         this["<>"] = $less$greater;
     };
-    function cons(e) {  return function(l) {    return [e].concat(l);  };};
-    function showStringImpl(s) {  return JSON.stringify(s);};
     function showNumberImpl(n) {  return n.toString();};
-    function showArrayImpl(f) {  return function(xs) {    var ss = [];    for (var i = 0, l = xs.length; i < l; i++) {      ss[i] = f(xs[i]);    }    return '[' + ss.join(',') + ']';  };};
     function numAdd(n1) {  return function(n2) {    return n1 + n2;  };};
     function numSub(n1) {  return function(n2) {    return n1 - n2;  };};
     function numMul(n1) {  return function(n2) {    return n1 * n2;  };};
     function numDiv(n1) {  return function(n2) {    return n1 / n2;  };};
     function numMod(n1) {  return function(n2) {    return n1 % n2;  };};
     function numNegate(n) {  return -n;};
-    function refEq(r1) {  return function(r2) {    return r1 === r2;  };};
-    function refIneq(r1) {  return function(r2) {    return r1 !== r2;  };};
-    function eqArrayImpl(f) {  return function(xs) {    return function(ys) {      if (xs.length !== ys.length) return false;      for (var i = 0; i < xs.length; i++) {        if (!f(xs[i])(ys[i])) return false;      }      return true;    };  };};
-    function unsafeCompareImpl(lt) {  return function(eq) {    return function(gt) {      return function(x) {        return function(y) {          return x < y ? lt : x > y ? gt : eq;        };      };    };  };};
-    function numShl(n1) {  return function(n2) {    return n1 << n2;  };};
-    function numShr(n1) {  return function(n2) {    return n1 >> n2;  };};
-    function numZshr(n1) {  return function(n2) {    return n1 >>> n2;  };};
-    function numAnd(n1) {  return function(n2) {    return n1 & n2;  };};
-    function numOr(n1) {  return function(n2) {    return n1 | n2;  };};
-    function numXor(n1) {  return function(n2) {    return n1 ^ n2;  };};
-    function numComplement(n) {  return ~n;};
-    function boolAnd(b1) {  return function(b2) {    return b1 && b2;  };};
-    function boolOr(b1) {  return function(b2) {    return b1 || b2;  };};
-    function boolNot(b) {  return !b;};
     function concatString(s1) {  return function(s2) {    return s1 + s2;  };};
-    var $bar$bar = function (dict) {
-        return dict["||"];
-    };
     var $greater$greater$eq = function (dict) {
         return dict[">>="];
-    };
-    var $eq$eq = function (dict) {
-        return dict["=="];
     };
     var $less$greater = function (dict) {
         return dict["<>"];
@@ -121,44 +60,8 @@ PS.Prelude = (function () {
     var $less$less$less = function (dict) {
         return dict["<<<"];
     };
-    var $greater$greater$greater = function (__dict_Semigroupoid_0) {
-        return function (f) {
-            return function (g) {
-                return $less$less$less(__dict_Semigroupoid_0)(g)(f);
-            };
-        };
-    };
     var $less$times$greater = function (dict) {
         return dict["<*>"];
-    };
-    var $less$dollar$greater = function (dict) {
-        return dict["<$>"];
-    };
-    var $less$hash$greater = function (__dict_Functor_1) {
-        return function (fa) {
-            return function (f) {
-                return $less$dollar$greater(__dict_Functor_1)(f)(fa);
-            };
-        };
-    };
-    var $colon = cons;
-    var $div$eq = function (dict) {
-        return dict["/="];
-    };
-    var $div = function (dict) {
-        return dict["/"];
-    };
-    var $dot$bar$dot = function (dict) {
-        return dict[".|."];
-    };
-    var $dot$up$dot = function (dict) {
-        return dict[".^."];
-    };
-    var $dot$amp$dot = function (dict) {
-        return dict[".&."];
-    };
-    var $minus = function (dict) {
-        return dict["-"];
     };
     var $plus$plus = function (__dict_Semigroup_2) {
         return $less$greater(__dict_Semigroup_2);
@@ -166,67 +69,15 @@ PS.Prelude = (function () {
     var $plus = function (dict) {
         return dict["+"];
     };
-    var $times = function (dict) {
-        return dict["*"];
-    };
-    var $amp$amp = function (dict) {
-        return dict["&&"];
-    };
-    var $percent = function (dict) {
-        return dict["%"];
-    };
     var $dollar = function (f) {
         return function (x) {
             return f(x);
         };
     };
-    var $hash = function (x) {
-        return function (f) {
-            return f(x);
-        };
-    };
-    var zshr = function (dict) {
-        return dict.zshr;
-    };
-    var unsafeCompare = unsafeCompareImpl(LT.value)(EQ.value)(GT.value);
     var unit = {};
-    var shr = function (dict) {
-        return dict.shr;
-    };
-    var showUnit = new Show(function (_13) {
-        return "Unit {}";
-    });
-    var showString = new Show(showStringImpl);
-    var showOrdering = new Show(function (_21) {
-        if (_21 instanceof LT) {
-            return "LT";
-        };
-        if (_21 instanceof GT) {
-            return "GT";
-        };
-        if (_21 instanceof EQ) {
-            return "EQ";
-        };
-        throw new Error("Failed pattern match");
-    });
     var showNumber = new Show(showNumberImpl);
-    var showBoolean = new Show(function (_14) {
-        if (_14) {
-            return "true";
-        };
-        if (!_14) {
-            return "false";
-        };
-        throw new Error("Failed pattern match");
-    });
     var show = function (dict) {
         return dict.show;
-    };
-    var showArray = function (__dict_Show_3) {
-        return new Show(showArrayImpl(show(__dict_Show_3)));
-    };
-    var shl = function (dict) {
-        return dict.shl;
     };
     var semigroupoidArr = new Semigroupoid(function (f) {
         return function (g) {
@@ -235,44 +86,14 @@ PS.Prelude = (function () {
             };
         };
     });
-    var semigroupUnit = new Semigroup(function (_28) {
-        return function (_29) {
-            return {};
-        };
-    });
     var semigroupString = new Semigroup(concatString);
-    var semigroupArr = function (__dict_Semigroup_4) {
-        return new Semigroup(function (f) {
-            return function (g) {
-                return function (x) {
-                    return $less$greater(__dict_Semigroup_4)(f(x))(g(x));
-                };
-            };
-        });
-    };
     var pure = function (dict) {
         return dict.pure;
     };
     var $$return = function (__dict_Monad_5) {
         return pure(__dict_Monad_5["__superclass_Prelude.Applicative_0"]());
     };
-    var otherwise = true;
     var numNumber = new Num(numMod, numMul, numAdd, numSub, numDiv, numNegate);
-    var not = function (dict) {
-        return dict.not;
-    };
-    var negate = function (dict) {
-        return dict.negate;
-    };
-    var liftM1 = function (__dict_Monad_6) {
-        return function (f) {
-            return function (a) {
-                return $greater$greater$eq(__dict_Monad_6["__superclass_Prelude.Bind_1"]())(a)(function (_0) {
-                    return $$return(__dict_Monad_6)(f(_0));
-                });
-            };
-        };
-    };
     var liftA1 = function (__dict_Applicative_7) {
         return function (f) {
             return function (a) {
@@ -280,217 +101,6 @@ PS.Prelude = (function () {
             };
         };
     };
-    var id = function (dict) {
-        return dict.id;
-    };
-    var functorArr = new Functor($less$less$less(semigroupoidArr));
-    var flip = function (f) {
-        return function (b) {
-            return function (a) {
-                return f(a)(b);
-            };
-        };
-    };
-    var eqUnit = new Eq(function (_17) {
-        return function (_18) {
-            return false;
-        };
-    }, function (_15) {
-        return function (_16) {
-            return true;
-        };
-    });
-    var ordUnit = new Ord(function () {
-        return eqUnit;
-    }, function (_22) {
-        return function (_23) {
-            return EQ.value;
-        };
-    });
-    var eqString = new Eq(refIneq, refEq);
-    var ordString = new Ord(function () {
-        return eqString;
-    }, unsafeCompare);
-    var eqNumber = new Eq(refIneq, refEq);
-    var ordNumber = new Ord(function () {
-        return eqNumber;
-    }, unsafeCompare);
-    var eqBoolean = new Eq(refIneq, refEq);
-    var ordBoolean = new Ord(function () {
-        return eqBoolean;
-    }, function (_24) {
-        return function (_25) {
-            if (!_24 && !_25) {
-                return EQ.value;
-            };
-            if (!_24 && _25) {
-                return LT.value;
-            };
-            if (_24 && _25) {
-                return EQ.value;
-            };
-            if (_24 && !_25) {
-                return GT.value;
-            };
-            throw new Error("Failed pattern match");
-        };
-    });
-    var $$const = function (_9) {
-        return function (_10) {
-            return _9;
-        };
-    };
-    var $$void = function (__dict_Functor_9) {
-        return function (fa) {
-            return $less$dollar$greater(__dict_Functor_9)($$const(unit))(fa);
-        };
-    };
-    var complement = function (dict) {
-        return dict.complement;
-    };
-    var compare = function (dict) {
-        return dict.compare;
-    };
-    var $less = function (__dict_Ord_11) {
-        return function (a1) {
-            return function (a2) {
-                var _133 = compare(__dict_Ord_11)(a1)(a2);
-                if (_133 instanceof LT) {
-                    return true;
-                };
-                return false;
-            };
-        };
-    };
-    var $less$eq = function (__dict_Ord_12) {
-        return function (a1) {
-            return function (a2) {
-                var _134 = compare(__dict_Ord_12)(a1)(a2);
-                if (_134 instanceof GT) {
-                    return false;
-                };
-                return true;
-            };
-        };
-    };
-    var $greater = function (__dict_Ord_13) {
-        return function (a1) {
-            return function (a2) {
-                var _135 = compare(__dict_Ord_13)(a1)(a2);
-                if (_135 instanceof GT) {
-                    return true;
-                };
-                return false;
-            };
-        };
-    };
-    var $greater$eq = function (__dict_Ord_14) {
-        return function (a1) {
-            return function (a2) {
-                var _136 = compare(__dict_Ord_14)(a1)(a2);
-                if (_136 instanceof LT) {
-                    return false;
-                };
-                return true;
-            };
-        };
-    };
-    var categoryArr = new Category(function () {
-        return semigroupoidArr;
-    }, function (x) {
-        return x;
-    });
-    var boolLikeBoolean = new BoolLike(boolAnd, boolNot, boolOr);
-    var eqArray = function (__dict_Eq_8) {
-        return new Eq(function (xs) {
-            return function (ys) {
-                return not(boolLikeBoolean)($eq$eq(eqArray(__dict_Eq_8))(xs)(ys));
-            };
-        }, function (xs) {
-            return function (ys) {
-                return eqArrayImpl($eq$eq(__dict_Eq_8))(xs)(ys);
-            };
-        });
-    };
-    var ordArray = function (__dict_Ord_10) {
-        return new Ord(function () {
-            return eqArray(__dict_Ord_10["__superclass_Prelude.Eq_0"]());
-        }, function (_26) {
-            return function (_27) {
-                if (_26.length === 0 && _27.length === 0) {
-                    return EQ.value;
-                };
-                if (_26.length === 0) {
-                    return LT.value;
-                };
-                if (_27.length === 0) {
-                    return GT.value;
-                };
-                if (_26.length >= 1) {
-                    var _143 = _26.slice(1);
-                    if (_27.length >= 1) {
-                        var _141 = _27.slice(1);
-                        var _139 = compare(__dict_Ord_10)(_26[0])(_27[0]);
-                        if (_139 instanceof EQ) {
-                            return compare(ordArray(__dict_Ord_10))(_143)(_141);
-                        };
-                        return _139;
-                    };
-                };
-                throw new Error("Failed pattern match");
-            };
-        });
-    };
-    var eqOrdering = new Eq(function (x) {
-        return function (y) {
-            return not(boolLikeBoolean)($eq$eq(eqOrdering)(x)(y));
-        };
-    }, function (_19) {
-        return function (_20) {
-            if (_19 instanceof LT && _20 instanceof LT) {
-                return true;
-            };
-            if (_19 instanceof GT && _20 instanceof GT) {
-                return true;
-            };
-            if (_19 instanceof EQ && _20 instanceof EQ) {
-                return true;
-            };
-            return false;
-        };
-    });
-    var bitsNumber = new Bits(numAnd, numXor, numOr, numComplement, numShl, numShr, numZshr);
-    var asTypeOf = function (_11) {
-        return function (_12) {
-            return _11;
-        };
-    };
-    var applyArr = new Apply(function (f) {
-        return function (g) {
-            return function (x) {
-                return f(x)(g(x));
-            };
-        };
-    }, function () {
-        return functorArr;
-    });
-    var bindArr = new Bind(function (m) {
-        return function (f) {
-            return function (x) {
-                return f(m(x))(x);
-            };
-        };
-    }, function () {
-        return applyArr;
-    });
-    var applicativeArr = new Applicative(function () {
-        return applyArr;
-    }, $$const);
-    var monadArr = new Monad(function () {
-        return applicativeArr;
-    }, function () {
-        return bindArr;
-    });
     var ap = function (__dict_Monad_15) {
         return function (f) {
             return function (a) {
@@ -503,117 +113,37 @@ PS.Prelude = (function () {
         };
     };
     return {
-        "#": $hash, 
         "$": $dollar, 
-        "%": $percent, 
-        "&&": $amp$amp, 
-        "*": $times, 
         "+": $plus, 
         "++": $plus$plus, 
-        "-": $minus, 
-        ".&.": $dot$amp$dot, 
-        ".^.": $dot$up$dot, 
-        ".|.": $dot$bar$dot, 
-        "/": $div, 
-        "/=": $div$eq, 
-        ":": $colon, 
-        "<": $less, 
-        "<#>": $less$hash$greater, 
-        "<$>": $less$dollar$greater, 
         "<*>": $less$times$greater, 
         "<<<": $less$less$less, 
-        "<=": $less$eq, 
         "<>": $less$greater, 
-        "==": $eq$eq, 
-        ">": $greater, 
-        ">=": $greater$eq, 
         ">>=": $greater$greater$eq, 
-        ">>>": $greater$greater$greater, 
         Applicative: Applicative, 
         Apply: Apply, 
         Bind: Bind, 
-        Bits: Bits, 
-        BoolLike: BoolLike, 
-        Category: Category, 
-        EQ: EQ, 
-        Eq: Eq, 
         Functor: Functor, 
-        GT: GT, 
-        LT: LT, 
         Monad: Monad, 
         Num: Num, 
-        Ord: Ord, 
         Semigroup: Semigroup, 
         Semigroupoid: Semigroupoid, 
         Show: Show, 
         Unit: Unit, 
         ap: ap, 
-        applicativeArr: applicativeArr, 
-        applyArr: applyArr, 
-        asTypeOf: asTypeOf, 
-        bindArr: bindArr, 
-        bitsNumber: bitsNumber, 
-        boolLikeBoolean: boolLikeBoolean, 
-        categoryArr: categoryArr, 
-        compare: compare, 
-        complement: complement, 
-        cons: cons, 
-        "const": $$const, 
-        eqArray: eqArray, 
-        eqBoolean: eqBoolean, 
-        eqNumber: eqNumber, 
-        eqOrdering: eqOrdering, 
-        eqString: eqString, 
-        eqUnit: eqUnit, 
-        flip: flip, 
-        functorArr: functorArr, 
-        id: id, 
         liftA1: liftA1, 
-        liftM1: liftM1, 
-        monadArr: monadArr, 
-        negate: negate, 
-        not: not, 
         numNumber: numNumber, 
-        ordArray: ordArray, 
-        ordBoolean: ordBoolean, 
-        ordNumber: ordNumber, 
-        ordString: ordString, 
-        ordUnit: ordUnit, 
-        otherwise: otherwise, 
         pure: pure, 
-        refEq: refEq, 
-        refIneq: refIneq, 
         "return": $$return, 
-        semigroupArr: semigroupArr, 
         semigroupString: semigroupString, 
-        semigroupUnit: semigroupUnit, 
         semigroupoidArr: semigroupoidArr, 
-        shl: shl, 
         show: show, 
-        showArray: showArray, 
-        showBoolean: showBoolean, 
         showNumber: showNumber, 
-        showOrdering: showOrdering, 
-        showString: showString, 
-        showUnit: showUnit, 
-        shr: shr, 
-        unit: unit, 
-        "void": $$void, 
-        zshr: zshr, 
-        "||": $bar$bar
+        unit: unit
     };
 })();
 var PS = PS || {};
-PS.Prelude_Unsafe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function unsafeIndex(xs) {  return function(n) {    return xs[n];  };};
-    return {
-        unsafeIndex: unsafeIndex
-    };
-})();
-var PS = PS || {};
-PS.Html_VirtualDOM = (function () {
+PS.Data_Html_Internal_VirtualDOM = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     
@@ -664,31 +194,30 @@ var virtualDOM =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff    = __webpack_require__(4);
-	var patch   = __webpack_require__(5);
-	var create  = __webpack_require__(6);
-	var VNode   = __webpack_require__(7);
-	var VText   = __webpack_require__(8);
+	var diff    = __webpack_require__(19);
+	var patch   = __webpack_require__(25);
+	var create  = __webpack_require__(18);
+	var VNode   = __webpack_require__(32);
+	var VText   = __webpack_require__(33);
+	var isHook  = __webpack_require__(3);
 
-	var dsHook = __webpack_require__(9);
-	var evHook = __webpack_require__(10);
+	var evHook = __webpack_require__(30);
+	var softSetHook = __webpack_require__(31);
 
-	var delegator = __webpack_require__(3);
-
-	var thunk = __webpack_require__(1);
-	var partial = __webpack_require__(2);
+	var thunk = __webpack_require__(16);
+	var partial = __webpack_require__(7);
 
 	module.exports =
-	  { diff:   diff
-	  , patch:  patch
-	  , create: create
-	  , vnode:  VNode
-	  , vtext:  VText
-	  , dsHook: dsHook
-	  , evHook: evHook
-	  , delegator: delegator()
-	  , thunk: thunk
-	  , partial: partial
+	  { diff:        diff
+	  , patch:       patch
+	  , create:      create
+	  , vnode:       VNode
+	  , vtext:       VText
+	  , evHook:      evHook
+	  , isHook:      isHook
+	  , softSetHook: softSetHook
+	  , thunk:       thunk
+	  , partial:     partial
 	  }
 
 
@@ -696,17 +225,75 @@ var virtualDOM =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Partial = __webpack_require__(2);
+	module.exports = isWidget
 
-	module.exports = Partial();
+	function isWidget(w) {
+	    return w && w.type === "Widget"
+	}
 
 
 /***/ },
 /* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var shallowEq = __webpack_require__(11);
-	var Thunk = __webpack_require__(12);
+	module.exports = "1"
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = isHook
+
+	function isHook(hook) {
+	    return hook && typeof hook.hook === "function" &&
+	        !hook.hasOwnProperty("hook")
+	}
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var version = __webpack_require__(2)
+
+	module.exports = isVirtualNode
+
+	function isVirtualNode(x) {
+	    return x && x.type === "VirtualNode" && x.version === version
+	}
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = isThunk
+
+	function isThunk(t) {
+	    return t && t.type === "Thunk"
+	}
+
+
+/***/ },
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var version = __webpack_require__(2)
+
+	module.exports = isVirtualText
+
+	function isVirtualText(x) {
+	    return x && x.type === "VirtualText" && x.version === version
+	}
+
+
+/***/ },
+/* 7 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var shallowEq = __webpack_require__(17);
+	var Thunk = __webpack_require__(15);
 
 	module.exports = createPartial;
 
@@ -740,107 +327,929 @@ var virtualDOM =
 
 
 /***/ },
-/* 3 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Individual = __webpack_require__(22)
-	var cuid = __webpack_require__(34)
-	var globalDocument = __webpack_require__(27)
+	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
+	    typeof window !== 'undefined' ? window : {}
+	var minDoc = __webpack_require__(35);
 
-	var DOMDelegator = __webpack_require__(13)
+	if (typeof document !== 'undefined') {
+	    module.exports = document;
+	} else {
+	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
 
-	var versionKey = "12"
-	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
-	var cacheTokenKey = "__DOM_DELEGATOR_CACHE_TOKEN@" + versionKey
-	var delegatorCache = Individual(cacheKey, {
-	    delegators: {}
-	})
-	var commonEvents = [
-	    "blur", "change", "click",  "contextmenu", "dblclick",
-	    "error","focus", "focusin", "focusout", "input", "keydown",
-	    "keypress", "keyup", "load", "mousedown", "mouseup",
-	    "resize", "select", "submit", "touchcancel",
-	    "touchend", "touchstart", "unload"
-	]
-
-	/*  Delegator is a thin wrapper around a singleton `DOMDelegator`
-	        instance.
-
-	    Only one DOMDelegator should exist because we do not want
-	        duplicate event listeners bound to the DOM.
-
-	    `Delegator` will also `listenTo()` all events unless
-	        every caller opts out of it
-	*/
-	module.exports = Delegator
-
-	function Delegator(opts) {
-	    opts = opts || {}
-	    var document = opts.document || globalDocument
-
-	    var cacheKey = document[cacheTokenKey]
-
-	    if (!cacheKey) {
-	        cacheKey =
-	            document[cacheTokenKey] = cuid()
+	    if (!doccy) {
+	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
 	    }
 
-	    var delegator = delegatorCache.delegators[cacheKey]
+	    module.exports = doccy;
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
-	    if (!delegator) {
-	        delegator = delegatorCache.delegators[cacheKey] =
-	            new DOMDelegator(document)
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	module.exports = function isObject(x) {
+		return typeof x === "object" && x !== null;
+	};
+
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var nativeIsArray = Array.isArray
+	var toString = Object.prototype.toString
+
+	module.exports = nativeIsArray || isArray
+
+	function isArray(obj) {
+	    return toString.call(obj) === "[object Array]"
+	}
+
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isObject = __webpack_require__(9)
+	var isHook = __webpack_require__(3)
+
+	module.exports = applyProperties
+
+	function applyProperties(node, props, previous) {
+	    for (var propName in props) {
+	        var propValue = props[propName]
+
+	        if (propValue === undefined) {
+	            removeProperty(node, props, previous, propName);
+	        } else if (isHook(propValue)) {
+	            propValue.hook(node,
+	                propName,
+	                previous ? previous[propName] : undefined)
+	        } else {
+	            if (isObject(propValue)) {
+	                patchObject(node, props, previous, propName, propValue);
+	            } else if (propValue !== undefined) {
+	                node[propName] = propValue
+	            }
+	        }
+	    }
+	}
+
+	function removeProperty(node, props, previous, propName) {
+	    if (previous) {
+	        var previousValue = previous[propName]
+
+	        if (!isHook(previousValue)) {
+	            if (propName === "attributes") {
+	                for (var attrName in previousValue) {
+	                    node.removeAttribute(attrName)
+	                }
+	            } else if (propName === "style") {
+	                for (var i in previousValue) {
+	                    node.style[i] = ""
+	                }
+	            } else if (typeof previousValue === "string") {
+	                node[propName] = ""
+	            } else {
+	                node[propName] = null
+	            }
+	        } else if (previousValue.unhook) {
+	            previousValue.unhook(node, propName)
+	        }
+	    }
+	}
+
+	function patchObject(node, props, previous, propName, propValue) {
+	    var previousValue = previous ? previous[propName] : undefined
+
+	    // Set attributes
+	    if (propName === "attributes") {
+	        for (var attrName in propValue) {
+	            var attrValue = propValue[attrName]
+
+	            if (attrValue === undefined) {
+	                node.removeAttribute(attrName)
+	            } else {
+	                node.setAttribute(attrName, attrValue)
+	            }
+	        }
+
+	        return
 	    }
 
-	    if (opts.defaultEvents !== false) {
-	        for (var i = 0; i < commonEvents.length; i++) {
-	            delegator.listenTo(commonEvents[i])
+	    if(previousValue && isObject(previousValue) &&
+	        getPrototype(previousValue) !== getPrototype(propValue)) {
+	        node[propName] = propValue
+	        return
+	    }
+
+	    if (!isObject(node[propName])) {
+	        node[propName] = {}
+	    }
+
+	    var replacer = propName === "style" ? "" : undefined
+
+	    for (var k in propValue) {
+	        var value = propValue[k]
+	        node[propName][k] = (value === undefined) ? replacer : value
+	    }
+	}
+
+	function getPrototype(value) {
+	    if (Object.getPrototypeOf) {
+	        return Object.getPrototypeOf(value)
+	    } else if (value.__proto__) {
+	        return value.__proto__
+	    } else if (value.constructor) {
+	        return value.constructor.prototype
+	    }
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var document = __webpack_require__(8)
+
+	var applyProperties = __webpack_require__(11)
+
+	var isVNode = __webpack_require__(4)
+	var isVText = __webpack_require__(6)
+	var isWidget = __webpack_require__(1)
+	var handleThunk = __webpack_require__(13)
+
+	module.exports = createElement
+
+	function createElement(vnode, opts) {
+	    var doc = opts ? opts.document || document : document
+	    var warn = opts ? opts.warn : null
+
+	    vnode = handleThunk(vnode).a
+
+	    if (isWidget(vnode)) {
+	        return vnode.init()
+	    } else if (isVText(vnode)) {
+	        return doc.createTextNode(vnode.text)
+	    } else if (!isVNode(vnode)) {
+	        if (warn) {
+	            warn("Item is not a valid virtual dom node", vnode)
+	        }
+	        return null
+	    }
+
+	    var node = (vnode.namespace === null) ?
+	        doc.createElement(vnode.tagName) :
+	        doc.createElementNS(vnode.namespace, vnode.tagName)
+
+	    var props = vnode.properties
+	    applyProperties(node, props)
+
+	    var children = vnode.children
+
+	    for (var i = 0; i < children.length; i++) {
+	        var childNode = createElement(children[i], opts)
+	        if (childNode) {
+	            node.appendChild(childNode)
 	        }
 	    }
 
-	    return delegator
+	    return node
 	}
 
-	Delegator.allocateHandle = DOMDelegator.allocateHandle;
-	Delegator.transformHandle = DOMDelegator.transformHandle;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isVNode = __webpack_require__(4)
+	var isVText = __webpack_require__(6)
+	var isWidget = __webpack_require__(1)
+	var isThunk = __webpack_require__(5)
+
+	module.exports = handleThunk
+
+	function handleThunk(a, b) {
+	    var renderedA = a
+	    var renderedB = b
+
+	    if (isThunk(b)) {
+	        renderedB = renderThunk(b, a)
+	    }
+
+	    if (isThunk(a)) {
+	        renderedA = renderThunk(a, null)
+	    }
+
+	    return {
+	        a: renderedA,
+	        b: renderedB
+	    }
+	}
+
+	function renderThunk(thunk, previous) {
+	    var renderedThunk = thunk.vnode
+
+	    if (!renderedThunk) {
+	        renderedThunk = thunk.vnode = thunk.render(previous)
+	    }
+
+	    if (!(isVNode(renderedThunk) ||
+	            isVText(renderedThunk) ||
+	            isWidget(renderedThunk))) {
+	        throw new Error("thunk did not return a valid node");
+	    }
+
+	    return renderedThunk
+	}
 
 
 /***/ },
-/* 4 */
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(19)
+	var version = __webpack_require__(2)
 
-	module.exports = diff
+	VirtualPatch.NONE = 0
+	VirtualPatch.VTEXT = 1
+	VirtualPatch.VNODE = 2
+	VirtualPatch.WIDGET = 3
+	VirtualPatch.PROPS = 4
+	VirtualPatch.ORDER = 5
+	VirtualPatch.INSERT = 6
+	VirtualPatch.REMOVE = 7
+	VirtualPatch.THUNK = 8
+
+	module.exports = VirtualPatch
+
+	function VirtualPatch(type, vNode, patch) {
+	    this.type = Number(type)
+	    this.vNode = vNode
+	    this.patch = patch
+	}
+
+	VirtualPatch.prototype.version = version
+	VirtualPatch.prototype.type = "VirtualPatch"
 
 
 /***/ },
-/* 5 */
+/* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var patch = __webpack_require__(20)
+	function Thunk(fn, args, key, eqArgs) {
+	    this.fn = fn;
+	    this.args = args;
+	    this.key = key;
+	    this.eqArgs = eqArgs;
+	}
 
-	module.exports = patch
+	Thunk.prototype.type = 'Thunk';
+	Thunk.prototype.render = render;
+	module.exports = Thunk;
+
+	function shouldUpdate(current, previous) {
+	    if (!current || !previous || current.fn !== previous.fn) {
+	        return true;
+	    }
+
+	    var cargs = current.args;
+	    var pargs = previous.args;
+
+	    return !current.eqArgs(cargs, pargs);
+	}
+
+	function render(previous) {
+	    if (shouldUpdate(this, previous)) {
+	        return this.fn.apply(null, this.args);
+	    } else {
+	        return previous.vnode;
+	    }
+	}
 
 
 /***/ },
-/* 6 */
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createElement = __webpack_require__(21)
+	var Partial = __webpack_require__(7);
+
+	module.exports = Partial();
+
+
+/***/ },
+/* 17 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = shallowEq;
+
+	function shallowEq(currentArgs, previousArgs) {
+	    if (currentArgs.length === 0 && previousArgs.length === 0) {
+	        return true;
+	    }
+
+	    if (currentArgs.length !== previousArgs.length) {
+	        return false;
+	    }
+
+	    var len = currentArgs.length;
+
+	    for (var i = 0; i < len; i++) {
+	        if (currentArgs[i] !== previousArgs[i]) {
+	            return false;
+	        }
+	    }
+
+	    return true;
+	}
+
+
+/***/ },
+/* 18 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createElement = __webpack_require__(12)
 
 	module.exports = createElement
 
 
 /***/ },
-/* 7 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(14)
-	var isVNode = __webpack_require__(15)
-	var isWidget = __webpack_require__(16)
-	var isThunk = __webpack_require__(17)
-	var isVHook = __webpack_require__(18)
+	var diff = __webpack_require__(34)
+
+	module.exports = diff
+
+
+/***/ },
+/* 20 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = createHash
+
+	function createHash(elem) {
+	    var attributes = elem.attributes
+	    var hash = {}
+
+	    if (attributes === null || attributes === undefined) {
+	        return hash
+	    }
+
+	    for (var i = 0; i < attributes.length; i++) {
+	        var attr = attributes[i]
+
+	        if (attr.name.substr(0,5) !== "data-") {
+	            continue
+	        }
+
+	        hash[attr.name.substr(5)] = attr.value
+	    }
+
+	    return hash
+	}
+
+
+/***/ },
+/* 21 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createStore = __webpack_require__(23)
+	var Individual = __webpack_require__(22)
+
+	var createHash = __webpack_require__(20)
+
+	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
+
+	module.exports = DataSet
+
+	function DataSet(elem) {
+	    var store = hashStore(elem)
+
+	    if (!store.hash) {
+	        store.hash = createHash(elem)
+	    }
+
+	    return store.hash
+	}
+
+
+/***/ },
+/* 22 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
+	    window : typeof global !== 'undefined' ?
+	    global : {};
+
+	module.exports = Individual
+
+	function Individual(key, value) {
+	    if (root[key]) {
+	        return root[key]
+	    }
+
+	    Object.defineProperty(root, key, {
+	        value: value
+	        , configurable: true
+	    })
+
+	    return value
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
+/***/ },
+/* 23 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var hiddenStore = __webpack_require__(24);
+
+	module.exports = createStore;
+
+	function createStore() {
+	    var key = {};
+
+	    return function (obj) {
+	        if (typeof obj !== 'object' || obj === null) {
+	            throw new Error('Weakmap-shim: Key must be object')
+	        }
+
+	        var store = obj.valueOf(key);
+	        return store && store.identity === key ?
+	            store : hiddenStore(obj, key);
+	    };
+	}
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = hiddenStore;
+
+	function hiddenStore(obj, key) {
+	    var store = { identity: key };
+	    var valueOf = obj.valueOf;
+
+	    Object.defineProperty(obj, "valueOf", {
+	        value: function (value) {
+	            return value !== key ?
+	                valueOf.apply(this, arguments) : store;
+	        },
+	        writable: true
+	    });
+
+	    return store;
+	}
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var patch = __webpack_require__(28)
+
+	module.exports = patch
+
+
+/***/ },
+/* 26 */
+/***/ function(module, exports, __webpack_require__) {
+
+	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
+	// We don't want to read all of the DOM nodes in the tree so we use
+	// the in-order tree indexing to eliminate recursion down certain branches.
+	// We only recurse into a DOM node if we know that it contains a child of
+	// interest.
+
+	var noChild = {}
+
+	module.exports = domIndex
+
+	function domIndex(rootNode, tree, indices, nodes) {
+	    if (!indices || indices.length === 0) {
+	        return {}
+	    } else {
+	        indices.sort(ascending)
+	        return recurse(rootNode, tree, indices, nodes, 0)
+	    }
+	}
+
+	function recurse(rootNode, tree, indices, nodes, rootIndex) {
+	    nodes = nodes || {}
+
+
+	    if (rootNode) {
+	        if (indexInRange(indices, rootIndex, rootIndex)) {
+	            nodes[rootIndex] = rootNode
+	        }
+
+	        var vChildren = tree.children
+
+	        if (vChildren) {
+
+	            var childNodes = rootNode.childNodes
+
+	            for (var i = 0; i < tree.children.length; i++) {
+	                rootIndex += 1
+
+	                var vChild = vChildren[i] || noChild
+	                var nextIndex = rootIndex + (vChild.count || 0)
+
+	                // skip recursion down the tree if there are no nodes down here
+	                if (indexInRange(indices, rootIndex, nextIndex)) {
+	                    recurse(childNodes[i], vChild, indices, nodes, rootIndex)
+	                }
+
+	                rootIndex = nextIndex
+	            }
+	        }
+	    }
+
+	    return nodes
+	}
+
+	// Binary search for an index in the interval [left, right]
+	function indexInRange(indices, left, right) {
+	    if (indices.length === 0) {
+	        return false
+	    }
+
+	    var minIndex = 0
+	    var maxIndex = indices.length - 1
+	    var currentIndex
+	    var currentItem
+
+	    while (minIndex <= maxIndex) {
+	        currentIndex = ((maxIndex + minIndex) / 2) >> 0
+	        currentItem = indices[currentIndex]
+
+	        if (minIndex === maxIndex) {
+	            return currentItem >= left && currentItem <= right
+	        } else if (currentItem < left) {
+	            minIndex = currentIndex + 1
+	        } else  if (currentItem > right) {
+	            maxIndex = currentIndex - 1
+	        } else {
+	            return true
+	        }
+	    }
+
+	    return false;
+	}
+
+	function ascending(a, b) {
+	    return a > b ? 1 : -1
+	}
+
+
+/***/ },
+/* 27 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var applyProperties = __webpack_require__(11)
+
+	var isWidget = __webpack_require__(1)
+	var VPatch = __webpack_require__(14)
+
+	var render = __webpack_require__(12)
+	var updateWidget = __webpack_require__(29)
+
+	module.exports = applyPatch
+
+	function applyPatch(vpatch, domNode, renderOptions) {
+	    var type = vpatch.type
+	    var vNode = vpatch.vNode
+	    var patch = vpatch.patch
+
+	    switch (type) {
+	        case VPatch.REMOVE:
+	            return removeNode(domNode, vNode)
+	        case VPatch.INSERT:
+	            return insertNode(domNode, patch, renderOptions)
+	        case VPatch.VTEXT:
+	            return stringPatch(domNode, vNode, patch, renderOptions)
+	        case VPatch.WIDGET:
+	            return widgetPatch(domNode, vNode, patch, renderOptions)
+	        case VPatch.VNODE:
+	            return vNodePatch(domNode, vNode, patch, renderOptions)
+	        case VPatch.ORDER:
+	            reorderChildren(domNode, patch)
+	            return domNode
+	        case VPatch.PROPS:
+	            applyProperties(domNode, patch, vNode.properties)
+	            return domNode
+	        case VPatch.THUNK:
+	            return replaceRoot(domNode,
+	                renderOptions.patch(domNode, patch, renderOptions))
+	        default:
+	            return domNode
+	    }
+	}
+
+	function removeNode(domNode, vNode) {
+	    var parentNode = domNode.parentNode
+
+	    if (parentNode) {
+	        parentNode.removeChild(domNode)
+	    }
+
+	    destroyWidget(domNode, vNode);
+
+	    return null
+	}
+
+	function insertNode(parentNode, vNode, renderOptions) {
+	    var newNode = render(vNode, renderOptions)
+
+	    if (parentNode) {
+	        parentNode.appendChild(newNode)
+	    }
+
+	    return parentNode
+	}
+
+	function stringPatch(domNode, leftVNode, vText, renderOptions) {
+	    var newNode
+
+	    if (domNode.nodeType === 3) {
+	        domNode.replaceData(0, domNode.length, vText.text)
+	        newNode = domNode
+	    } else {
+	        var parentNode = domNode.parentNode
+	        newNode = render(vText, renderOptions)
+
+	        if (parentNode) {
+	            parentNode.replaceChild(newNode, domNode)
+	        }
+	    }
+
+	    return newNode
+	}
+
+	function widgetPatch(domNode, leftVNode, widget, renderOptions) {
+	    var updating = updateWidget(leftVNode, widget)
+	    var newNode
+
+	    if (updating) {
+	        newNode = widget.update(leftVNode, domNode) || domNode
+	    } else {
+	        newNode = render(widget, renderOptions)
+	    }
+
+	    var parentNode = domNode.parentNode
+
+	    if (parentNode && newNode !== domNode) {
+	        parentNode.replaceChild(newNode, domNode)
+	    }
+
+	    if (!updating) {
+	        destroyWidget(domNode, leftVNode)
+	    }
+
+	    return newNode
+	}
+
+	function vNodePatch(domNode, leftVNode, vNode, renderOptions) {
+	    var parentNode = domNode.parentNode
+	    var newNode = render(vNode, renderOptions)
+
+	    if (parentNode) {
+	        parentNode.replaceChild(newNode, domNode)
+	    }
+
+	    return newNode
+	}
+
+	function destroyWidget(domNode, w) {
+	    if (typeof w.destroy === "function" && isWidget(w)) {
+	        w.destroy(domNode)
+	    }
+	}
+
+	function reorderChildren(domNode, bIndex) {
+	    var children = []
+	    var childNodes = domNode.childNodes
+	    var len = childNodes.length
+	    var i
+	    var reverseIndex = bIndex.reverse
+
+	    for (i = 0; i < len; i++) {
+	        children.push(domNode.childNodes[i])
+	    }
+
+	    var insertOffset = 0
+	    var move
+	    var node
+	    var insertNode
+	    for (i = 0; i < len; i++) {
+	        move = bIndex[i]
+	        if (move !== undefined && move !== i) {
+	            // the element currently at this index will be moved later so increase the insert offset
+	            if (reverseIndex[i] > i) {
+	                insertOffset++
+	            }
+
+	            node = children[move]
+	            insertNode = childNodes[i + insertOffset] || null
+	            if (node !== insertNode) {
+	                domNode.insertBefore(node, insertNode)
+	            }
+
+	            // the moved element came from the front of the array so reduce the insert offset
+	            if (move < i) {
+	                insertOffset--
+	            }
+	        }
+
+	        // element at this index is scheduled to be removed so increase insert offset
+	        if (i in bIndex.removes) {
+	            insertOffset++
+	        }
+	    }
+	}
+
+	function replaceRoot(oldRoot, newRoot) {
+	    if (oldRoot && newRoot && oldRoot !== newRoot && oldRoot.parentNode) {
+	        console.log(oldRoot)
+	        oldRoot.parentNode.replaceChild(newRoot, oldRoot)
+	    }
+
+	    return newRoot;
+	}
+
+
+/***/ },
+/* 28 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var document = __webpack_require__(8)
+	var isArray = __webpack_require__(10)
+
+	var domIndex = __webpack_require__(26)
+	var patchOp = __webpack_require__(27)
+	module.exports = patch
+
+	function patch(rootNode, patches) {
+	    return patchRecursive(rootNode, patches)
+	}
+
+	function patchRecursive(rootNode, patches, renderOptions) {
+	    var indices = patchIndices(patches)
+
+	    if (indices.length === 0) {
+	        return rootNode
+	    }
+
+	    var index = domIndex(rootNode, patches.a, indices)
+	    var ownerDocument = rootNode.ownerDocument
+
+	    if (!renderOptions) {
+	        renderOptions = { patch: patchRecursive }
+	        if (ownerDocument !== document) {
+	            renderOptions.document = ownerDocument
+	        }
+	    }
+
+	    for (var i = 0; i < indices.length; i++) {
+	        var nodeIndex = indices[i]
+	        rootNode = applyPatch(rootNode,
+	            index[nodeIndex],
+	            patches[nodeIndex],
+	            renderOptions)
+	    }
+
+	    return rootNode
+	}
+
+	function applyPatch(rootNode, domNode, patchList, renderOptions) {
+	    if (!domNode) {
+	        return rootNode
+	    }
+
+	    var newNode
+
+	    if (isArray(patchList)) {
+	        for (var i = 0; i < patchList.length; i++) {
+	            newNode = patchOp(patchList[i], domNode, renderOptions)
+
+	            if (domNode === rootNode) {
+	                rootNode = newNode
+	            }
+	        }
+	    } else {
+	        newNode = patchOp(patchList, domNode, renderOptions)
+
+	        if (domNode === rootNode) {
+	            rootNode = newNode
+	        }
+	    }
+
+	    return rootNode
+	}
+
+	function patchIndices(patches) {
+	    var indices = []
+
+	    for (var key in patches) {
+	        if (key !== "a") {
+	            indices.push(Number(key))
+	        }
+	    }
+
+	    return indices
+	}
+
+
+/***/ },
+/* 29 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isWidget = __webpack_require__(1)
+
+	module.exports = updateWidget
+
+	function updateWidget(a, b) {
+	    if (isWidget(a) && isWidget(b)) {
+	        if ("name" in a && "name" in b) {
+	            return a.id === b.id
+	        } else {
+	            return a.init === b.init
+	        }
+	    }
+
+	    return false
+	}
+
+
+/***/ },
+/* 30 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DataSet = __webpack_require__(21)
+
+	module.exports = DataSetHook;
+
+	function DataSetHook(value) {
+	    if (!(this instanceof DataSetHook)) {
+	        return new DataSetHook(value);
+	    }
+
+	    this.value = value;
+	}
+
+	DataSetHook.prototype.hook = function (node, propertyName) {
+	    var ds = DataSet(node)
+	    var propName = propertyName.substr(3)
+
+	    ds[propName] = this.value;
+	};
+
+	DataSetHook.prototype.unhook = function(node, propertyName) {
+	    var ds = DataSet(node);
+	    var propName = propertyName.substr(3);
+
+	    ds[propName] = undefined;
+	}
+
+
+/***/ },
+/* 31 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = SoftSetHook;
+
+	function SoftSetHook(value) {
+	    if (!(this instanceof SoftSetHook)) {
+	        return new SoftSetHook(value);
+	    }
+
+	    this.value = value;
+	}
+
+	SoftSetHook.prototype.hook = function (node, propertyName) {
+	    if (node[propertyName] !== this.value) {
+	        node[propertyName] = this.value;
+	    }
+	};
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var version = __webpack_require__(2)
+	var isVNode = __webpack_require__(4)
+	var isWidget = __webpack_require__(1)
+	var isThunk = __webpack_require__(5)
+	var isVHook = __webpack_require__(3)
 
 	module.exports = VirtualNode
 
@@ -911,10 +1320,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 8 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var version = __webpack_require__(14)
+	var version = __webpack_require__(2)
 
 	module.exports = VirtualText
 
@@ -927,383 +1336,19 @@ var virtualDOM =
 
 
 /***/ },
-/* 9 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(26)
-
-	module.exports = DataSetHook;
-
-	function DataSetHook(value) {
-	    if (!(this instanceof DataSetHook)) {
-	        return new DataSetHook(value);
-	    }
-
-	    this.value = value;
-	}
-
-	DataSetHook.prototype.hook = function (node, propertyName) {
-	    var ds = DataSet(node)
-	    var propName = propertyName.substr(5)
-
-	    ds[propName] = this.value;
-	};
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(26)
-
-	module.exports = DataSetHook;
-
-	function DataSetHook(value) {
-	    if (!(this instanceof DataSetHook)) {
-	        return new DataSetHook(value);
-	    }
-
-	    this.value = value;
-	}
-
-	DataSetHook.prototype.hook = function (node, propertyName) {
-	    var ds = DataSet(node)
-	    var propName = propertyName.substr(3)
-
-	    ds[propName] = this.value;
-	};
-
-	DataSetHook.prototype.unhook = function(node, propertyName) {
-	    var ds = DataSet(node);
-	    var propName = propertyName.substr(3);
-
-	    ds[propName] = undefined;
-	}
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = shallowEq;
-
-	function shallowEq(currentArgs, previousArgs) {
-	    if (currentArgs.length === 0 && previousArgs.length === 0) {
-	        return true;
-	    }
-
-	    if (currentArgs.length !== previousArgs.length) {
-	        return false;
-	    }
-
-	    var len = currentArgs.length;
-
-	    for (var i = 0; i < len; i++) {
-	        if (currentArgs[i] !== previousArgs[i]) {
-	            return false;
-	        }
-	    }
-
-	    return true;
-	}
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	function Thunk(fn, args, key, eqArgs) {
-	    this.fn = fn;
-	    this.args = args;
-	    this.key = key;
-	    this.eqArgs = eqArgs;
-	}
-
-	Thunk.prototype.type = 'Thunk';
-	Thunk.prototype.render = render;
-	module.exports = Thunk;
-
-	function shouldUpdate(current, previous) {
-	    if (!current || !previous || current.fn !== previous.fn) {
-	        return true;
-	    }
-
-	    var cargs = current.args;
-	    var pargs = previous.args;
-
-	    return !current.eqArgs(cargs, pargs);
-	}
-
-	function render(previous) {
-	    if (shouldUpdate(this, previous)) {
-	        return this.fn.apply(null, this.args);
-	    } else {
-	        return previous.vnode;
-	    }
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var globalDocument = __webpack_require__(27)
-	var DataSet = __webpack_require__(35)
-	var createStore = __webpack_require__(38)
-
-	var addEvent = __webpack_require__(23)
-	var removeEvent = __webpack_require__(24)
-	var ProxyEvent = __webpack_require__(25)
-
-	var HANDLER_STORE = createStore()
-
-	module.exports = DOMDelegator
-
-	function DOMDelegator(document) {
-	    if (!(this instanceof DOMDelegator)) {
-	        return new DOMDelegator(document);
-	    }
-
-	    document = document || globalDocument
-
-	    this.target = document.documentElement
-	    this.events = {}
-	    this.rawEventListeners = {}
-	    this.globalListeners = {}
-	}
-
-	DOMDelegator.prototype.addEventListener = addEvent
-	DOMDelegator.prototype.removeEventListener = removeEvent
-
-	DOMDelegator.allocateHandle =
-	    function allocateHandle(func) {
-	        var handle = new Handle()
-
-	        HANDLER_STORE(handle).func = func;
-
-	        return handle
-	    }
-
-	DOMDelegator.transformHandle =
-	    function transformHandle(handle, broadcast) {
-	        var func = HANDLER_STORE(handle).func
-
-	        return this.allocateHandle(function (ev) {
-	            broadcast(ev, func);
-	        })
-	    }
-
-	DOMDelegator.prototype.addGlobalEventListener =
-	    function addGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-	        if (listeners.indexOf(fn) === -1) {
-	            listeners.push(fn)
-	        }
-
-	        this.globalListeners[eventName] = listeners;
-	    }
-
-	DOMDelegator.prototype.removeGlobalEventListener =
-	    function removeGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-
-	        var index = listeners.indexOf(fn)
-	        if (index !== -1) {
-	            listeners.splice(index, 1)
-	        }
-	    }
-
-	DOMDelegator.prototype.listenTo = function listenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    this.events[eventName]++;
-
-	    if (this.events[eventName] !== 1) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-	    if (!listener) {
-	        listener = this.rawEventListeners[eventName] =
-	            createHandler(eventName, this)
-	    }
-
-	    this.target.addEventListener(eventName, listener, true)
-	}
-
-	DOMDelegator.prototype.unlistenTo = function unlistenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    if (this.events[eventName] === 0) {
-	        throw new Error("already unlistened to event.");
-	    }
-
-	    this.events[eventName]--;
-
-	    if (this.events[eventName] !== 0) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-
-	    if (!listener) {
-	        throw new Error("dom-delegator#unlistenTo: cannot " +
-	            "unlisten to " + eventName)
-	    }
-
-	    this.target.removeEventListener(eventName, listener, true)
-	}
-
-	function createHandler(eventName, delegator) {
-	    var globalListeners = delegator.globalListeners;
-	    var delegatorTarget = delegator.target;
-
-	    return handler
-
-	    function handler(ev) {
-	        var globalHandlers = globalListeners[eventName] || []
-
-	        if (globalHandlers.length > 0) {
-	            var globalEvent = new ProxyEvent(ev);
-	            globalEvent.currentTarget = delegatorTarget;
-	            callListeners(globalHandlers, globalEvent)
-	        }
-
-	        findAndInvokeListeners(ev.target, ev, eventName)
-	    }
-	}
-
-	function findAndInvokeListeners(elem, ev, eventName) {
-	    var listener = getListener(elem, eventName)
-
-	    if (listener && listener.handlers.length > 0) {
-	        var listenerEvent = new ProxyEvent(ev);
-	        listenerEvent.currentTarget = listener.currentTarget
-	        callListeners(listener.handlers, listenerEvent)
-
-	        if (listenerEvent._bubbles) {
-	            var nextTarget = listener.currentTarget.parentNode
-	            findAndInvokeListeners(nextTarget, ev, eventName)
-	        }
-	    }
-	}
-
-	function getListener(target, type) {
-	    // terminate recursion if parent is `null`
-	    if (target === null) {
-	        return null
-	    }
-
-	    var ds = DataSet(target)
-	    // fetch list of handler fns for this event
-	    var handler = ds[type]
-	    var allHandler = ds.event
-
-	    if (!handler && !allHandler) {
-	        return getListener(target.parentNode, type)
-	    }
-
-	    var handlers = [].concat(handler || [], allHandler || [])
-	    return new Listener(target, handlers)
-	}
-
-	function callListeners(handlers, ev) {
-	    handlers.forEach(function (handler) {
-	        if (typeof handler === "function") {
-	            handler(ev)
-	        } else if (typeof handler.handleEvent === "function") {
-	            handler.handleEvent(ev)
-	        } else if (handler.type === "dom-delegator-handle") {
-	            HANDLER_STORE(handler).func(ev)
-	        } else {
-	            throw new Error("dom-delegator: unknown handler " +
-	                "found: " + JSON.stringify(handlers));
-	        }
-	    })
-	}
-
-	function Listener(target, handlers) {
-	    this.currentTarget = target
-	    this.handlers = handlers
-	}
-
-	function Handle() {
-	    this.type = "dom-delegator-handle"
-	}
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = "1"
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var version = __webpack_require__(14)
-
-	module.exports = isVirtualNode
-
-	function isVirtualNode(x) {
-	    return x && x.type === "VirtualNode" && x.version === version
-	}
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = isWidget
-
-	function isWidget(w) {
-	    return w && w.type === "Widget"
-	}
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = isThunk
-
-	function isThunk(t) {
-	    return t && t.type === "Thunk"
-	}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = isHook
-
-	function isHook(hook) {
-	    return hook && typeof hook.hook === "function" &&
-	        !hook.hasOwnProperty("hook")
-	}
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isArray = __webpack_require__(37)
-	var isObject = __webpack_require__(39)
-
-	var VPatch = __webpack_require__(28)
-	var isVNode = __webpack_require__(15)
-	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(16)
-	var isThunk = __webpack_require__(17)
-	var isHook = __webpack_require__(18)
-	var handleThunk = __webpack_require__(30)
+	var isArray = __webpack_require__(10)
+	var isObject = __webpack_require__(9)
+
+	var VPatch = __webpack_require__(14)
+	var isVNode = __webpack_require__(4)
+	var isVText = __webpack_require__(6)
+	var isWidget = __webpack_require__(1)
+	var isThunk = __webpack_require__(5)
+	var isHook = __webpack_require__(3)
+	var handleThunk = __webpack_require__(13)
 
 	module.exports = diff
 
@@ -1673,141 +1718,122 @@ var virtualDOM =
 
 
 /***/ },
-/* 20 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(41)
-	var isArray = __webpack_require__(37)
+	/* (ignored) */
 
-	var domIndex = __webpack_require__(31)
-	var patchOp = __webpack_require__(32)
-	module.exports = patch
+/***/ }
+/******/ ]);
+    return {
+        virtualDOM: virtualDOM
+    };
+})();
+var PS = PS || {};
+PS.Data_Html_Internal_Delegator = (function () {
+    "use strict";
+    var Prelude = PS.Prelude;
+    
+var delegator =
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId])
+/******/ 			return installedModules[moduleId].exports;
+/******/
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			exports: {},
+/******/ 			id: moduleId,
+/******/ 			loaded: false
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.loaded = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(0);
+/******/ })
+/************************************************************************/
+/******/ ([
+/* 0 */
+/***/ function(module, exports, __webpack_require__) {
 
-	function patch(rootNode, patches) {
-	    return patchRecursive(rootNode, patches)
-	}
+	var delegator = __webpack_require__(6);
 
-	function patchRecursive(rootNode, patches, renderOptions) {
-	    var indices = patchIndices(patches)
+	module.exports = delegator();
 
-	    if (indices.length === 0) {
-	        return rootNode
+
+/***/ },
+/* 1 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createStore = __webpack_require__(9)
+	var Individual = __webpack_require__(3)
+
+	var createHash = __webpack_require__(8)
+
+	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
+
+	module.exports = DataSet
+
+	function DataSet(elem) {
+	    var store = hashStore(elem)
+
+	    if (!store.hash) {
+	        store.hash = createHash(elem)
 	    }
 
-	    var index = domIndex(rootNode, patches.a, indices)
-	    var ownerDocument = rootNode.ownerDocument
-
-	    if (!renderOptions) {
-	        renderOptions = { patch: patchRecursive }
-	        if (ownerDocument !== document) {
-	            renderOptions.document = ownerDocument
-	        }
-	    }
-
-	    for (var i = 0; i < indices.length; i++) {
-	        var nodeIndex = indices[i]
-	        rootNode = applyPatch(rootNode,
-	            index[nodeIndex],
-	            patches[nodeIndex],
-	            renderOptions)
-	    }
-
-	    return rootNode
-	}
-
-	function applyPatch(rootNode, domNode, patchList, renderOptions) {
-	    if (!domNode) {
-	        return rootNode
-	    }
-
-	    var newNode
-
-	    if (isArray(patchList)) {
-	        for (var i = 0; i < patchList.length; i++) {
-	            newNode = patchOp(patchList[i], domNode, renderOptions)
-
-	            if (domNode === rootNode) {
-	                rootNode = newNode
-	            }
-	        }
-	    } else {
-	        newNode = patchOp(patchList, domNode, renderOptions)
-
-	        if (domNode === rootNode) {
-	            rootNode = newNode
-	        }
-	    }
-
-	    return rootNode
-	}
-
-	function patchIndices(patches) {
-	    var indices = []
-
-	    for (var key in patches) {
-	        if (key !== "a") {
-	            indices.push(Number(key))
-	        }
-	    }
-
-	    return indices
+	    return store.hash
 	}
 
 
 /***/ },
-/* 21 */
+/* 2 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(41)
+	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
+	    typeof window !== 'undefined' ? window : {}
+	var minDoc = __webpack_require__(16);
 
-	var applyProperties = __webpack_require__(33)
+	if (typeof document !== 'undefined') {
+	    module.exports = document;
+	} else {
+	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
 
-	var isVNode = __webpack_require__(15)
-	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(16)
-	var handleThunk = __webpack_require__(30)
-
-	module.exports = createElement
-
-	function createElement(vnode, opts) {
-	    var doc = opts ? opts.document || document : document
-	    var warn = opts ? opts.warn : null
-
-	    vnode = handleThunk(vnode).a
-
-	    if (isWidget(vnode)) {
-	        return vnode.init()
-	    } else if (isVText(vnode)) {
-	        return doc.createTextNode(vnode.text)
-	    } else if (!isVNode(vnode)) {
-	        if (warn) {
-	            warn("Item is not a valid virtual dom node", vnode)
-	        }
-	        return null
+	    if (!doccy) {
+	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
 	    }
 
-	    var node = (vnode.namespace === null) ?
-	        doc.createElement(vnode.tagName) :
-	        doc.createElementNS(vnode.namespace, vnode.tagName)
-
-	    var props = vnode.properties
-	    applyProperties(node, props)
-
-	    var children = vnode.children
-
-	    for (var i = 0; i < children.length; i++) {
-	        var childNode = createElement(children[i], opts)
-	        if (childNode) {
-	            node.appendChild(childNode)
-	        }
-	    }
-
-	    return node
+	    module.exports = doccy;
 	}
-
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 22 */
+/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
@@ -1832,10 +1858,10 @@ var virtualDOM =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 23 */
+/* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(35)
+	var DataSet = __webpack_require__(1)
 
 	module.exports = addEvent
 
@@ -1856,616 +1882,266 @@ var virtualDOM =
 
 
 /***/ },
-/* 24 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(35)
+	var globalDocument = __webpack_require__(2)
+	var DataSet = __webpack_require__(1)
+	var createStore = __webpack_require__(12)
 
-	module.exports = removeEvent
+	var addEvent = __webpack_require__(4)
+	var removeEvent = __webpack_require__(15)
+	var ProxyEvent = __webpack_require__(14)
 
-	function removeEvent(target, type, handler) {
-	    var ds = DataSet(target)
-	    var events = ds[type]
+	var HANDLER_STORE = createStore()
 
-	    if (!events) {
-	        return
-	    } else if (Array.isArray(events)) {
-	        var index = events.indexOf(handler)
+	module.exports = DOMDelegator
+
+	function DOMDelegator(document) {
+	    if (!(this instanceof DOMDelegator)) {
+	        return new DOMDelegator(document);
+	    }
+
+	    document = document || globalDocument
+
+	    this.target = document.documentElement
+	    this.events = {}
+	    this.rawEventListeners = {}
+	    this.globalListeners = {}
+	}
+
+	DOMDelegator.prototype.addEventListener = addEvent
+	DOMDelegator.prototype.removeEventListener = removeEvent
+
+	DOMDelegator.allocateHandle =
+	    function allocateHandle(func) {
+	        var handle = new Handle()
+
+	        HANDLER_STORE(handle).func = func;
+
+	        return handle
+	    }
+
+	DOMDelegator.transformHandle =
+	    function transformHandle(handle, broadcast) {
+	        var func = HANDLER_STORE(handle).func
+
+	        return this.allocateHandle(function (ev) {
+	            broadcast(ev, func);
+	        })
+	    }
+
+	DOMDelegator.prototype.addGlobalEventListener =
+	    function addGlobalEventListener(eventName, fn) {
+	        var listeners = this.globalListeners[eventName] || [];
+	        if (listeners.indexOf(fn) === -1) {
+	            listeners.push(fn)
+	        }
+
+	        this.globalListeners[eventName] = listeners;
+	    }
+
+	DOMDelegator.prototype.removeGlobalEventListener =
+	    function removeGlobalEventListener(eventName, fn) {
+	        var listeners = this.globalListeners[eventName] || [];
+
+	        var index = listeners.indexOf(fn)
 	        if (index !== -1) {
-	            events.splice(index, 1)
-	        }
-	    } else if (events === handler) {
-	        ds[type] = null
-	    }
-	}
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var inherits = __webpack_require__(45)
-
-	var ALL_PROPS = [
-	    "altKey", "bubbles", "cancelable", "ctrlKey",
-	    "eventPhase", "metaKey", "relatedTarget", "shiftKey",
-	    "target", "timeStamp", "type", "view", "which"
-	]
-	var KEY_PROPS = ["char", "charCode", "key", "keyCode"]
-	var MOUSE_PROPS = [
-	    "button", "buttons", "clientX", "clientY", "layerX",
-	    "layerY", "offsetX", "offsetY", "pageX", "pageY",
-	    "screenX", "screenY", "toElement"
-	]
-
-	var rkeyEvent = /^key|input/
-	var rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/
-
-	module.exports = ProxyEvent
-
-	function ProxyEvent(ev) {
-	    if (!(this instanceof ProxyEvent)) {
-	        return new ProxyEvent(ev)
-	    }
-
-	    if (rkeyEvent.test(ev.type)) {
-	        return new KeyEvent(ev)
-	    } else if (rmouseEvent.test(ev.type)) {
-	        return new MouseEvent(ev)
-	    }
-
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    this._rawEvent = ev
-	    this._bubbles = false;
-	}
-
-	ProxyEvent.prototype.preventDefault = function () {
-	    this._rawEvent.preventDefault()
-	}
-
-	ProxyEvent.prototype.startPropagation = function () {
-	    this._bubbles = true;
-	}
-
-	function MouseEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < MOUSE_PROPS.length; j++) {
-	        var mousePropKey = MOUSE_PROPS[j]
-	        this[mousePropKey] = ev[mousePropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(MouseEvent, ProxyEvent)
-
-	function KeyEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < KEY_PROPS.length; j++) {
-	        var keyPropKey = KEY_PROPS[j]
-	        this[keyPropKey] = ev[keyPropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(KeyEvent, ProxyEvent)
-
-
-/***/ },
-/* 26 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createStore = __webpack_require__(48)
-	var Individual = __webpack_require__(47)
-
-	var createHash = __webpack_require__(40)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(36);
-
-	if (typeof document !== 'undefined') {
-	    module.exports = document;
-	} else {
-	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-	    if (!doccy) {
-	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-	    }
-
-	    module.exports = doccy;
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 28 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var version = __webpack_require__(14)
-
-	VirtualPatch.NONE = 0
-	VirtualPatch.VTEXT = 1
-	VirtualPatch.VNODE = 2
-	VirtualPatch.WIDGET = 3
-	VirtualPatch.PROPS = 4
-	VirtualPatch.ORDER = 5
-	VirtualPatch.INSERT = 6
-	VirtualPatch.REMOVE = 7
-	VirtualPatch.THUNK = 8
-
-	module.exports = VirtualPatch
-
-	function VirtualPatch(type, vNode, patch) {
-	    this.type = Number(type)
-	    this.vNode = vNode
-	    this.patch = patch
-	}
-
-	VirtualPatch.prototype.version = version
-	VirtualPatch.prototype.type = "VirtualPatch"
-
-
-/***/ },
-/* 29 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var version = __webpack_require__(14)
-
-	module.exports = isVirtualText
-
-	function isVirtualText(x) {
-	    return x && x.type === "VirtualText" && x.version === version
-	}
-
-
-/***/ },
-/* 30 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isVNode = __webpack_require__(15)
-	var isVText = __webpack_require__(29)
-	var isWidget = __webpack_require__(16)
-	var isThunk = __webpack_require__(17)
-
-	module.exports = handleThunk
-
-	function handleThunk(a, b) {
-	    var renderedA = a
-	    var renderedB = b
-
-	    if (isThunk(b)) {
-	        renderedB = renderThunk(b, a)
-	    }
-
-	    if (isThunk(a)) {
-	        renderedA = renderThunk(a, null)
-	    }
-
-	    return {
-	        a: renderedA,
-	        b: renderedB
-	    }
-	}
-
-	function renderThunk(thunk, previous) {
-	    var renderedThunk = thunk.vnode
-
-	    if (!renderedThunk) {
-	        renderedThunk = thunk.vnode = thunk.render(previous)
-	    }
-
-	    if (!(isVNode(renderedThunk) ||
-	            isVText(renderedThunk) ||
-	            isWidget(renderedThunk))) {
-	        throw new Error("thunk did not return a valid node");
-	    }
-
-	    return renderedThunk
-	}
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
-
-	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
-	// We don't want to read all of the DOM nodes in the tree so we use
-	// the in-order tree indexing to eliminate recursion down certain branches.
-	// We only recurse into a DOM node if we know that it contains a child of
-	// interest.
-
-	var noChild = {}
-
-	module.exports = domIndex
-
-	function domIndex(rootNode, tree, indices, nodes) {
-	    if (!indices || indices.length === 0) {
-	        return {}
-	    } else {
-	        indices.sort(ascending)
-	        return recurse(rootNode, tree, indices, nodes, 0)
-	    }
-	}
-
-	function recurse(rootNode, tree, indices, nodes, rootIndex) {
-	    nodes = nodes || {}
-
-
-	    if (rootNode) {
-	        if (indexInRange(indices, rootIndex, rootIndex)) {
-	            nodes[rootIndex] = rootNode
-	        }
-
-	        var vChildren = tree.children
-
-	        if (vChildren) {
-
-	            var childNodes = rootNode.childNodes
-
-	            for (var i = 0; i < tree.children.length; i++) {
-	                rootIndex += 1
-
-	                var vChild = vChildren[i] || noChild
-	                var nextIndex = rootIndex + (vChild.count || 0)
-
-	                // skip recursion down the tree if there are no nodes down here
-	                if (indexInRange(indices, rootIndex, nextIndex)) {
-	                    recurse(childNodes[i], vChild, indices, nodes, rootIndex)
-	                }
-
-	                rootIndex = nextIndex
-	            }
+	            listeners.splice(index, 1)
 	        }
 	    }
 
-	    return nodes
-	}
-
-	// Binary search for an index in the interval [left, right]
-	function indexInRange(indices, left, right) {
-	    if (indices.length === 0) {
-	        return false
+	DOMDelegator.prototype.listenTo = function listenTo(eventName) {
+	    if (!(eventName in this.events)) {
+	        this.events[eventName] = 0;
 	    }
 
-	    var minIndex = 0
-	    var maxIndex = indices.length - 1
-	    var currentIndex
-	    var currentItem
+	    this.events[eventName]++;
 
-	    while (minIndex <= maxIndex) {
-	        currentIndex = ((maxIndex + minIndex) / 2) >> 0
-	        currentItem = indices[currentIndex]
-
-	        if (minIndex === maxIndex) {
-	            return currentItem >= left && currentItem <= right
-	        } else if (currentItem < left) {
-	            minIndex = currentIndex + 1
-	        } else  if (currentItem > right) {
-	            maxIndex = currentIndex - 1
-	        } else {
-	            return true
-	        }
-	    }
-
-	    return false;
-	}
-
-	function ascending(a, b) {
-	    return a > b ? 1 : -1
-	}
-
-
-/***/ },
-/* 32 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var applyProperties = __webpack_require__(33)
-
-	var isWidget = __webpack_require__(16)
-	var VPatch = __webpack_require__(28)
-
-	var render = __webpack_require__(21)
-	var updateWidget = __webpack_require__(42)
-
-	module.exports = applyPatch
-
-	function applyPatch(vpatch, domNode, renderOptions) {
-	    var type = vpatch.type
-	    var vNode = vpatch.vNode
-	    var patch = vpatch.patch
-
-	    switch (type) {
-	        case VPatch.REMOVE:
-	            return removeNode(domNode, vNode)
-	        case VPatch.INSERT:
-	            return insertNode(domNode, patch, renderOptions)
-	        case VPatch.VTEXT:
-	            return stringPatch(domNode, vNode, patch, renderOptions)
-	        case VPatch.WIDGET:
-	            return widgetPatch(domNode, vNode, patch, renderOptions)
-	        case VPatch.VNODE:
-	            return vNodePatch(domNode, vNode, patch, renderOptions)
-	        case VPatch.ORDER:
-	            reorderChildren(domNode, patch)
-	            return domNode
-	        case VPatch.PROPS:
-	            applyProperties(domNode, patch, vNode.properties)
-	            return domNode
-	        case VPatch.THUNK:
-	            return replaceRoot(domNode,
-	                renderOptions.patch(domNode, patch, renderOptions))
-	        default:
-	            return domNode
-	    }
-	}
-
-	function removeNode(domNode, vNode) {
-	    var parentNode = domNode.parentNode
-
-	    if (parentNode) {
-	        parentNode.removeChild(domNode)
-	    }
-
-	    destroyWidget(domNode, vNode);
-
-	    return null
-	}
-
-	function insertNode(parentNode, vNode, renderOptions) {
-	    var newNode = render(vNode, renderOptions)
-
-	    if (parentNode) {
-	        parentNode.appendChild(newNode)
-	    }
-
-	    return parentNode
-	}
-
-	function stringPatch(domNode, leftVNode, vText, renderOptions) {
-	    var newNode
-
-	    if (domNode.nodeType === 3) {
-	        domNode.replaceData(0, domNode.length, vText.text)
-	        newNode = domNode
-	    } else {
-	        var parentNode = domNode.parentNode
-	        newNode = render(vText, renderOptions)
-
-	        if (parentNode) {
-	            parentNode.replaceChild(newNode, domNode)
-	        }
-	    }
-
-	    return newNode
-	}
-
-	function widgetPatch(domNode, leftVNode, widget, renderOptions) {
-	    var updating = updateWidget(leftVNode, widget)
-	    var newNode
-
-	    if (updating) {
-	        newNode = widget.update(leftVNode, domNode) || domNode
-	    } else {
-	        newNode = render(widget, renderOptions)
-	    }
-
-	    var parentNode = domNode.parentNode
-
-	    if (parentNode && newNode !== domNode) {
-	        parentNode.replaceChild(newNode, domNode)
-	    }
-
-	    if (!updating) {
-	        destroyWidget(domNode, leftVNode)
-	    }
-
-	    return newNode
-	}
-
-	function vNodePatch(domNode, leftVNode, vNode, renderOptions) {
-	    var parentNode = domNode.parentNode
-	    var newNode = render(vNode, renderOptions)
-
-	    if (parentNode) {
-	        parentNode.replaceChild(newNode, domNode)
-	    }
-
-	    return newNode
-	}
-
-	function destroyWidget(domNode, w) {
-	    if (typeof w.destroy === "function" && isWidget(w)) {
-	        w.destroy(domNode)
-	    }
-	}
-
-	function reorderChildren(domNode, bIndex) {
-	    var children = []
-	    var childNodes = domNode.childNodes
-	    var len = childNodes.length
-	    var i
-	    var reverseIndex = bIndex.reverse
-
-	    for (i = 0; i < len; i++) {
-	        children.push(domNode.childNodes[i])
-	    }
-
-	    var insertOffset = 0
-	    var move
-	    var node
-	    var insertNode
-	    for (i = 0; i < len; i++) {
-	        move = bIndex[i]
-	        if (move !== undefined && move !== i) {
-	            // the element currently at this index will be moved later so increase the insert offset
-	            if (reverseIndex[i] > i) {
-	                insertOffset++
-	            }
-
-	            node = children[move]
-	            insertNode = childNodes[i + insertOffset] || null
-	            if (node !== insertNode) {
-	                domNode.insertBefore(node, insertNode)
-	            }
-
-	            // the moved element came from the front of the array so reduce the insert offset
-	            if (move < i) {
-	                insertOffset--
-	            }
-	        }
-
-	        // element at this index is scheduled to be removed so increase insert offset
-	        if (i in bIndex.removes) {
-	            insertOffset++
-	        }
-	    }
-	}
-
-	function replaceRoot(oldRoot, newRoot) {
-	    if (oldRoot && newRoot && oldRoot !== newRoot && oldRoot.parentNode) {
-	        console.log(oldRoot)
-	        oldRoot.parentNode.replaceChild(newRoot, oldRoot)
-	    }
-
-	    return newRoot;
-	}
-
-
-/***/ },
-/* 33 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isObject = __webpack_require__(39)
-	var isHook = __webpack_require__(18)
-
-	module.exports = applyProperties
-
-	function applyProperties(node, props, previous) {
-	    for (var propName in props) {
-	        var propValue = props[propName]
-
-	        if (propValue === undefined) {
-	            removeProperty(node, props, previous, propName);
-	        } else if (isHook(propValue)) {
-	            propValue.hook(node,
-	                propName,
-	                previous ? previous[propName] : undefined)
-	        } else {
-	            if (isObject(propValue)) {
-	                patchObject(node, props, previous, propName, propValue);
-	            } else if (propValue !== undefined) {
-	                node[propName] = propValue
-	            }
-	        }
-	    }
-	}
-
-	function removeProperty(node, props, previous, propName) {
-	    if (previous) {
-	        var previousValue = previous[propName]
-
-	        if (!isHook(previousValue)) {
-	            if (propName === "attributes") {
-	                for (var attrName in previousValue) {
-	                    node.removeAttribute(attrName)
-	                }
-	            } else if (propName === "style") {
-	                for (var i in previousValue) {
-	                    node.style[i] = ""
-	                }
-	            } else if (typeof previousValue === "string") {
-	                node[propName] = ""
-	            } else {
-	                node[propName] = null
-	            }
-	        } else if (previousValue.unhook) {
-	            previousValue.unhook(node, propName)
-	        }
-	    }
-	}
-
-	function patchObject(node, props, previous, propName, propValue) {
-	    var previousValue = previous ? previous[propName] : undefined
-
-	    // Set attributes
-	    if (propName === "attributes") {
-	        for (var attrName in propValue) {
-	            var attrValue = propValue[attrName]
-
-	            if (attrValue === undefined) {
-	                node.removeAttribute(attrName)
-	            } else {
-	                node.setAttribute(attrName, attrValue)
-	            }
-	        }
-
+	    if (this.events[eventName] !== 1) {
 	        return
 	    }
 
-	    if(previousValue && isObject(previousValue) &&
-	        getPrototype(previousValue) !== getPrototype(propValue)) {
-	        node[propName] = propValue
+	    var listener = this.rawEventListeners[eventName]
+	    if (!listener) {
+	        listener = this.rawEventListeners[eventName] =
+	            createHandler(eventName, this)
+	    }
+
+	    this.target.addEventListener(eventName, listener, true)
+	}
+
+	DOMDelegator.prototype.unlistenTo = function unlistenTo(eventName) {
+	    if (!(eventName in this.events)) {
+	        this.events[eventName] = 0;
+	    }
+
+	    if (this.events[eventName] === 0) {
+	        throw new Error("already unlistened to event.");
+	    }
+
+	    this.events[eventName]--;
+
+	    if (this.events[eventName] !== 0) {
 	        return
 	    }
 
-	    if (!isObject(node[propName])) {
-	        node[propName] = {}
+	    var listener = this.rawEventListeners[eventName]
+
+	    if (!listener) {
+	        throw new Error("dom-delegator#unlistenTo: cannot " +
+	            "unlisten to " + eventName)
 	    }
 
-	    var replacer = propName === "style" ? "" : undefined
+	    this.target.removeEventListener(eventName, listener, true)
+	}
 
-	    for (var k in propValue) {
-	        var value = propValue[k]
-	        node[propName][k] = (value === undefined) ? replacer : value
+	function createHandler(eventName, delegator) {
+	    var globalListeners = delegator.globalListeners;
+	    var delegatorTarget = delegator.target;
+
+	    return handler
+
+	    function handler(ev) {
+	        var globalHandlers = globalListeners[eventName] || []
+
+	        if (globalHandlers.length > 0) {
+	            var globalEvent = new ProxyEvent(ev);
+	            globalEvent.currentTarget = delegatorTarget;
+	            callListeners(globalHandlers, globalEvent)
+	        }
+
+	        findAndInvokeListeners(ev.target, ev, eventName)
 	    }
 	}
 
-	function getPrototype(value) {
-	    if (Object.getPrototypeOf) {
-	        return Object.getPrototypeOf(value)
-	    } else if (value.__proto__) {
-	        return value.__proto__
-	    } else if (value.constructor) {
-	        return value.constructor.prototype
+	function findAndInvokeListeners(elem, ev, eventName) {
+	    var listener = getListener(elem, eventName)
+
+	    if (listener && listener.handlers.length > 0) {
+	        var listenerEvent = new ProxyEvent(ev);
+	        listenerEvent.currentTarget = listener.currentTarget
+	        callListeners(listener.handlers, listenerEvent)
+
+	        if (listenerEvent._bubbles) {
+	            var nextTarget = listener.currentTarget.parentNode
+	            findAndInvokeListeners(nextTarget, ev, eventName)
+	        }
 	    }
+	}
+
+	function getListener(target, type) {
+	    // terminate recursion if parent is `null`
+	    if (target === null) {
+	        return null
+	    }
+
+	    var ds = DataSet(target)
+	    // fetch list of handler fns for this event
+	    var handler = ds[type]
+	    var allHandler = ds.event
+
+	    if (!handler && !allHandler) {
+	        return getListener(target.parentNode, type)
+	    }
+
+	    var handlers = [].concat(handler || [], allHandler || [])
+	    return new Listener(target, handlers)
+	}
+
+	function callListeners(handlers, ev) {
+	    handlers.forEach(function (handler) {
+	        if (typeof handler === "function") {
+	            handler(ev)
+	        } else if (typeof handler.handleEvent === "function") {
+	            handler.handleEvent(ev)
+	        } else if (handler.type === "dom-delegator-handle") {
+	            HANDLER_STORE(handler).func(ev)
+	        } else {
+	            throw new Error("dom-delegator: unknown handler " +
+	                "found: " + JSON.stringify(handlers));
+	        }
+	    })
+	}
+
+	function Listener(target, handlers) {
+	    this.currentTarget = target
+	    this.handlers = handlers
+	}
+
+	function Handle() {
+	    this.type = "dom-delegator-handle"
 	}
 
 
 /***/ },
-/* 34 */
+/* 6 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var Individual = __webpack_require__(3)
+	var cuid = __webpack_require__(7)
+	var globalDocument = __webpack_require__(2)
+
+	var DOMDelegator = __webpack_require__(5)
+
+	var versionKey = "12"
+	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
+	var cacheTokenKey = "__DOM_DELEGATOR_CACHE_TOKEN@" + versionKey
+	var delegatorCache = Individual(cacheKey, {
+	    delegators: {}
+	})
+	var commonEvents = [
+	    "blur", "change", "click",  "contextmenu", "dblclick",
+	    "error","focus", "focusin", "focusout", "input", "keydown",
+	    "keypress", "keyup", "load", "mousedown", "mouseup",
+	    "resize", "select", "submit", "touchcancel",
+	    "touchend", "touchstart", "unload"
+	]
+
+	/*  Delegator is a thin wrapper around a singleton `DOMDelegator`
+	        instance.
+
+	    Only one DOMDelegator should exist because we do not want
+	        duplicate event listeners bound to the DOM.
+
+	    `Delegator` will also `listenTo()` all events unless
+	        every caller opts out of it
+	*/
+	module.exports = Delegator
+
+	function Delegator(opts) {
+	    opts = opts || {}
+	    var document = opts.document || globalDocument
+
+	    var cacheKey = document[cacheTokenKey]
+
+	    if (!cacheKey) {
+	        cacheKey =
+	            document[cacheTokenKey] = cuid()
+	    }
+
+	    var delegator = delegatorCache.delegators[cacheKey]
+
+	    if (!delegator) {
+	        delegator = delegatorCache.delegators[cacheKey] =
+	            new DOMDelegator(document)
+	    }
+
+	    if (opts.defaultEvents !== false) {
+	        for (var i = 0; i < commonEvents.length; i++) {
+	            delegator.listenTo(commonEvents[i])
+	        }
+	    }
+
+	    return delegator
+	}
+
+	Delegator.allocateHandle = DOMDelegator.allocateHandle;
+	Delegator.transformHandle = DOMDelegator.transformHandle;
+
+
+/***/ },
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2581,54 +2257,38 @@ var virtualDOM =
 
 
 /***/ },
-/* 35 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var createStore = __webpack_require__(49)
-	var Individual = __webpack_require__(22)
+	module.exports = createHash
 
-	var createHash = __webpack_require__(43)
+	function createHash(elem) {
+	    var attributes = elem.attributes
+	    var hash = {}
 
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
+	    if (attributes === null || attributes === undefined) {
+	        return hash
 	    }
 
-	    return store.hash
+	    for (var i = 0; i < attributes.length; i++) {
+	        var attr = attributes[i]
+
+	        if (attr.name.substr(0,5) !== "data-") {
+	            continue
+	        }
+
+	        hash[attr.name.substr(5)] = attr.value
+	    }
+
+	    return hash
 	}
 
 
 /***/ },
-/* 36 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* (ignored) */
-
-/***/ },
-/* 37 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var nativeIsArray = Array.isArray
-	var toString = Object.prototype.toString
-
-	module.exports = nativeIsArray || isArray
-
-	function isArray(obj) {
-	    return toString.call(obj) === "[object Array]"
-	}
-
-
-/***/ },
-/* 38 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(44);
+	var hiddenStore = __webpack_require__(10);
 
 	module.exports = createStore;
 
@@ -2636,9 +2296,7 @@ var virtualDOM =
 	    var key = {};
 
 	    return function (obj) {
-	        if ((typeof obj !== 'object' || obj === null) &&
-	            typeof obj !== 'function'
-	        ) {
+	        if (typeof obj !== 'object' || obj === null) {
 	            throw new Error('Weakmap-shim: Key must be object')
 	        }
 
@@ -2650,117 +2308,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 39 */
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	module.exports = function isObject(x) {
-		return typeof x === "object" && x !== null;
-	};
-
-
-/***/ },
-/* 40 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 41 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(46);
-
-	if (typeof document !== 'undefined') {
-	    module.exports = document;
-	} else {
-	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-	    if (!doccy) {
-	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-	    }
-
-	    module.exports = doccy;
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 42 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var isWidget = __webpack_require__(16)
-
-	module.exports = updateWidget
-
-	function updateWidget(a, b) {
-	    if (isWidget(a) && isWidget(b)) {
-	        if ("name" in a && "name" in b) {
-	            return a.id === b.id
-	        } else {
-	            return a.init === b.init
-	        }
-	    }
-
-	    return false
-	}
-
-
-/***/ },
-/* 43 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 44 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = hiddenStore;
@@ -2782,7 +2330,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 45 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
 	if (typeof Object.create === 'function') {
@@ -2811,195 +2359,186 @@ var virtualDOM =
 
 
 /***/ },
-/* 46 */
+/* 12 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var hiddenStore = __webpack_require__(13);
+
+	module.exports = createStore;
+
+	function createStore() {
+	    var key = {};
+
+	    return function (obj) {
+	        if ((typeof obj !== 'object' || obj === null) &&
+	            typeof obj !== 'function'
+	        ) {
+	            throw new Error('Weakmap-shim: Key must be object')
+	        }
+
+	        var store = obj.valueOf(key);
+	        return store && store.identity === key ?
+	            store : hiddenStore(obj, key);
+	    };
+	}
+
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = hiddenStore;
+
+	function hiddenStore(obj, key) {
+	    var store = { identity: key };
+	    var valueOf = obj.valueOf;
+
+	    Object.defineProperty(obj, "valueOf", {
+	        value: function (value) {
+	            return value !== key ?
+	                valueOf.apply(this, arguments) : store;
+	        },
+	        writable: true
+	    });
+
+	    return store;
+	}
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var inherits = __webpack_require__(11)
+
+	var ALL_PROPS = [
+	    "altKey", "bubbles", "cancelable", "ctrlKey",
+	    "eventPhase", "metaKey", "relatedTarget", "shiftKey",
+	    "target", "timeStamp", "type", "view", "which"
+	]
+	var KEY_PROPS = ["char", "charCode", "key", "keyCode"]
+	var MOUSE_PROPS = [
+	    "button", "buttons", "clientX", "clientY", "layerX",
+	    "layerY", "offsetX", "offsetY", "pageX", "pageY",
+	    "screenX", "screenY", "toElement"
+	]
+
+	var rkeyEvent = /^key|input/
+	var rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/
+
+	module.exports = ProxyEvent
+
+	function ProxyEvent(ev) {
+	    if (!(this instanceof ProxyEvent)) {
+	        return new ProxyEvent(ev)
+	    }
+
+	    if (rkeyEvent.test(ev.type)) {
+	        return new KeyEvent(ev)
+	    } else if (rmouseEvent.test(ev.type)) {
+	        return new MouseEvent(ev)
+	    }
+
+	    for (var i = 0; i < ALL_PROPS.length; i++) {
+	        var propKey = ALL_PROPS[i]
+	        this[propKey] = ev[propKey]
+	    }
+
+	    this._rawEvent = ev
+	    this._bubbles = false;
+	}
+
+	ProxyEvent.prototype.preventDefault = function () {
+	    this._rawEvent.preventDefault()
+	}
+
+	ProxyEvent.prototype.startPropagation = function () {
+	    this._bubbles = true;
+	}
+
+	function MouseEvent(ev) {
+	    for (var i = 0; i < ALL_PROPS.length; i++) {
+	        var propKey = ALL_PROPS[i]
+	        this[propKey] = ev[propKey]
+	    }
+
+	    for (var j = 0; j < MOUSE_PROPS.length; j++) {
+	        var mousePropKey = MOUSE_PROPS[j]
+	        this[mousePropKey] = ev[mousePropKey]
+	    }
+
+	    this._rawEvent = ev
+	}
+
+	inherits(MouseEvent, ProxyEvent)
+
+	function KeyEvent(ev) {
+	    for (var i = 0; i < ALL_PROPS.length; i++) {
+	        var propKey = ALL_PROPS[i]
+	        this[propKey] = ev[propKey]
+	    }
+
+	    for (var j = 0; j < KEY_PROPS.length; j++) {
+	        var keyPropKey = KEY_PROPS[j]
+	        this[keyPropKey] = ev[keyPropKey]
+	    }
+
+	    this._rawEvent = ev
+	}
+
+	inherits(KeyEvent, ProxyEvent)
+
+
+/***/ },
+/* 15 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var DataSet = __webpack_require__(1)
+
+	module.exports = removeEvent
+
+	function removeEvent(target, type, handler) {
+	    var ds = DataSet(target)
+	    var events = ds[type]
+
+	    if (!events) {
+	        return
+	    } else if (Array.isArray(events)) {
+	        var index = events.indexOf(handler)
+	        if (index !== -1) {
+	            events.splice(index, 1)
+	        }
+	    } else if (events === handler) {
+	        ds[type] = null
+	    }
+	}
+
+
+/***/ },
+/* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
 
-/***/ },
-/* 47 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 48 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(50);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 49 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(51);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 50 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 51 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
 /***/ }
 /******/ ]);
     return {
-        virtualDOM: virtualDOM
+        delegator: delegator
     };
 })();
 var PS = PS || {};
 PS.Data_Function = (function () {
     "use strict";
     var Prelude = PS.Prelude;
-    function mkFn0(fn) {  return function() {    return fn({});  };};
-    function mkFn1(fn) {  return function(a) {    return fn(a);  };};
-    function mkFn2(fn) {  return function(a, b) {    return fn(a)(b);  };};
-    function mkFn3(fn) {  return function(a, b, c) {    return fn(a)(b)(c);  };};
-    function mkFn4(fn) {  return function(a, b, c, d) {    return fn(a)(b)(c)(d);  };};
-    function mkFn5(fn) {  return function(a, b, c, d, e) {    return fn(a)(b)(c)(d)(e);  };};
-    function mkFn6(fn) {  return function(a, b, c, d, e, f) {    return fn(a)(b)(c)(d)(e)(f);  };};
-    function mkFn7(fn) {  return function(a, b, c, d, e, f, g) {    return fn(a)(b)(c)(d)(e)(f)(g);  };};
-    function mkFn8(fn) {  return function(a, b, c, d, e, f, g, h) {    return fn(a)(b)(c)(d)(e)(f)(g)(h);  };};
-    function mkFn9(fn) {  return function(a, b, c, d, e, f, g, h, i) {    return fn(a)(b)(c)(d)(e)(f)(g)(h)(i);  };};
-    function mkFn10(fn) {  return function(a, b, c, d, e, f, g, h, i, j) {    return fn(a)(b)(c)(d)(e)(f)(g)(h)(i)(j);  };};
-    function runFn0(fn) {  return fn();};
-    function runFn1(fn) {  return function(a) {    return fn(a);  };};
     function runFn2(fn) {  return function(a) {    return function(b) {      return fn(a, b);    };  };};
-    function runFn3(fn) {  return function(a) {    return function(b) {      return function(c) {        return fn(a, b, c);      };    };  };};
     function runFn4(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return fn(a, b, c, d);        };      };    };  };};
-    function runFn5(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return fn(a, b, c, d, e);          };        };      };    };  };};
-    function runFn6(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return function(f) {              return fn(a, b, c, d, e, f);            };          };        };      };    };  };};
-    function runFn7(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return function(f) {              return function(g) {                return fn(a, b, c, d, e, f, g);              };            };          };        };      };    };  };};
-    function runFn8(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return function(f) {              return function(g) {                return function(h) {                  return fn(a, b, c, d, e, f, g, h);                };              };            };          };        };      };    };  };};
-    function runFn9(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return function(f) {              return function(g) {                return function(h) {                  return function(i) {                    return fn(a, b, c, d, e, f, g, h, i);                  };                };              };            };          };        };      };    };  };};
-    function runFn10(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return function(e) {            return function(f) {              return function(g) {                return function(h) {                  return function(i) {                    return function(j) {                      return fn(a, b, c, d, e, f, g, h, i, j);                    };                  };                };              };            };          };        };      };    };  };};
-    var on = function (f) {
-        return function (g) {
-            return function (x) {
-                return function (y) {
-                    return f(g(x))(g(y));
-                };
-            };
-        };
-    };
     return {
-        mkFn0: mkFn0, 
-        mkFn1: mkFn1, 
-        mkFn10: mkFn10, 
-        mkFn2: mkFn2, 
-        mkFn3: mkFn3, 
-        mkFn4: mkFn4, 
-        mkFn5: mkFn5, 
-        mkFn6: mkFn6, 
-        mkFn7: mkFn7, 
-        mkFn8: mkFn8, 
-        mkFn9: mkFn9, 
-        on: on, 
-        runFn0: runFn0, 
-        runFn1: runFn1, 
-        runFn10: runFn10, 
         runFn2: runFn2, 
-        runFn3: runFn3, 
-        runFn4: runFn4, 
-        runFn5: runFn5, 
-        runFn6: runFn6, 
-        runFn7: runFn7, 
-        runFn8: runFn8, 
-        runFn9: runFn9
+        runFn4: runFn4
     };
 })();
 var PS = PS || {};
-PS.Html_Attributes_Internal = (function () {
+PS.Data_Html_Internal_Attributes = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     function Attribute(value0, value1) {
@@ -3027,39 +2566,39 @@ PS.Html_Attributes_Internal = (function () {
 function unsafeCoerce(a) {
   return a;
 };
-    var getNamespaceString = function (_34) {
-        if (_34 instanceof Namespace) {
+    var getNamespaceString = function (_37) {
+        if (_37 instanceof Namespace) {
+            return _37.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getKeyString = function (_36) {
+        if (_36 instanceof Key) {
+            return _36.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrValue = function (_35) {
+        if (_35 instanceof Attribute) {
+            return _35.value1;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrKey = function (_34) {
+        if (_34 instanceof Attribute) {
             return _34.value0;
         };
         throw new Error("Failed pattern match");
     };
-    var getKeyString = function (_33) {
-        if (_33 instanceof Key) {
-            return _33.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrValue = function (_32) {
-        if (_32 instanceof Attribute) {
-            return _32.value1;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrKey = function (_31) {
-        if (_31 instanceof Attribute) {
-            return _31.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
     var attribute = Attribute.create;
-    var attrType = function (_30) {
-        if (_30 instanceof Attribute) {
+    var attrType = function (_33) {
+        if (_33 instanceof Attribute) {
             return "a";
         };
-        if (_30 instanceof Namespace) {
+        if (_33 instanceof Namespace) {
             return "n";
         };
-        if (_30 instanceof Key) {
+        if (_33 instanceof Key) {
             return "k";
         };
         throw new Error("Failed pattern match");
@@ -3078,124 +2617,11 @@ function unsafeCoerce(a) {
     };
 })();
 var PS = PS || {};
-PS.Data_Eq = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Ref = {
-        create: function (value) {
-            return value;
-        }
-    };
-    var liftRef = function (_35) {
-        return function (_36) {
-            return function (_37) {
-                return _35(_36)(_37);
-            };
-        };
-    };
-    var functorRef = new Prelude.Functor(function (_38) {
-        return function (_39) {
-            return _38(_39);
-        };
-    });
-    var eqRef = new Prelude.Eq(liftRef(Prelude.refIneq), liftRef(Prelude.refEq));
-    return {
-        Ref: Ref, 
-        eqRef: eqRef, 
-        functorRef: functorRef, 
-        liftRef: liftRef
-    };
-})();
-var PS = PS || {};
-PS.Data_Char = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Char = {
-        create: function (value) {
-            return value;
-        }
-    };
-    
-    function toCharCode(c) {
-      return c.charCodeAt(0);
-    }
-    ;
-    
-    function fromCharCode(c) {
-      return String.fromCharCode(c);
-    }
-    ;
-    var showChar = new Prelude.Show(function (_45) {
-        return "Char " + Prelude.show(Prelude.showString)(_45);
-    });
-    var eqChar = new Prelude.Eq(function (a) {
-        return function (b) {
-            return !Prelude["=="](eqChar)(a)(b);
-        };
-    }, function (_41) {
-        return function (_42) {
-            return _41 === _42;
-        };
-    });
-    var ordChar = new Prelude.Ord(function () {
-        return eqChar;
-    }, function (_43) {
-        return function (_44) {
-            return Prelude.compare(Prelude.ordString)(_43)(_44);
-        };
-    });
-    var charString = function (_40) {
-        return _40;
-    };
-    return {
-        charString: charString, 
-        eqChar: eqChar, 
-        fromCharCode: fromCharCode, 
-        ordChar: ordChar, 
-        showChar: showChar, 
-        toCharCode: toCharCode
-    };
-})();
-var PS = PS || {};
-PS.Data_String_Unsafe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    
-    function charCodeAt(i) {
-      return function(s) {
-        return s.charCodeAt(i);
-      };
-    }
-    ;
-    
-    function charAt(i) {
-      return function(s) {
-        return s.charAt(i);
-      };
-    }
-    ;
-    return {
-        charAt: charAt, 
-        charCodeAt: charCodeAt
-    };
-})();
-var PS = PS || {};
-PS.DOM = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    return {};
-})();
-var PS = PS || {};
 PS.Control_Monad_Eff = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     function returnE(a) {  return function() {    return a;  };};
     function bindE(a) {  return function(f) {    return function() {      return f(a())();    };  };};
-    function runPure(f) {  return f();};
-    function untilE(f) {  return function() {    while (!f());    return {};  };};
-    function whileE(f) {  return function(a) {    return function() {      while (f()) {        a();      }      return {};    };  };};
-    function forE(lo) {  return function(hi) {    return function(f) {      return function() {        for (var i = lo; i < hi; i++) {          f(i)();        }      };    };  };};
-    function foreachE(as) {  return function(f) {    return function() {      for (var i = 0; i < as.length; i++) {        f(as[i])();      }    };  };};
     var monadEff = new Prelude.Monad(function () {
         return applicativeEff;
     }, function () {
@@ -3216,14 +2642,9 @@ PS.Control_Monad_Eff = (function () {
         applyEff: applyEff, 
         bindE: bindE, 
         bindEff: bindEff, 
-        forE: forE, 
-        foreachE: foreachE, 
         functorEff: functorEff, 
         monadEff: monadEff, 
-        returnE: returnE, 
-        runPure: runPure, 
-        untilE: untilE, 
-        whileE: whileE
+        returnE: returnE
     };
 })();
 var PS = PS || {};
@@ -3265,57 +2686,11 @@ PS.Control_Monad_Eff_Ref = (function () {
     };
   }
 ;
-    var modifyRef = function (ref) {
-        return function (f) {
-            return modifyRef$prime(ref)(function (s) {
-                return {
-                    newState: f(s), 
-                    retVal: Prelude.unit
-                };
-            });
-        };
-    };
     return {
-        modifyRef: modifyRef, 
         "modifyRef'": modifyRef$prime, 
         newRef: newRef, 
         readRef: readRef, 
         writeRef: writeRef
-    };
-})();
-var PS = PS || {};
-PS.Control_Monad_Eff_Ref_Unsafe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function unsafeRunRef(f) {  return f;};
-    return {
-        unsafeRunRef: unsafeRunRef
-    };
-})();
-var PS = PS || {};
-PS.Control_Monad_Eff_Unsafe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function unsafeInterleaveEff(f) {  return f;};
-    return {
-        unsafeInterleaveEff: unsafeInterleaveEff
-    };
-})();
-var PS = PS || {};
-PS.Control_Monad_ST = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function newSTRef(val) {  return function() {    return { value: val };  };};
-    function readSTRef(ref) {  return function() {    return ref.value;  };};
-    function modifySTRef(ref) {  return function(f) {    return function() {      return ref.value = f(ref.value);    };  };};
-    function writeSTRef(ref) {  return function(a) {    return function() {      return ref.value = a;    };  };};
-    function runST(f) {  return f;};
-    return {
-        modifySTRef: modifySTRef, 
-        newSTRef: newSTRef, 
-        readSTRef: readSTRef, 
-        runST: runST, 
-        writeSTRef: writeSTRef
     };
 })();
 var PS = PS || {};
@@ -3367,26 +2742,11 @@ PS.Control_Timer = (function () {
     };
 })();
 var PS = PS || {};
-PS.Debug_Trace = (function () {
+PS.Data_Html_Attributes = (function () {
     "use strict";
-    var Prelude = PS.Prelude;
-    function trace(s) {  return function() {    console.log(s);    return {};  };};
-    var print = function (__dict_Show_16) {
-        return function (o) {
-            return trace(Prelude.show(__dict_Show_16)(o));
-        };
-    };
-    return {
-        print: print, 
-        trace: trace
-    };
-})();
-var PS = PS || {};
-PS.Html_Attributes = (function () {
-    "use strict";
-    var Html_Attributes_Internal = PS.Html_Attributes_Internal;
-    var Html_VirtualDOM = PS.Html_VirtualDOM;
+    var Data_Html_Internal_Attributes = PS.Data_Html_Internal_Attributes;
     var Data_Function = PS.Data_Function;
+    var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
     var Prelude = PS.Prelude;
     
 function mkEvHook (eh, fn) {
@@ -3396,61 +2756,48 @@ function mkEvHook (eh, fn) {
   return eh(mkEvHook_callback);
 };
     var style = function (v) {
-        return Html_Attributes_Internal.attribute("style")(Html_Attributes_Internal.unsafeCoerce(v));
-    };
-    var stringAttribute = function (n) {
-        return function (v) {
-            return Html_Attributes_Internal.attribute(n)(Html_Attributes_Internal.unsafeCoerce(v));
-        };
+        return Data_Html_Internal_Attributes.attribute("style")(Data_Html_Internal_Attributes.unsafeCoerce(v));
     };
     var on_ = function (ev) {
         return function (fn) {
-            return Html_Attributes_Internal.attribute("ev-" + ev)(Html_Attributes_Internal.unsafeCoerce(mkEvHook(Html_VirtualDOM.virtualDOM.evHook, fn)));
-        };
-    };
-    var numberAttribute = function (n) {
-        return function (v) {
-            return Html_Attributes_Internal.attribute(n)(Html_Attributes_Internal.unsafeCoerce(v));
-        };
-    };
-    var namespace = Html_Attributes_Internal.Namespace.create;
-    var key = Html_Attributes_Internal.Key.create;
-    var data_ = function (nm) {
-        return function (dat) {
-            return Html_Attributes_Internal.attribute("data-" + nm)(Html_Attributes_Internal.unsafeCoerce(Html_VirtualDOM.virtualDOM.dsHook(dat)));
-        };
-    };
-    var booleanAttribute = function (n) {
-        return function (v) {
-            return Html_Attributes_Internal.attribute(n)(Html_Attributes_Internal.unsafeCoerce(v));
+            return Data_Html_Internal_Attributes.attribute("ev-" + ev)(Data_Html_Internal_Attributes.unsafeCoerce(mkEvHook(Data_Html_Internal_VirtualDOM.virtualDOM.evHook, fn)));
         };
     };
     return {
-        booleanAttribute: booleanAttribute, 
-        data_: data_, 
-        key: key, 
-        namespace: namespace, 
-        numberAttribute: numberAttribute, 
         on_: on_, 
-        stringAttribute: stringAttribute, 
         style: style
     };
 })();
 var PS = PS || {};
-PS.Html = (function () {
+PS.Data_Html_Attributes_Html5 = (function () {
+    "use strict";
+    var Data_Html_Attributes = PS.Data_Html_Attributes;
+    var Prelude = PS.Prelude;
+    var style = Data_Html_Attributes.style;
+    return {
+        style: style
+    };
+})();
+var PS = PS || {};
+PS.Data_Html_Internal_Events = (function () {
+    "use strict";
+    var Prelude = PS.Prelude;
+    var MouseButtonEvent = {
+        create: function (value) {
+            return value;
+        }
+    };
+    return {
+        MouseButtonEvent: MouseButtonEvent
+    };
+})();
+var PS = PS || {};
+PS.Data_Html_Elements = (function () {
     "use strict";
     var Data_Function = PS.Data_Function;
-    var Html_Attributes_Internal = PS.Html_Attributes_Internal;
-    var Html_VirtualDOM = PS.Html_VirtualDOM;
-    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
+    var Data_Html_Internal_Attributes = PS.Data_Html_Internal_Attributes;
+    var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
     var Prelude = PS.Prelude;
-    var Control_Monad_Eff = PS.Control_Monad_Eff;
-    function Html(value0) {
-        this.value0 = value0;
-    };
-    Html.create = function (value0) {
-        return new Html(value0);
-    };
     
 function vnodeImpl (fn, name, attrs, children) {
   var props     = {}
@@ -3468,6 +2815,16 @@ function vnodeImpl (fn, name, attrs, children) {
       namespace = fn.getNs(attr);
     }
   }
+
+  if( name.toUpperCase() === "INPUT" &&
+      !namespace &&
+      props.hasOwnProperty('value') &&
+      props.value !== undefined &&
+      !fn.isHook(props.value)
+    ) {
+      props.value = fn.softSetHook(props.value);
+    }
+
   return new fn.vnode(name, props, children, key, namespace);
 };
     
@@ -3475,49 +2832,58 @@ function vtextImpl(vtext, text){
   return new vtext(text);
 };
     var vnode = Data_Function.runFn4(vnodeImpl)({
-        attrType: Html_Attributes_Internal.attrType, 
-        attrKey: Html_Attributes_Internal.getAttrKey, 
-        attrVal: Html_Attributes_Internal.getAttrValue, 
-        getKey: Html_Attributes_Internal.getKeyString, 
-        getNs: Html_Attributes_Internal.getNamespaceString, 
-        vnode: Html_VirtualDOM.virtualDOM.vnode
+        attrType: Data_Html_Internal_Attributes.attrType, 
+        attrKey: Data_Html_Internal_Attributes.getAttrKey, 
+        attrVal: Data_Html_Internal_Attributes.getAttrValue, 
+        getKey: Data_Html_Internal_Attributes.getKeyString, 
+        getNs: Data_Html_Internal_Attributes.getNamespaceString, 
+        vnode: Data_Html_Internal_VirtualDOM.virtualDOM.vnode, 
+        isHook: Data_Html_Internal_VirtualDOM.virtualDOM.isHook, 
+        softSetHook: Data_Html_Internal_VirtualDOM.virtualDOM.softSetHook
     });
-    var text = Data_Function.runFn2(vtextImpl)(Html_VirtualDOM.virtualDOM.vtext);
-    var patch = function (_47) {
-        return function (_48) {
+    var text = Data_Function.runFn2(vtextImpl)(Data_Html_Internal_VirtualDOM.virtualDOM.vtext);
+    return {
+        text: text, 
+        vnode: vnode
+    };
+})();
+var PS = PS || {};
+PS.Data_Html = (function () {
+    "use strict";
+    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
+    var Prelude = PS.Prelude;
+    var Data_Function = PS.Data_Function;
+    var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
+    var Control_Monad_Eff = PS.Control_Monad_Eff;
+    function Html(value0) {
+        this.value0 = value0;
+    };
+    Html.create = function (value0) {
+        return new Html(value0);
+    };
+    var patch = function (_50) {
+        return function (_51) {
             return function __do() {
-                var _5 = Control_Monad_Eff_Ref.readRef(_48.value0)();
+                var _5 = Control_Monad_Eff_Ref.readRef(_51.value0)();
                 return (function () {
-                    var patch_1 = Html_VirtualDOM.virtualDOM.diff(_5.vtree, _47);
-                    var node$prime = Html_VirtualDOM.virtualDOM.patch(_5.node, patch_1);
-                    return Control_Monad_Eff_Ref.writeRef(_48.value0)({
+                    var patch_1 = Data_Html_Internal_VirtualDOM.virtualDOM.diff(_5.vtree, _50);
+                    var node$prime = Data_Html_Internal_VirtualDOM.virtualDOM.patch(_5.node, patch_1);
+                    return Control_Monad_Eff_Ref.writeRef(_51.value0)({
                         node: node$prime, 
-                        vtree: _47
+                        vtree: _50
                     });
                 })()();
             };
         };
     };
-    var getNode = function (_46) {
+    var getNode = function (_49) {
         return function __do() {
-            var h = Control_Monad_Eff_Ref.readRef(_46.value0)();
+            var h = Control_Monad_Eff_Ref.readRef(_49.value0)();
             return h.node;
         };
     };
-    var createElementOptions = function (opts) {
-        return function (vtree) {
-            var n = Html_VirtualDOM.virtualDOM.create(vtree, opts);
-            return function __do() {
-                var _3 = Control_Monad_Eff_Ref.newRef({
-                    node: n, 
-                    vtree: vtree
-                })();
-                return new Html(_3);
-            };
-        };
-    };
     var createElement = function (vtree) {
-        var n = Html_VirtualDOM.virtualDOM.create(vtree);
+        var n = Data_Html_Internal_VirtualDOM.virtualDOM.create(vtree);
         return function __do() {
             var _4 = Control_Monad_Eff_Ref.newRef({
                 node: n, 
@@ -3528,2283 +2894,92 @@ function vtextImpl(vtext, text){
     };
     return {
         createElement: createElement, 
-        createElementOptions: createElementOptions, 
         getNode: getNode, 
-        patch: patch, 
-        text: text, 
-        vnode: vnode
+        patch: patch
     };
 })();
 var PS = PS || {};
-PS.Html_Attributes_Html5 = (function () {
+PS.Data_Html_Elements_Html5 = (function () {
     "use strict";
-    var Html_Attributes = PS.Html_Attributes;
+    var Data_Html_Elements = PS.Data_Html_Elements;
     var Prelude = PS.Prelude;
-    var wrap = Html_Attributes.stringAttribute("wrap");
-    var width = Html_Attributes.numberAttribute("width");
-    var value = Html_Attributes.stringAttribute("value");
-    var usemap = Html_Attributes.stringAttribute("usemap");
-    var type_ = Html_Attributes.stringAttribute("type");
-    var title = Html_Attributes.stringAttribute("title");
-    var target = Html_Attributes.stringAttribute("target");
-    var tabindex = Html_Attributes.numberAttribute("tabindex");
-    var step = Html_Attributes.numberAttribute("step");
-    var start = Html_Attributes.numberAttribute("start");
-    var srclang = Html_Attributes.stringAttribute("srclang");
-    var srcdoc = Html_Attributes.stringAttribute("srcdoc");
-    var src = Html_Attributes.stringAttribute("src");
-    var spellcheck = Html_Attributes.booleanAttribute("spellcheck");
-    var size = Html_Attributes.numberAttribute("size");
-    var shape = Html_Attributes.stringAttribute("shape");
-    var selected = Html_Attributes.booleanAttribute("selected");
-    var seamless = Html_Attributes.booleanAttribute("seamless");
-    var scoped = Html_Attributes.booleanAttribute("scoped");
-    var scope = Html_Attributes.stringAttribute("scope");
-    var sandbox = Html_Attributes.stringAttribute("sandbox");
-    var rowspan = Html_Attributes.stringAttribute("rowspan");
-    var rows = Html_Attributes.numberAttribute("rows");
-    var reversed = Html_Attributes.booleanAttribute("reversed");
-    var required = Html_Attributes.booleanAttribute("required");
-    var rel = Html_Attributes.stringAttribute("rel");
-    var readonly = Html_Attributes.booleanAttribute("readonly");
-    var pubdate = Html_Attributes.stringAttribute("pubdate");
-    var preload = Html_Attributes.booleanAttribute("preload");
-    var poster = Html_Attributes.stringAttribute("poster");
-    var placeholder = Html_Attributes.stringAttribute("placeholder");
-    var ping = Html_Attributes.stringAttribute("ping");
-    var pattern = Html_Attributes.stringAttribute("pattern");
-    var novalidate = Html_Attributes.booleanAttribute("novalidate");
-    var name = Html_Attributes.stringAttribute("name");
-    var multiple = Html_Attributes.booleanAttribute("multiple");
-    var min = Html_Attributes.stringAttribute("min");
-    var method = Html_Attributes.stringAttribute("method");
-    var media = Html_Attributes.stringAttribute("media");
-    var maxlength = Html_Attributes.numberAttribute("maxlength");
-    var max = Html_Attributes.stringAttribute("max");
-    var manifest = Html_Attributes.stringAttribute("manifest");
-    var loop = Html_Attributes.booleanAttribute("loop");
-    var list = Html_Attributes.stringAttribute("list");
-    var language = Html_Attributes.stringAttribute("language");
-    var lang = Html_Attributes.stringAttribute("lang");
-    var kind = Html_Attributes.stringAttribute("kind");
-    var keytype = Html_Attributes.stringAttribute("keytype");
-    var itemporp = Html_Attributes.stringAttribute("itemporp");
-    var ismap = Html_Attributes.stringAttribute("ismap");
-    var id_ = Html_Attributes.stringAttribute("id");
-    var httpEquiv = Html_Attributes.stringAttribute("http-equiv");
-    var hreflang = Html_Attributes.stringAttribute("hreflang");
-    var href = Html_Attributes.stringAttribute("href");
-    var hidden = Html_Attributes.booleanAttribute("hidden");
-    var height = Html_Attributes.numberAttribute("height");
-    var headers = Html_Attributes.stringAttribute("headers");
-    var formaction = Html_Attributes.stringAttribute("formaction");
-    var form = Html_Attributes.stringAttribute("form");
-    var $$for = Html_Attributes.stringAttribute("for");
-    var enctype = Html_Attributes.stringAttribute("enctype");
-    var dropzone = Html_Attributes.stringAttribute("dropzone");
-    var draggable = Html_Attributes.stringAttribute("draggable");
-    var downloadAs = Html_Attributes.stringAttribute("downloadAs");
-    var download = Html_Attributes.booleanAttribute("download");
-    var disabled = Html_Attributes.booleanAttribute("disabled");
-    var dir = Html_Attributes.stringAttribute("dir");
-    var defer = Html_Attributes.booleanAttribute("defer");
-    var $$default = Html_Attributes.booleanAttribute("default");
-    var datetime = Html_Attributes.stringAttribute("datetime");
-    var coords = Html_Attributes.stringAttribute("coords");
-    var controls = Html_Attributes.booleanAttribute("controls");
-    var contextmenu = Html_Attributes.stringAttribute("contextmenu");
-    var contenteditable = Html_Attributes.booleanAttribute("contenteditable");
-    var content = Html_Attributes.stringAttribute("content");
-    var colspan = Html_Attributes.stringAttribute("colspan");
-    var cols = Html_Attributes.numberAttribute("cols");
-    var class_ = Html_Attributes.stringAttribute("className");
-    var cite = Html_Attributes.stringAttribute("cite");
-    var checked = Html_Attributes.booleanAttribute("checked");
-    var charset = Html_Attributes.stringAttribute("charset");
-    var challenge = Html_Attributes.stringAttribute("challenge");
-    var autosave = Html_Attributes.booleanAttribute("autosave");
-    var autoplay = Html_Attributes.booleanAttribute("autoplay");
-    var autofocus = Html_Attributes.booleanAttribute("autofocus");
-    var autocomplete = Html_Attributes.booleanAttribute("autocomplete");
-    var async = Html_Attributes.booleanAttribute("async");
-    var alt = Html_Attributes.stringAttribute("alt");
-    var align = Html_Attributes.stringAttribute("align");
-    var action = Html_Attributes.stringAttribute("action");
-    var accesskey = Html_Attributes.stringAttribute("accesskey");
-    var acceptCharset = Html_Attributes.stringAttribute("accept-charset");
-    var accept = Html_Attributes.stringAttribute("accept");
+    var text = Data_Html_Elements.text;
+    var div = Data_Html_Elements.vnode("div");
     return {
-        accept: accept, 
-        acceptCharset: acceptCharset, 
-        accesskey: accesskey, 
-        action: action, 
-        align: align, 
-        alt: alt, 
-        async: async, 
-        autocomplete: autocomplete, 
-        autofocus: autofocus, 
-        autoplay: autoplay, 
-        autosave: autosave, 
-        challenge: challenge, 
-        charset: charset, 
-        checked: checked, 
-        cite: cite, 
-        class_: class_, 
-        cols: cols, 
-        colspan: colspan, 
-        content: content, 
-        contenteditable: contenteditable, 
-        contextmenu: contextmenu, 
-        controls: controls, 
-        coords: coords, 
-        datetime: datetime, 
-        "default": $$default, 
-        defer: defer, 
-        dir: dir, 
-        disabled: disabled, 
-        download: download, 
-        downloadAs: downloadAs, 
-        draggable: draggable, 
-        dropzone: dropzone, 
-        enctype: enctype, 
-        "for": $$for, 
-        form: form, 
-        formaction: formaction, 
-        headers: headers, 
-        height: height, 
-        hidden: hidden, 
-        href: href, 
-        hreflang: hreflang, 
-        httpEquiv: httpEquiv, 
-        id_: id_, 
-        ismap: ismap, 
-        itemporp: itemporp, 
-        keytype: keytype, 
-        kind: kind, 
-        lang: lang, 
-        language: language, 
-        list: list, 
-        loop: loop, 
-        manifest: manifest, 
-        max: max, 
-        maxlength: maxlength, 
-        media: media, 
-        method: method, 
-        min: min, 
-        multiple: multiple, 
-        name: name, 
-        novalidate: novalidate, 
-        pattern: pattern, 
-        ping: ping, 
-        placeholder: placeholder, 
-        poster: poster, 
-        preload: preload, 
-        pubdate: pubdate, 
-        readonly: readonly, 
-        rel: rel, 
-        required: required, 
-        reversed: reversed, 
-        rows: rows, 
-        rowspan: rowspan, 
-        sandbox: sandbox, 
-        scope: scope, 
-        scoped: scoped, 
-        seamless: seamless, 
-        selected: selected, 
-        shape: shape, 
-        size: size, 
-        spellcheck: spellcheck, 
-        src: src, 
-        srcdoc: srcdoc, 
-        srclang: srclang, 
-        start: start, 
-        step: step, 
-        tabindex: tabindex, 
-        target: target, 
-        title: title, 
-        type_: type_, 
-        usemap: usemap, 
-        value: value, 
-        width: width, 
-        wrap: wrap
-    };
-})();
-var PS = PS || {};
-PS.Html_Elements = (function () {
-    "use strict";
-    var Html = PS.Html;
-    var Prelude = PS.Prelude;
-    var wbr = Html.vnode("wbr");
-    var video = Html.vnode("video");
-    var $$var = Html.vnode("var");
-    var ul = Html.vnode("ul");
-    var u = Html.vnode("u");
-    var track = Html.vnode("track");
-    var tr = Html.vnode("tr");
-    var time = Html.vnode("time");
-    var thead = Html.vnode("thead");
-    var th = Html.vnode("th");
-    var tfoot = Html.vnode("tfoot");
-    var textarea = Html.vnode("textarea");
-    var td = Html.vnode("td");
-    var tbody = Html.vnode("tbody");
-    var table = Html.vnode("table");
-    var svg = Html.vnode("svg");
-    var sup = Html.vnode("sup");
-    var summary = Html.vnode("summary");
-    var sub = Html.vnode("sub");
-    var strong = Html.vnode("strong");
-    var span = Html.vnode("span");
-    var source = Html.vnode("source");
-    var small = Html.vnode("small");
-    var select = Html.vnode("select");
-    var section = Html.vnode("section");
-    var samp = Html.vnode("samp");
-    var s = Html.vnode("s");
-    var ruby = Html.vnode("ruby");
-    var rt = Html.vnode("rt");
-    var rp = Html.vnode("rp");
-    var q = Html.vnode("q");
-    var progress = Html.vnode("progress");
-    var pre = Html.vnode("pre");
-    var param = Html.vnode("param");
-    var p = Html.vnode("p");
-    var output = Html.vnode("output");
-    var option = Html.vnode("option");
-    var optgroup = Html.vnode("optgroup");
-    var ol = Html.vnode("ol");
-    var object = Html.vnode("object");
-    var nav = Html.vnode("nav");
-    var meter = Html.vnode("meter");
-    var menuitem = Html.vnode("menuitem");
-    var menu = Html.vnode("menu");
-    var math = Html.vnode("math");
-    var mark = Html.vnode("mark");
-    var main = Html.vnode("main");
-    var li = Html.vnode("li");
-    var legend = Html.vnode("legend");
-    var label = Html.vnode("label");
-    var keygen = Html.vnode("keygen");
-    var kbd = Html.vnode("kbd");
-    var ins = Html.vnode("ins");
-    var input = Html.vnode("input");
-    var img = Html.vnode("img");
-    var iframe = Html.vnode("iframe");
-    var i = Html.vnode("i");
-    var hr = Html.vnode("hr");
-    var header = Html.vnode("header");
-    var h6 = Html.vnode("h6");
-    var h5 = Html.vnode("h5");
-    var h4 = Html.vnode("h4");
-    var h3 = Html.vnode("h3");
-    var h2 = Html.vnode("h2");
-    var h1 = Html.vnode("h1");
-    var form = Html.vnode("form");
-    var footer = Html.vnode("footer");
-    var figure = Html.vnode("figure");
-    var figcaption = Html.vnode("figcaption");
-    var fieldset = Html.vnode("fieldset");
-    var embed = Html.vnode("embed");
-    var em = Html.vnode("em");
-    var dt = Html.vnode("dt");
-    var dl = Html.vnode("dl");
-    var div = Html.vnode("div");
-    var dfn = Html.vnode("dfn");
-    var details = Html.vnode("details");
-    var del = Html.vnode("del");
-    var dd = Html.vnode("dd");
-    var datalist = Html.vnode("datalist");
-    var colgroup = Html.vnode("colgroup");
-    var col = Html.vnode("col");
-    var code = Html.vnode("code");
-    var cite = Html.vnode("cite");
-    var caption = Html.vnode("caption");
-    var canvas = Html.vnode("canvas");
-    var button = Html.vnode("button");
-    var br = Html.vnode("br");
-    var body = Html.vnode("body");
-    var blockquote = Html.vnode("blockquote");
-    var bdo = Html.vnode("bdo");
-    var bdi = Html.vnode("bdi");
-    var b = Html.vnode("b");
-    var audio = Html.vnode("audio");
-    var aside = Html.vnode("aside");
-    var article = Html.vnode("article");
-    var address = Html.vnode("address");
-    var abbr = Html.vnode("abbr");
-    var a = Html.vnode("a");
-    return {
-        a: a, 
-        abbr: abbr, 
-        address: address, 
-        article: article, 
-        aside: aside, 
-        audio: audio, 
-        b: b, 
-        bdi: bdi, 
-        bdo: bdo, 
-        blockquote: blockquote, 
-        body: body, 
-        br: br, 
-        button: button, 
-        canvas: canvas, 
-        caption: caption, 
-        cite: cite, 
-        code: code, 
-        col: col, 
-        colgroup: colgroup, 
-        datalist: datalist, 
-        dd: dd, 
-        del: del, 
-        details: details, 
-        dfn: dfn, 
         div: div, 
-        dl: dl, 
-        dt: dt, 
-        em: em, 
-        embed: embed, 
-        fieldset: fieldset, 
-        figcaption: figcaption, 
-        figure: figure, 
-        footer: footer, 
-        form: form, 
-        h1: h1, 
-        h2: h2, 
-        h3: h3, 
-        h4: h4, 
-        h5: h5, 
-        h6: h6, 
-        header: header, 
-        hr: hr, 
-        i: i, 
-        iframe: iframe, 
-        img: img, 
-        input: input, 
-        ins: ins, 
-        kbd: kbd, 
-        keygen: keygen, 
-        label: label, 
-        legend: legend, 
-        li: li, 
-        main: main, 
-        mark: mark, 
-        math: math, 
-        menu: menu, 
-        menuitem: menuitem, 
-        meter: meter, 
-        nav: nav, 
-        object: object, 
-        ol: ol, 
-        optgroup: optgroup, 
-        option: option, 
-        output: output, 
-        p: p, 
-        param: param, 
-        pre: pre, 
-        progress: progress, 
-        q: q, 
-        rp: rp, 
-        rt: rt, 
-        ruby: ruby, 
-        s: s, 
-        samp: samp, 
-        section: section, 
-        select: select, 
-        small: small, 
-        source: source, 
-        span: span, 
-        strong: strong, 
-        sub: sub, 
-        summary: summary, 
-        sup: sup, 
-        svg: svg, 
-        table: table, 
-        tbody: tbody, 
-        td: td, 
-        textarea: textarea, 
-        tfoot: tfoot, 
-        th: th, 
-        thead: thead, 
-        time: time, 
-        tr: tr, 
-        track: track, 
-        u: u, 
-        ul: ul, 
-        "var": $$var, 
-        video: video, 
-        wbr: wbr
+        text: text
     };
 })();
 var PS = PS || {};
-PS.Html_Events_Internal = (function () {
+PS.Data_Html_Events = (function () {
     "use strict";
-    var Prelude = PS.Prelude;
-    var MouseHoverEvent = {
-        create: function (value) {
-            return value;
-        }
-    };
-    var MouseButtonEvent = {
-        create: function (value) {
-            return value;
-        }
-    };
-    var KeyEvent = {
-        create: function (value) {
-            return value;
-        }
-    };
-    return {
-        KeyEvent: KeyEvent, 
-        MouseButtonEvent: MouseButtonEvent, 
-        MouseHoverEvent: MouseHoverEvent
-    };
-})();
-var PS = PS || {};
-PS.Control_Monad = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var when = function (__dict_Monad_17) {
-        return function (_54) {
-            return function (_55) {
-                if (_54) {
-                    return _55;
-                };
-                if (!_54) {
-                    return Prelude["return"](__dict_Monad_17)(Prelude.unit);
-                };
-                throw new Error("Failed pattern match");
-            };
-        };
-    };
-    var unless = function (__dict_Monad_18) {
-        return function (_56) {
-            return function (_57) {
-                if (!_56) {
-                    return _57;
-                };
-                if (_56) {
-                    return Prelude["return"](__dict_Monad_18)(Prelude.unit);
-                };
-                throw new Error("Failed pattern match");
-            };
-        };
-    };
-    var replicateM = function (__dict_Monad_19) {
-        return function (_49) {
-            return function (_50) {
-                if (_49 === 0) {
-                    return Prelude["return"](__dict_Monad_19)([  ]);
-                };
-                return Prelude[">>="](__dict_Monad_19["__superclass_Prelude.Bind_1"]())(_50)(function (_7) {
-                    return Prelude[">>="](__dict_Monad_19["__superclass_Prelude.Bind_1"]())(replicateM(__dict_Monad_19)(_49 - 1)(_50))(function (_6) {
-                        return Prelude["return"](__dict_Monad_19)(Prelude[":"](_7)(_6));
-                    });
-                });
-            };
-        };
-    };
-    var foldM = function (__dict_Monad_20) {
-        return function (_51) {
-            return function (_52) {
-                return function (_53) {
-                    if (_53.length === 0) {
-                        return Prelude["return"](__dict_Monad_20)(_52);
-                    };
-                    if (_53.length >= 1) {
-                        var _196 = _53.slice(1);
-                        return Prelude[">>="](__dict_Monad_20["__superclass_Prelude.Bind_1"]())(_51(_52)(_53[0]))(function (a$prime) {
-                            return foldM(__dict_Monad_20)(_51)(a$prime)(_196);
-                        });
-                    };
-                    throw new Error("Failed pattern match");
-                };
-            };
-        };
-    };
-    return {
-        foldM: foldM, 
-        replicateM: replicateM, 
-        unless: unless, 
-        when: when
-    };
-})();
-var PS = PS || {};
-PS.Control_Lazy = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function Lazy(defer) {
-        this.defer = defer;
-    };
-    function Lazy1(defer1) {
-        this.defer1 = defer1;
-    };
-    function Lazy2(defer2) {
-        this.defer2 = defer2;
-    };
-    var defer2 = function (dict) {
-        return dict.defer2;
-    };
-    var fix2 = function (__dict_Lazy2_21) {
-        return function (f) {
-            return defer2(__dict_Lazy2_21)(function (_) {
-                return f(fix2(__dict_Lazy2_21)(f));
-            });
-        };
-    };
-    var defer1 = function (dict) {
-        return dict.defer1;
-    };
-    var fix1 = function (__dict_Lazy1_22) {
-        return function (f) {
-            return defer1(__dict_Lazy1_22)(function (_) {
-                return f(fix1(__dict_Lazy1_22)(f));
-            });
-        };
-    };
-    var defer = function (dict) {
-        return dict.defer;
-    };
-    var fix = function (__dict_Lazy_23) {
-        return function (f) {
-            return defer(__dict_Lazy_23)(function (_) {
-                return f(fix(__dict_Lazy_23)(f));
-            });
-        };
-    };
-    return {
-        Lazy: Lazy, 
-        Lazy1: Lazy1, 
-        Lazy2: Lazy2, 
-        defer: defer, 
-        defer1: defer1, 
-        defer2: defer2, 
-        fix: fix, 
-        fix1: fix1, 
-        fix2: fix2
-    };
-})();
-var PS = PS || {};
-PS.Control_Extend = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function Extend($less$less$eq, __superclass_Prelude$dotFunctor_0) {
-        this["<<="] = $less$less$eq;
-        this["__superclass_Prelude.Functor_0"] = __superclass_Prelude$dotFunctor_0;
-    };
-    var $less$less$eq = function (dict) {
-        return dict["<<="];
-    };
-    var $eq$less$eq = function (__dict_Extend_24) {
-        return function (f) {
-            return function (g) {
-                return function (w) {
-                    return f($less$less$eq(__dict_Extend_24)(g)(w));
-                };
-            };
-        };
-    };
-    var $eq$greater$eq = function (__dict_Extend_25) {
-        return function (f) {
-            return function (g) {
-                return function (w) {
-                    return g($less$less$eq(__dict_Extend_25)(f)(w));
-                };
-            };
-        };
-    };
-    var $eq$greater$greater = function (__dict_Extend_26) {
-        return function (w) {
-            return function (f) {
-                return $less$less$eq(__dict_Extend_26)(f)(w);
-            };
-        };
-    };
-    var extendArr = function (__dict_Semigroup_27) {
-        return new Extend(function (f) {
-            return function (g) {
-                return function (w) {
-                    return f(function (w$prime) {
-                        return g(Prelude["<>"](__dict_Semigroup_27)(w)(w$prime));
-                    });
-                };
-            };
-        }, function () {
-            return Prelude.functorArr;
-        });
-    };
-    var duplicate = function (__dict_Extend_28) {
-        return function (w) {
-            return $less$less$eq(__dict_Extend_28)(Prelude.id(Prelude.categoryArr))(w);
-        };
-    };
-    return {
-        "<<=": $less$less$eq, 
-        "=<=": $eq$less$eq, 
-        "=>=": $eq$greater$eq, 
-        "=>>": $eq$greater$greater, 
-        Extend: Extend, 
-        duplicate: duplicate, 
-        extendArr: extendArr
-    };
-})();
-var PS = PS || {};
-PS.Control_Comonad = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function Comonad(__superclass_Control$dotExtend$dotExtend_0, extract) {
-        this["__superclass_Control.Extend.Extend_0"] = __superclass_Control$dotExtend$dotExtend_0;
-        this.extract = extract;
-    };
-    var extract = function (dict) {
-        return dict.extract;
-    };
-    return {
-        Comonad: Comonad, 
-        extract: extract
-    };
-})();
-var PS = PS || {};
-PS.Control_Bind = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var $greater$eq$greater = function (__dict_Bind_29) {
-        return function (f) {
-            return function (g) {
-                return function (a) {
-                    return Prelude[">>="](__dict_Bind_29)(f(a))(g);
-                };
-            };
-        };
-    };
-    var $eq$less$less = function (__dict_Bind_30) {
-        return function (f) {
-            return function (m) {
-                return Prelude[">>="](__dict_Bind_30)(m)(f);
-            };
-        };
-    };
-    var $less$eq$less = function (__dict_Bind_31) {
-        return function (f) {
-            return function (g) {
-                return function (a) {
-                    return $eq$less$less(__dict_Bind_31)(f)(g(a));
-                };
-            };
-        };
-    };
-    var join = function (__dict_Bind_32) {
-        return function (m) {
-            return Prelude[">>="](__dict_Bind_32)(m)(Prelude.id(Prelude.categoryArr));
-        };
-    };
-    var ifM = function (__dict_Bind_33) {
-        return function (cond) {
-            return function (t) {
-                return function (f) {
-                    return Prelude[">>="](__dict_Bind_33)(cond)(function (cond$prime) {
-                        return cond$prime ? t : f;
-                    });
-                };
-            };
-        };
-    };
-    return {
-        "<=<": $less$eq$less, 
-        "=<<": $eq$less$less, 
-        ">=>": $greater$eq$greater, 
-        ifM: ifM, 
-        join: join
-    };
-})();
-var PS = PS || {};
-PS.Control_Apply = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var $less$times = function (__dict_Apply_34) {
-        return function (a) {
-            return function (b) {
-                return Prelude["<*>"](__dict_Apply_34)(Prelude["<$>"](__dict_Apply_34["__superclass_Prelude.Functor_0"]())(Prelude["const"])(a))(b);
-            };
-        };
-    };
-    var $times$greater = function (__dict_Apply_35) {
-        return function (a) {
-            return function (b) {
-                return Prelude["<*>"](__dict_Apply_35)(Prelude["<$>"](__dict_Apply_35["__superclass_Prelude.Functor_0"]())(Prelude["const"](Prelude.id(Prelude.categoryArr)))(a))(b);
-            };
-        };
-    };
-    var lift5 = function (__dict_Apply_36) {
-        return function (f) {
-            return function (a) {
-                return function (b) {
-                    return function (c) {
-                        return function (d) {
-                            return function (e) {
-                                return Prelude["<*>"](__dict_Apply_36)(Prelude["<*>"](__dict_Apply_36)(Prelude["<*>"](__dict_Apply_36)(Prelude["<*>"](__dict_Apply_36)(Prelude["<$>"](__dict_Apply_36["__superclass_Prelude.Functor_0"]())(f)(a))(b))(c))(d))(e);
-                            };
-                        };
-                    };
-                };
-            };
-        };
-    };
-    var lift4 = function (__dict_Apply_37) {
-        return function (f) {
-            return function (a) {
-                return function (b) {
-                    return function (c) {
-                        return function (d) {
-                            return Prelude["<*>"](__dict_Apply_37)(Prelude["<*>"](__dict_Apply_37)(Prelude["<*>"](__dict_Apply_37)(Prelude["<$>"](__dict_Apply_37["__superclass_Prelude.Functor_0"]())(f)(a))(b))(c))(d);
-                        };
-                    };
-                };
-            };
-        };
-    };
-    var lift3 = function (__dict_Apply_38) {
-        return function (f) {
-            return function (a) {
-                return function (b) {
-                    return function (c) {
-                        return Prelude["<*>"](__dict_Apply_38)(Prelude["<*>"](__dict_Apply_38)(Prelude["<$>"](__dict_Apply_38["__superclass_Prelude.Functor_0"]())(f)(a))(b))(c);
-                    };
-                };
-            };
-        };
-    };
-    var lift2 = function (__dict_Apply_39) {
-        return function (f) {
-            return function (a) {
-                return function (b) {
-                    return Prelude["<*>"](__dict_Apply_39)(Prelude["<$>"](__dict_Apply_39["__superclass_Prelude.Functor_0"]())(f)(a))(b);
-                };
-            };
-        };
-    };
-    var forever = function (__dict_Apply_40) {
-        return function (a) {
-            return $times$greater(__dict_Apply_40)(a)(forever(__dict_Apply_40)(a));
-        };
-    };
-    return {
-        "*>": $times$greater, 
-        "<*": $less$times, 
-        forever: forever, 
-        lift2: lift2, 
-        lift3: lift3, 
-        lift4: lift4, 
-        lift5: lift5
-    };
-})();
-var PS = PS || {};
-PS.Control_Alt = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function Alt($less$bar$greater, __superclass_Prelude$dotFunctor_0) {
-        this["<|>"] = $less$bar$greater;
-        this["__superclass_Prelude.Functor_0"] = __superclass_Prelude$dotFunctor_0;
-    };
-    var $less$bar$greater = function (dict) {
-        return dict["<|>"];
-    };
-    return {
-        "<|>": $less$bar$greater, 
-        Alt: Alt
-    };
-})();
-var PS = PS || {};
-PS.Control_Plus = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    function Plus(__superclass_Control$dotAlt$dotAlt_0, empty) {
-        this["__superclass_Control.Alt.Alt_0"] = __superclass_Control$dotAlt$dotAlt_0;
-        this.empty = empty;
-    };
-    var empty = function (dict) {
-        return dict.empty;
-    };
-    return {
-        Plus: Plus, 
-        empty: empty
-    };
-})();
-var PS = PS || {};
-PS.Control_Alternative = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Control_Lazy = PS.Control_Lazy;
-    var Control_Alt = PS.Control_Alt;
-    function Alternative(__superclass_Control$dotPlus$dotPlus_1, __superclass_Prelude$dotApplicative_0) {
-        this["__superclass_Control.Plus.Plus_1"] = __superclass_Control$dotPlus$dotPlus_1;
-        this["__superclass_Prelude.Applicative_0"] = __superclass_Prelude$dotApplicative_0;
-    };
-    var some = function (__dict_Alternative_41) {
-        return function (__dict_Lazy1_42) {
-            return function (v) {
-                return Prelude["<*>"]((__dict_Alternative_41["__superclass_Prelude.Applicative_0"]())["__superclass_Prelude.Apply_0"]())(Prelude["<$>"](((__dict_Alternative_41["__superclass_Control.Plus.Plus_1"]())["__superclass_Control.Alt.Alt_0"]())["__superclass_Prelude.Functor_0"]())(Prelude[":"])(v))(Control_Lazy.defer1(__dict_Lazy1_42)(function (_) {
-                    return many(__dict_Alternative_41)(__dict_Lazy1_42)(v);
-                }));
-            };
-        };
-    };
-    var many = function (__dict_Alternative_43) {
-        return function (__dict_Lazy1_44) {
-            return function (v) {
-                return Control_Alt["<|>"]((__dict_Alternative_43["__superclass_Control.Plus.Plus_1"]())["__superclass_Control.Alt.Alt_0"]())(some(__dict_Alternative_43)(__dict_Lazy1_44)(v))(Prelude.pure(__dict_Alternative_43["__superclass_Prelude.Applicative_0"]())([  ]));
-            };
-        };
-    };
-    return {
-        Alternative: Alternative, 
-        many: many, 
-        some: some
-    };
-})();
-var PS = PS || {};
-PS.Control_MonadPlus = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Control_Plus = PS.Control_Plus;
-    function MonadPlus(__superclass_Control$dotAlternative$dotAlternative_1, __superclass_Prelude$dotMonad_0) {
-        this["__superclass_Control.Alternative.Alternative_1"] = __superclass_Control$dotAlternative$dotAlternative_1;
-        this["__superclass_Prelude.Monad_0"] = __superclass_Prelude$dotMonad_0;
-    };
-    var guard = function (__dict_MonadPlus_45) {
-        return function (_58) {
-            if (_58) {
-                return Prelude["return"](__dict_MonadPlus_45["__superclass_Prelude.Monad_0"]())(Prelude.unit);
-            };
-            if (!_58) {
-                return Control_Plus.empty((__dict_MonadPlus_45["__superclass_Control.Alternative.Alternative_1"]())["__superclass_Control.Plus.Plus_1"]());
-            };
-            throw new Error("Failed pattern match");
-        };
-    };
-    return {
-        MonadPlus: MonadPlus, 
-        guard: guard
-    };
-})();
-var PS = PS || {};
-PS.Data_Maybe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Control_Extend = PS.Control_Extend;
-    var Control_Alt = PS.Control_Alt;
-    var Control_Plus = PS.Control_Plus;
-    var Control_Alternative = PS.Control_Alternative;
-    var Control_MonadPlus = PS.Control_MonadPlus;
-    function Nothing() {
-
-    };
-    Nothing.value = new Nothing();
-    function Just(value0) {
-        this.value0 = value0;
-    };
-    Just.create = function (value0) {
-        return new Just(value0);
-    };
-    var showMaybe = function (__dict_Show_46) {
-        return new Prelude.Show(function (_74) {
-            if (_74 instanceof Just) {
-                return "Just (" + (Prelude.show(__dict_Show_46)(_74.value0) + ")");
-            };
-            if (_74 instanceof Nothing) {
-                return "Nothing";
-            };
-            throw new Error("Failed pattern match");
-        });
-    };
-    var semigroupMaybe = function (__dict_Semigroup_47) {
-        return new Prelude.Semigroup(function (_72) {
-            return function (_73) {
-                if (_72 instanceof Nothing) {
-                    return _73;
-                };
-                if (_73 instanceof Nothing) {
-                    return _72;
-                };
-                if (_72 instanceof Just && _73 instanceof Just) {
-                    return new Just(Prelude["<>"](__dict_Semigroup_47)(_72.value0)(_73.value0));
-                };
-                throw new Error("Failed pattern match");
-            };
-        });
-    };
-    var maybe = function (_59) {
-        return function (_60) {
-            return function (_61) {
-                if (_61 instanceof Nothing) {
-                    return _59;
-                };
-                if (_61 instanceof Just) {
-                    return _60(_61.value0);
-                };
-                throw new Error("Failed pattern match");
-            };
-        };
-    };
-    var isNothing = maybe(true)(Prelude["const"](false));
-    var isJust = maybe(false)(Prelude["const"](true));
-    var functorMaybe = new Prelude.Functor(function (_62) {
-        return function (_63) {
-            if (_63 instanceof Just) {
-                return new Just(_62(_63.value0));
-            };
-            return Nothing.value;
-        };
-    });
-    var fromMaybe = function (a) {
-        return maybe(a)(Prelude.id(Prelude.categoryArr));
-    };
-    var extendMaybe = new Control_Extend.Extend(function (_70) {
-        return function (_71) {
-            if (_71 instanceof Nothing) {
-                return Nothing.value;
-            };
-            return Just.create(_70(_71));
-        };
-    }, function () {
-        return functorMaybe;
-    });
-    var eqMaybe = function (__dict_Eq_49) {
-        return new Prelude.Eq(function (a) {
-            return function (b) {
-                return !Prelude["=="](eqMaybe(__dict_Eq_49))(a)(b);
-            };
-        }, function (_75) {
-            return function (_76) {
-                if (_75 instanceof Nothing && _76 instanceof Nothing) {
-                    return true;
-                };
-                if (_75 instanceof Just && _76 instanceof Just) {
-                    return Prelude["=="](__dict_Eq_49)(_75.value0)(_76.value0);
-                };
-                return false;
-            };
-        });
-    };
-    var ordMaybe = function (__dict_Ord_48) {
-        return new Prelude.Ord(function () {
-            return eqMaybe(__dict_Ord_48["__superclass_Prelude.Eq_0"]());
-        }, function (_77) {
-            return function (_78) {
-                if (_77 instanceof Just && _78 instanceof Just) {
-                    return Prelude.compare(__dict_Ord_48)(_77.value0)(_78.value0);
-                };
-                if (_77 instanceof Nothing && _78 instanceof Nothing) {
-                    return Prelude.EQ.value;
-                };
-                if (_77 instanceof Nothing) {
-                    return Prelude.LT.value;
-                };
-                if (_78 instanceof Nothing) {
-                    return Prelude.GT.value;
-                };
-                throw new Error("Failed pattern match");
-            };
-        });
-    };
-    var applyMaybe = new Prelude.Apply(function (_64) {
-        return function (_65) {
-            if (_64 instanceof Just) {
-                return Prelude["<$>"](functorMaybe)(_64.value0)(_65);
-            };
-            if (_64 instanceof Nothing) {
-                return Nothing.value;
-            };
-            throw new Error("Failed pattern match");
-        };
-    }, function () {
-        return functorMaybe;
-    });
-    var bindMaybe = new Prelude.Bind(function (_68) {
-        return function (_69) {
-            if (_68 instanceof Just) {
-                return _69(_68.value0);
-            };
-            if (_68 instanceof Nothing) {
-                return Nothing.value;
-            };
-            throw new Error("Failed pattern match");
-        };
-    }, function () {
-        return applyMaybe;
-    });
-    var applicativeMaybe = new Prelude.Applicative(function () {
-        return applyMaybe;
-    }, Just.create);
-    var monadMaybe = new Prelude.Monad(function () {
-        return applicativeMaybe;
-    }, function () {
-        return bindMaybe;
-    });
-    var altMaybe = new Control_Alt.Alt(function (_66) {
-        return function (_67) {
-            if (_66 instanceof Nothing) {
-                return _67;
-            };
-            return _66;
-        };
-    }, function () {
-        return functorMaybe;
-    });
-    var plusMaybe = new Control_Plus.Plus(function () {
-        return altMaybe;
-    }, Nothing.value);
-    var alternativeMaybe = new Control_Alternative.Alternative(function () {
-        return plusMaybe;
-    }, function () {
-        return applicativeMaybe;
-    });
-    var monadPlusMaybe = new Control_MonadPlus.MonadPlus(function () {
-        return alternativeMaybe;
-    }, function () {
-        return monadMaybe;
-    });
-    return {
-        Just: Just, 
-        Nothing: Nothing, 
-        altMaybe: altMaybe, 
-        alternativeMaybe: alternativeMaybe, 
-        applicativeMaybe: applicativeMaybe, 
-        applyMaybe: applyMaybe, 
-        bindMaybe: bindMaybe, 
-        eqMaybe: eqMaybe, 
-        extendMaybe: extendMaybe, 
-        fromMaybe: fromMaybe, 
-        functorMaybe: functorMaybe, 
-        isJust: isJust, 
-        isNothing: isNothing, 
-        maybe: maybe, 
-        monadMaybe: monadMaybe, 
-        monadPlusMaybe: monadPlusMaybe, 
-        ordMaybe: ordMaybe, 
-        plusMaybe: plusMaybe, 
-        semigroupMaybe: semigroupMaybe, 
-        showMaybe: showMaybe
-    };
-})();
-var PS = PS || {};
-PS.Data_Array = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Data_Maybe = PS.Data_Maybe;
-    var Prelude_Unsafe = PS.Prelude_Unsafe;
-    var Control_Alt = PS.Control_Alt;
-    var Control_Plus = PS.Control_Plus;
-    var Control_Alternative = PS.Control_Alternative;
-    var Control_MonadPlus = PS.Control_MonadPlus;
-    function snoc(l) {  return function (e) {    var l1 = l.slice();    l1.push(e);     return l1;  };};
-    function length (xs) {  return xs.length;};
-    function findIndex (f) {  return function (arr) {    for (var i = 0, l = arr.length; i < l; i++) {      if (f(arr[i])) {        return i;      }    }    return -1;  };};
-    function findLastIndex (f) {  return function (arr) {    for (var i = arr.length - 1; i >= 0; i--) {      if (f(arr[i])) {        return i;      }    }    return -1;  };};
-    function append (l1) {  return function (l2) {    return l1.concat(l2);  };};
-    function concat (xss) {  var result = [];  for (var i = 0, l = xss.length; i < l; i++) {    result.push.apply(result, xss[i]);  }  return result;};
-    function reverse (l) {  return l.slice().reverse();};
-    function drop (n) {  return function (l) {    return l.slice(n);  };};
-    function slice (s) {  return function (e) {    return function (l) {      return l.slice(s, e);    };  };};
-    function insertAt (index) {  return function (a) {    return function (l) {      var l1 = l.slice();      l1.splice(index, 0, a);      return l1;    };   };};
-    function deleteAt (index) {  return function (n) {    return function (l) {      var l1 = l.slice();      l1.splice(index, n);      return l1;    };   };};
-    function updateAt (index) {  return function (a) {    return function (l) {      var i = ~~index;      if (i < 0 || i >= l.length) return l;      var l1 = l.slice();      l1[i] = a;      return l1;    };   };};
-    function concatMap (f) {  return function (arr) {    var result = [];    for (var i = 0, l = arr.length; i < l; i++) {      Array.prototype.push.apply(result, f(arr[i]));    }    return result;  };};
-    function map (f) {  return function (arr) {    var l = arr.length;    var result = new Array(l);    for (var i = 0; i < l; i++) {      result[i] = f(arr[i]);    }    return result;  };};
-    function filter (f) {  return function (arr) {    var n = 0;    var result = [];    for (var i = 0, l = arr.length; i < l; i++) {      if (f(arr[i])) {        result[n++] = arr[i];      }    }    return result;  };};
-    function range (start) {  return function (end) {    var i = ~~start, e = ~~end;    var step = i > e ? -1 : 1;    var result = [i], n = 1;    while (i !== e) {      i += step;      result[n++] = i;    }    return result;  };};
-    function zipWith (f) {  return function (xs) {    return function (ys) {      var l = xs.length < ys.length ? xs.length : ys.length;      var result = new Array(l);      for (var i = 0; i < l; i++) {        result[i] = f(xs[i])(ys[i]);      }      return result;    };  };};
-    function sortJS (f) {  return function (l) {    return l.slice().sort(function (x, y) {      return f(x)(y);    });  };};
-    var $dot$dot = range;
-    var $bang$bang = function (xs) {
-        return function (n) {
-            var isInt = function (n_1) {
-                return n_1 !== ~~n_1;
-            };
-            return n < 0 || (n >= length(xs) || isInt(n)) ? Data_Maybe.Nothing.value : new Data_Maybe.Just(xs[n]);
-        };
-    };
-    var take = function (n) {
-        return slice(0)(n);
-    };
-    var tail = function (_81) {
-        if (_81.length >= 1) {
-            var _231 = _81.slice(1);
-            return new Data_Maybe.Just(_231);
-        };
-        return Data_Maybe.Nothing.value;
-    };
-    var span = (function () {
-        var go = function (__copy__97) {
-            return function (__copy__98) {
-                return function (__copy__99) {
-                    var _97 = __copy__97;
-                    var _98 = __copy__98;
-                    var _99 = __copy__99;
-                    tco: while (true) {
-                        if (_99.length >= 1) {
-                            var _236 = _99.slice(1);
-                            if (_98(_99[0])) {
-                                var __tco__97 = Prelude[":"](_99[0])(_97);
-                                var __tco__98 = _98;
-                                _97 = __tco__97;
-                                _98 = __tco__98;
-                                _99 = _236;
-                                continue tco;
-                            };
-                        };
-                        return {
-                            init: reverse(_97), 
-                            rest: _99
-                        };
-                    };
-                };
-            };
-        };
-        return go([  ]);
-    })();
-    var sortBy = function (comp) {
-        return function (xs) {
-            var comp$prime = function (x) {
-                return function (y) {
-                    var _237 = comp(x)(y);
-                    if (_237 instanceof Prelude.GT) {
-                        return 1;
-                    };
-                    if (_237 instanceof Prelude.EQ) {
-                        return 0;
-                    };
-                    if (_237 instanceof Prelude.LT) {
-                        return -1;
-                    };
-                    throw new Error("Failed pattern match");
-                };
-            };
-            return sortJS(comp$prime)(xs);
-        };
-    };
-    var sort = function (__dict_Ord_50) {
-        return function (xs) {
-            return sortBy(Prelude.compare(__dict_Ord_50))(xs);
-        };
-    };
-    var singleton = function (a) {
-        return [ a ];
-    };
-    var semigroupArray = new Prelude.Semigroup(append);
-    var $$null = function (_83) {
-        if (_83.length === 0) {
-            return true;
-        };
-        return false;
-    };
-    var nubBy = function (_90) {
-        return function (_91) {
-            if (_91.length === 0) {
-                return [  ];
-            };
-            if (_91.length >= 1) {
-                var _242 = _91.slice(1);
-                return Prelude[":"](_91[0])(nubBy(_90)(filter(function (y) {
-                    return !_90(_91[0])(y);
-                })(_242)));
-            };
-            throw new Error("Failed pattern match");
-        };
-    };
-    var nub = function (__dict_Eq_51) {
-        return nubBy(Prelude["=="](__dict_Eq_51));
-    };
-    var mapMaybe = function (f) {
-        return concatMap(Prelude["<<<"](Prelude.semigroupoidArr)(Data_Maybe.maybe([  ])(singleton))(f));
-    };
-    var last = function (__copy__80) {
-        var _80 = __copy__80;
-        tco: while (true) {
-            if (_80.length >= 1) {
-                var _245 = _80.slice(1);
-                if (_245.length === 0) {
-                    return new Data_Maybe.Just(_80[0]);
-                };
-            };
-            if (_80.length >= 1) {
-                var _247 = _80.slice(1);
-                _80 = _247;
-                continue tco;
-            };
-            return Data_Maybe.Nothing.value;
-        };
-    };
-    var intersectBy = function (_87) {
-        return function (_88) {
-            return function (_89) {
-                if (_88.length === 0) {
-                    return [  ];
-                };
-                if (_89.length === 0) {
-                    return [  ];
-                };
-                var el = function (x) {
-                    return findIndex(_87(x))(_89) >= 0;
-                };
-                return filter(el)(_88);
-            };
-        };
-    };
-    var intersect = function (__dict_Eq_52) {
-        return intersectBy(Prelude["=="](__dict_Eq_52));
-    };
-    var init = function (_82) {
-        if (_82.length === 0) {
-            return Data_Maybe.Nothing.value;
-        };
-        return new Data_Maybe.Just(slice(0)(length(_82) - 1)(_82));
-    };
-    var head = function (_79) {
-        if (_79.length >= 1) {
-            var _254 = _79.slice(1);
-            return new Data_Maybe.Just(_79[0]);
-        };
-        return Data_Maybe.Nothing.value;
-    };
-    var groupBy = (function () {
-        var go = function (__copy__94) {
-            return function (__copy__95) {
-                return function (__copy__96) {
-                    var _94 = __copy__94;
-                    var _95 = __copy__95;
-                    var _96 = __copy__96;
-                    tco: while (true) {
-                        if (_96.length === 0) {
-                            return reverse(_94);
-                        };
-                        if (_96.length >= 1) {
-                            var _259 = _96.slice(1);
-                            var sp = span(_95(_96[0]))(_259);
-                            var __tco__94 = Prelude[":"](Prelude[":"](_96[0])(sp.init))(_94);
-                            var __tco__95 = _95;
-                            _94 = __tco__94;
-                            _95 = __tco__95;
-                            _96 = sp.rest;
-                            continue tco;
-                        };
-                        throw new Error("Failed pattern match");
-                    };
-                };
-            };
-        };
-        return go([  ]);
-    })();
-    var group = function (__dict_Eq_53) {
-        return function (xs) {
-            return groupBy(Prelude["=="](__dict_Eq_53))(xs);
-        };
-    };
-    var group$prime = function (__dict_Ord_54) {
-        return Prelude["<<<"](Prelude.semigroupoidArr)(group(__dict_Ord_54["__superclass_Prelude.Eq_0"]()))(sort(__dict_Ord_54));
-    };
-    var functorArray = new Prelude.Functor(map);
-    var elemLastIndex = function (__dict_Eq_55) {
-        return function (x) {
-            return findLastIndex(Prelude["=="](__dict_Eq_55)(x));
-        };
-    };
-    var elemIndex = function (__dict_Eq_56) {
-        return function (x) {
-            return findIndex(Prelude["=="](__dict_Eq_56)(x));
-        };
-    };
-    var deleteBy = function (_84) {
-        return function (_85) {
-            return function (_86) {
-                if (_86.length === 0) {
-                    return [  ];
-                };
-                var _263 = findIndex(_84(_85))(_86);
-                if (_263 < 0) {
-                    return _86;
-                };
-                return deleteAt(_263)(1)(_86);
-            };
-        };
-    };
-    var $$delete = function (__dict_Eq_57) {
-        return deleteBy(Prelude["=="](__dict_Eq_57));
-    };
-    var $bslash$bslash = function (__dict_Eq_58) {
-        return function (xs) {
-            return function (ys) {
-                var go = function (__copy__92) {
-                    return function (__copy__93) {
-                        var _92 = __copy__92;
-                        var _93 = __copy__93;
-                        tco: while (true) {
-                            if (_93.length === 0) {
-                                return _92;
-                            };
-                            if (_92.length === 0) {
-                                return [  ];
-                            };
-                            if (_93.length >= 1) {
-                                var _267 = _93.slice(1);
-                                var __tco__92 = $$delete(__dict_Eq_58)(_93[0])(_92);
-                                _92 = __tco__92;
-                                _93 = _267;
-                                continue tco;
-                            };
-                            throw new Error("Failed pattern match");
-                        };
-                    };
-                };
-                return go(xs)(ys);
-            };
-        };
-    };
-    var catMaybes = concatMap(Data_Maybe.maybe([  ])(singleton));
-    var monadArray = new Prelude.Monad(function () {
-        return applicativeArray;
-    }, function () {
-        return bindArray;
-    });
-    var bindArray = new Prelude.Bind(Prelude.flip(concatMap), function () {
-        return applyArray;
-    });
-    var applyArray = new Prelude.Apply(Prelude.ap(monadArray), function () {
-        return functorArray;
-    });
-    var applicativeArray = new Prelude.Applicative(function () {
-        return applyArray;
-    }, singleton);
-    var altArray = new Control_Alt.Alt(append, function () {
-        return functorArray;
-    });
-    var plusArray = new Control_Plus.Plus(function () {
-        return altArray;
-    }, [  ]);
-    var alternativeArray = new Control_Alternative.Alternative(function () {
-        return plusArray;
-    }, function () {
-        return applicativeArray;
-    });
-    var monadPlusArray = new Control_MonadPlus.MonadPlus(function () {
-        return alternativeArray;
-    }, function () {
-        return monadArray;
-    });
-    return {
-        "!!": $bang$bang, 
-        "..": $dot$dot, 
-        "\\\\": $bslash$bslash, 
-        altArray: altArray, 
-        alternativeArray: alternativeArray, 
-        append: append, 
-        applicativeArray: applicativeArray, 
-        applyArray: applyArray, 
-        bindArray: bindArray, 
-        catMaybes: catMaybes, 
-        concat: concat, 
-        concatMap: concatMap, 
-        "delete": $$delete, 
-        deleteAt: deleteAt, 
-        deleteBy: deleteBy, 
-        drop: drop, 
-        elemIndex: elemIndex, 
-        elemLastIndex: elemLastIndex, 
-        filter: filter, 
-        findIndex: findIndex, 
-        findLastIndex: findLastIndex, 
-        functorArray: functorArray, 
-        group: group, 
-        "group'": group$prime, 
-        groupBy: groupBy, 
-        head: head, 
-        init: init, 
-        insertAt: insertAt, 
-        intersect: intersect, 
-        intersectBy: intersectBy, 
-        last: last, 
-        length: length, 
-        map: map, 
-        mapMaybe: mapMaybe, 
-        monadArray: monadArray, 
-        monadPlusArray: monadPlusArray, 
-        nub: nub, 
-        nubBy: nubBy, 
-        "null": $$null, 
-        plusArray: plusArray, 
-        range: range, 
-        reverse: reverse, 
-        semigroupArray: semigroupArray, 
-        singleton: singleton, 
-        snoc: snoc, 
-        sort: sort, 
-        sortBy: sortBy, 
-        span: span, 
-        tail: tail, 
-        take: take, 
-        updateAt: updateAt, 
-        zipWith: zipWith
-    };
-})();
-var PS = PS || {};
-PS.Data_Array_ST = (function () {
-    "use strict";
-    var Data_Function = PS.Data_Function;
-    var Prelude = PS.Prelude;
-    var Data_Maybe = PS.Data_Maybe;
-    
-  function runSTArray(f) {
-    return f;
-  };
-    
-  function emptySTArray() {
-    return [];
-  };
-    
-  function peekSTArrayImpl(arr, i, s, f) {
-    return function() {
-      var index = ~~i;
-      if (0 <= index && index < arr.length) {
-        return s(arr[index]);
-      } else {
-        return f;
-      }
-    };
-  };
-    
-  function pokeSTArrayImpl(arr, i, a) {
-    return function() {
-      var index = ~~i;
-      if (0 <= index && index <= arr.length) {
-        arr[index] = a;
-        return true;
-      }
-      return false;
-    };
-  };
-    
-  function pushSTArrayImpl(arr, a) {
-    return function() {
-      arr.push(a);
-      return {};
-    };
-  };
-    var pushSTArray = function (arr) {
-        return function (a) {
-            return pushSTArrayImpl(arr, a);
-        };
-    };
-    var pokeSTArray = function (arr) {
-        return function (i) {
-            return function (a) {
-                return pokeSTArrayImpl(arr, i, a);
-            };
-        };
-    };
-    var peekSTArray = function (arr) {
-        return function (i) {
-            return peekSTArrayImpl(arr, i, Data_Maybe.Just.create, Data_Maybe.Nothing.value);
-        };
-    };
-    return {
-        emptySTArray: emptySTArray, 
-        peekSTArray: peekSTArray, 
-        pokeSTArray: pokeSTArray, 
-        pushSTArray: pushSTArray, 
-        runSTArray: runSTArray
-    };
-})();
-var PS = PS || {};
-PS.Data_Maybe_Unsafe = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    var Data_Maybe = PS.Data_Maybe;
-    var fromJust = function (_100) {
-        if (_100 instanceof Data_Maybe.Just) {
-            return _100.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    return {
-        fromJust: fromJust
-    };
-})();
-var PS = PS || {};
-PS.Data_Array_Unsafe = (function () {
-    "use strict";
-    var Prelude_Unsafe = PS.Prelude_Unsafe;
-    var Data_Array = PS.Data_Array;
-    var Data_Maybe_Unsafe = PS.Data_Maybe_Unsafe;
-    var Prelude = PS.Prelude;
-    var tail = function (_102) {
-        if (_102.length >= 1) {
-            var _272 = _102.slice(1);
-            return _272;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var last = function (xs) {
-        return xs[Data_Array.length(xs) - 1];
-    };
-    var init = Prelude["<<<"](Prelude.semigroupoidArr)(Data_Maybe_Unsafe.fromJust)(Data_Array.init);
-    var head = function (_101) {
-        if (_101.length >= 1) {
-            var _275 = _101.slice(1);
-            return _101[0];
-        };
-        throw new Error("Failed pattern match");
-    };
-    return {
-        head: head, 
-        init: init, 
-        last: last, 
-        tail: tail
-    };
-})();
-var PS = PS || {};
-PS.Data_String = (function () {
-    "use strict";
-    var Data_Function = PS.Data_Function;
-    var Data_Char = PS.Data_Char;
-    var Data_String_Unsafe = PS.Data_String_Unsafe;
-    var Prelude = PS.Prelude;
-    var Data_Maybe = PS.Data_Maybe;
-    
-    function _charAt(i, s, Just, Nothing) {
-      return i >= 0 && i < s.length ? Just(s.charAt(i)) : Nothing;
-    }
-    ;
-    
-    function _charCodeAt(i, s, Just, Nothing) {
-      return i >= 0 && i < s.length ? Just(s.charCodeAt(i)) : Nothing;
-    }
-    ;
-    
-    function fromCharArray(a) {
-      return a.join('');
-    }
-    ;
-    
-    function indexOf(x) {
-      return function(s) {
-        return s.indexOf(x);
-      };
-    }
-    ;
-    
-    function indexOf$prime(x) {
-      return function(startAt) {
-        return function(s) {
-          return s.indexOf(x, startAt);
-        };
-      };
-    }
-    ;
-    
-    function lastIndexOf(x) {
-      return function(s) {
-        return s.lastIndexOf(x);
-      };
-    }
-    ;
-    
-    function lastIndexOf$prime(x) {
-      return function(startAt) {
-        return function(s) {
-          return s.lastIndexOf(x, startAt);
-        };
-      };
-    }
-    ;
-    
-    function length(s) {
-      return s.length;
-    }
-    ;
-    
-    function localeCompare(s1) {
-      return function(s2) {
-        return s1.localeCompare(s2);
-      };
-    }
-    ;
-    
-    function replace(s1) {
-      return function(s2) {
-        return function(s3) {
-          return s3.replace(s1, s2);
-        };
-      };
-    }
-    ;
-    
-    function take(n) {
-      return function(s) {
-        return s.substr(0, n);
-      };
-    }
-    ;
-    
-    function drop(n) {
-      return function(s) {
-        return s.substr(n);
-      };
-    }
-    ;
-    
-    function count(p){      
-      return function(s){
-        var i;
-        for(i = 0; i < s.length && p(s.charAt(i)); i++){};
-        return i;
-      };      
-    }
-    ;
-    
-    function split(sep) {
-      return function(s) {
-        return s.split(sep);
-      };
-    }
-    ;
-    
-    function toCharArray(s) {
-      return s.split('');
-    }
-    ;
-    
-    function toLower(s) {
-      return s.toLowerCase();
-    }
-    ;
-    
-    function toUpper(s) {
-      return s.toUpperCase();
-    }
-    ;
-    
-    function trim(s) {
-      return s.trim();
-    }
-    ;
-    
-    function joinWith(s) {
-      return function(xs) {
-        return xs.join(s);
-      };
-    }
-    ;
-    var takeWhile = function (p) {
-        return function (s) {
-            return take(count(p)(s))(s);
-        };
-    };
-    var $$null = function (s) {
-        return length(s) === 0;
-    };
-    var uncons = function (_103) {
-        if ($$null(_103)) {
-            return Data_Maybe.Nothing.value;
-        };
-        return new Data_Maybe.Just({
-            head: Data_String_Unsafe.charAt(0)(_103), 
-            tail: drop(1)(_103)
-        });
-    };
-    var fromChar = Data_Char.charString;
-    var singleton = fromChar;
-    var dropWhile = function (p) {
-        return function (s) {
-            return drop(count(p)(s))(s);
-        };
-    };
-    var charCodeAt = function (n) {
-        return function (s) {
-            return _charCodeAt(n, s, Data_Maybe.Just.create, Data_Maybe.Nothing.value);
-        };
-    };
-    var charAt = function (n) {
-        return function (s) {
-            return _charAt(n, s, Data_Maybe.Just.create, Data_Maybe.Nothing.value);
-        };
-    };
-    return {
-        charAt: charAt, 
-        charCodeAt: charCodeAt, 
-        count: count, 
-        drop: drop, 
-        dropWhile: dropWhile, 
-        fromChar: fromChar, 
-        fromCharArray: fromCharArray, 
-        indexOf: indexOf, 
-        "indexOf'": indexOf$prime, 
-        joinWith: joinWith, 
-        lastIndexOf: lastIndexOf, 
-        "lastIndexOf'": lastIndexOf$prime, 
-        length: length, 
-        localeCompare: localeCompare, 
-        "null": $$null, 
-        replace: replace, 
-        singleton: singleton, 
-        split: split, 
-        take: take, 
-        takeWhile: takeWhile, 
-        toCharArray: toCharArray, 
-        toLower: toLower, 
-        toUpper: toUpper, 
-        trim: trim, 
-        uncons: uncons
-    };
-})();
-var PS = PS || {};
-PS.Html_Events = (function () {
-    "use strict";
+    var Data_Html_Internal_Delegator = PS.Data_Html_Internal_Delegator;
     var Prelude = PS.Prelude;
     var Data_String = PS.Data_String;
     var Data_Function = PS.Data_Function;
-    var Html_Attributes = PS.Html_Attributes;
-    var Html_Events_Internal = PS.Html_Events_Internal;
-    function Left() {
-
-    };
-    Left.value = new Left();
-    function Middle() {
-
-    };
-    Middle.value = new Middle();
-    function Right() {
-
-    };
-    Right.value = new Right();
-    function HasModifier(altKey, ctrlKey, metaKey, shiftKey) {
-        this.altKey = altKey;
-        this.ctrlKey = ctrlKey;
-        this.metaKey = metaKey;
-        this.shiftKey = shiftKey;
-    };
-    function HasPosition(client, page, screen) {
-        this.client = client;
-        this.page = page;
-        this.screen = screen;
-    };
-    
-function eventPropImpl(ev, prop) {
-  return ev[prop];
-};
-    
-function keyCode(evt){
-  evt = evt || window.event;
-  return evt.which || evt.keyCode;
-};
-    
-function fromCharCode(c) {
-  return String.fromCharCode(c);
-};
-    
-function testBitImpl(n, b) {
-  return (n>>b) % 2 !== 0
-};
-    
-function buttonNumber(evt) {
-  return evt.button;
-};
-    
-function positionImpl(i, evt){
-  return {x: evt[i.x], y: evt[i.y]};
-};
-    var showPosition = function (p) {
-        return "(" + (Prelude.show(Prelude.showNumber)(p.x) + ("," + (Prelude.show(Prelude.showNumber)(p.y) + ")")));
-    };
-    var showButton = new Prelude.Show(function (_104) {
-        if (_104 instanceof Left) {
-            return "Left";
-        };
-        if (_104 instanceof Middle) {
-            return "Middle";
-        };
-        if (_104 instanceof Right) {
-            return "Right";
-        };
-        throw new Error("Failed pattern match");
-    });
-    var shiftKey = function (dict) {
-        return dict.shiftKey;
-    };
-    var screen = function (dict) {
-        return dict.screen;
-    };
-    var page = function (dict) {
-        return dict.page;
-    };
-    var onUnload = function (f) {
-        return Html_Attributes.on_("unload")(Prelude["const"](f));
-    };
-    var onTouchStart = function (f) {
-        return Html_Attributes.on_("touchstart")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onTouchEnd = function (f) {
-        return Html_Attributes.on_("touchend")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onTouchCancel = function (f) {
-        return Html_Attributes.on_("touchcalcel")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onSubmit = function (f) {
-        return Html_Attributes.on_("submit")(Prelude["const"](f));
-    };
-    var onSelect = function (f) {
-        return Html_Attributes.on_("select")(Prelude["const"](f));
-    };
-    var onMouseUp = function (f) {
-        return Html_Attributes.on_("mouseup")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseButtonEvent.create));
-    };
-    var onMouseDown = function (f) {
-        return Html_Attributes.on_("mousedown")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseButtonEvent.create));
-    };
-    var onKeyUp = function (f) {
-        return Html_Attributes.on_("keyup")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.KeyEvent.create));
-    };
-    var onKeyPress = function (f) {
-        return Html_Attributes.on_("keypress")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.KeyEvent.create));
-    };
-    var onKeyDown = function (f) {
-        return Html_Attributes.on_("keydown")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.KeyEvent.create));
-    };
-    var onInput = function (f) {
-        return Html_Attributes.on_("input")(Prelude["const"](f));
-    };
-    var onFocusOut = function (f) {
-        return Html_Attributes.on_("focusout")(Prelude["const"](f));
-    };
-    var onFocusIn = function (f) {
-        return Html_Attributes.on_("focusin")(Prelude["const"](f));
-    };
-    var onFocus = function (f) {
-        return Html_Attributes.on_("focus")(Prelude["const"](f));
-    };
-    var onDoubleClick = function (f) {
-        return Html_Attributes.on_("dblclick")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseButtonEvent.create));
-    };
-    var onContextMenu = function (f) {
-        return Html_Attributes.on_("contextmenu")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseButtonEvent.create));
-    };
+    var Data_Html_Attributes = PS.Data_Html_Attributes;
+    var Data_Html_Internal_Events = PS.Data_Html_Internal_Events;
+    var Control_Monad_Eff = PS.Control_Monad_Eff;
     var onClick = function (f) {
-        return Html_Attributes.on_("click")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseButtonEvent.create));
+        return Data_Html_Attributes.on_("click")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Data_Html_Internal_Events.MouseButtonEvent.create));
     };
-    var onChange = function (f) {
-        return Html_Attributes.on_("change")(Prelude["const"](f));
-    };
-    var onBlur = function (f) {
-        return Html_Attributes.on_("blur")(Prelude["const"](f));
-    };
-    var mouseHoverHasPosition = new HasPosition(Data_Function.runFn2(positionImpl)({
-        x: "clientX", 
-        y: "clientY"
-    }), Data_Function.runFn2(positionImpl)({
-        x: "pageX", 
-        y: "pageY"
-    }), Data_Function.runFn2(positionImpl)({
-        x: "screenX", 
-        y: "screenY"
-    }));
-    var mouseButtonHasPosition = new HasPosition(Data_Function.runFn2(positionImpl)({
-        x: "clientX", 
-        y: "clientY"
-    }), Data_Function.runFn2(positionImpl)({
-        x: "pageX", 
-        y: "pageY"
-    }), Data_Function.runFn2(positionImpl)({
-        x: "screenX", 
-        y: "screenY"
-    }));
-    var metaKey = function (dict) {
-        return dict.metaKey;
-    };
-    var eventProp = Data_Function.runFn2(eventPropImpl);
-    var keyEventHasModifier = new HasModifier(function (_105) {
-        return eventProp(_105)("altKey");
-    }, function (_106) {
-        return eventProp(_106)("ctrlKey");
-    }, function (_107) {
-        return eventProp(_107)("metaKey");
-    }, function (_108) {
-        return eventProp(_108)("shiftKey");
-    });
-    var mouseButtonEventHasModifier = new HasModifier(function (_109) {
-        return eventProp(_109)("altKey");
-    }, function (_110) {
-        return eventProp(_110)("ctrlKey");
-    }, function (_111) {
-        return eventProp(_111)("metaKey");
-    }, function (_112) {
-        return eventProp(_112)("shiftKey");
-    });
-    var mouseHoverEventHasModifier = new HasModifier(function (_113) {
-        return eventProp(_113)("altKey");
-    }, function (_114) {
-        return eventProp(_114)("ctrlKey");
-    }, function (_115) {
-        return eventProp(_115)("metaKey");
-    }, function (_116) {
-        return eventProp(_116)("shiftKey");
-    });
-    var ctrlKey = function (dict) {
-        return dict.ctrlKey;
-    };
-    var client = function (dict) {
-        return dict.client;
-    };
-    var button = function (e) {
-        var _290 = buttonNumber(e);
-        if (_290 === 0) {
-            return Left.value;
-        };
-        if (_290 === 2) {
-            return Right.value;
-        };
-        return Middle.value;
-    };
-    var altKey = function (dict) {
-        return dict.altKey;
-    };
-    var showKeyEvent = new Prelude.Show(function (e) {
-        return (altKey(keyEventHasModifier)(e) ? "Alt-" : "") + ((ctrlKey(keyEventHasModifier)(e) ? "Ctrl-" : "") + ((metaKey(keyEventHasModifier)(e) ? "Meta-" : "") + ((shiftKey(keyEventHasModifier)(e) ? "Shift-" : "") + fromCharCode(keyCode(e)))));
-    });
-    var showMouseButtonEvent = new Prelude.Show(function (e) {
-        return Data_String.joinWith("-")((altKey(mouseButtonEventHasModifier)(e) ? Prelude[":"]("Alt") : Prelude.id(Prelude.categoryArr))((ctrlKey(mouseButtonEventHasModifier)(e) ? Prelude[":"]("Ctrl") : Prelude.id(Prelude.categoryArr))((metaKey(mouseButtonEventHasModifier)(e) ? Prelude[":"]("Meta") : Prelude.id(Prelude.categoryArr))((shiftKey(mouseButtonEventHasModifier)(e) ? Prelude[":"]("Shift") : Prelude.id(Prelude.categoryArr))([ Prelude.show(showButton)(button(e)) + ("[client:" + (showPosition(client(mouseButtonHasPosition)(e)) + (",page:" + (showPosition(page(mouseButtonHasPosition)(e)) + (",screen:" + (showPosition(screen(mouseButtonHasPosition)(e)) + "]")))))) ])))));
-    });
-    var showMouseHoverEvent = new Prelude.Show(function (e) {
-        return Data_String.joinWith("-")((altKey(mouseHoverEventHasModifier)(e) ? Prelude[":"]("Alt") : Prelude.id(Prelude.categoryArr))((ctrlKey(mouseHoverEventHasModifier)(e) ? Prelude[":"]("Ctrl") : Prelude.id(Prelude.categoryArr))((metaKey(mouseHoverEventHasModifier)(e) ? Prelude[":"]("Meta") : Prelude.id(Prelude.categoryArr))((shiftKey(mouseHoverEventHasModifier)(e) ? Prelude[":"]("Shift") : Prelude.id(Prelude.categoryArr))([ "[client:" + (showPosition(client(mouseHoverHasPosition)(e)) + (",page:" + (showPosition(page(mouseHoverHasPosition)(e)) + (",screen:" + (showPosition(screen(mouseHoverHasPosition)(e)) + "]"))))) ])))));
-    });
+    var listen = Prelude["return"](Control_Monad_Eff.monadEff)(Prelude.unit);
     return {
-        HasModifier: HasModifier, 
-        HasPosition: HasPosition, 
-        Left: Left, 
-        Middle: Middle, 
-        Right: Right, 
-        altKey: altKey, 
-        button: button, 
-        client: client, 
-        ctrlKey: ctrlKey, 
-        keyEventHasModifier: keyEventHasModifier, 
-        metaKey: metaKey, 
-        mouseButtonEventHasModifier: mouseButtonEventHasModifier, 
-        mouseButtonHasPosition: mouseButtonHasPosition, 
-        mouseHoverEventHasModifier: mouseHoverEventHasModifier, 
-        mouseHoverHasPosition: mouseHoverHasPosition, 
-        onBlur: onBlur, 
-        onChange: onChange, 
-        onClick: onClick, 
-        onContextMenu: onContextMenu, 
-        onDoubleClick: onDoubleClick, 
-        onFocus: onFocus, 
-        onFocusIn: onFocusIn, 
-        onFocusOut: onFocusOut, 
-        onInput: onInput, 
-        onKeyDown: onKeyDown, 
-        onKeyPress: onKeyPress, 
-        onKeyUp: onKeyUp, 
-        onMouseDown: onMouseDown, 
-        onMouseUp: onMouseUp, 
-        onSelect: onSelect, 
-        onSubmit: onSubmit, 
-        onTouchCancel: onTouchCancel, 
-        onTouchEnd: onTouchEnd, 
-        onTouchStart: onTouchStart, 
-        onUnload: onUnload, 
-        page: page, 
-        screen: screen, 
-        shiftKey: shiftKey, 
-        showButton: showButton, 
-        showKeyEvent: showKeyEvent, 
-        showMouseButtonEvent: showMouseButtonEvent, 
-        showMouseHoverEvent: showMouseHoverEvent
-    };
-})();
-var PS = PS || {};
-PS.Html_Events_Heavy = (function () {
-    "use strict";
-    var Data_Function = PS.Data_Function;
-    var Html_VirtualDOM = PS.Html_VirtualDOM;
-    var Html_Attributes = PS.Html_Attributes;
-    var Prelude = PS.Prelude;
-    var Html_Events_Internal = PS.Html_Events_Internal;
-    
-function listenToImpl(d, l){
-  return function listenToImpl_Eff(){
-    d.listenTo(l);
-  }
-};
-    var onMouseOver = function (f) {
-        return Html_Attributes.on_("mouseover")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onMouseOut = function (f) {
-        return Html_Attributes.on_("mouseout")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onMouseMove = function (f) {
-        return Html_Attributes.on_("mousemove")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onMouseLeave = function (f) {
-        return Html_Attributes.on_("mouseleave")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var onMouseEnter = function (f) {
-        return Html_Attributes.on_("mouseenter")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Html_Events_Internal.MouseHoverEvent.create));
-    };
-    var listenTo = Data_Function.runFn2(listenToImpl)(Html_VirtualDOM.virtualDOM.delegator);
-    var listenMouseOver = listenTo("mouseover");
-    var listenMouseOut = listenTo("mouseout");
-    var listenMouseMove = listenTo("mousemove");
-    var listenMouseLeave = listenTo("mouseleave");
-    var listenMouseEnter = listenTo("mouseenter");
-    return {
-        listenMouseEnter: listenMouseEnter, 
-        listenMouseLeave: listenMouseLeave, 
-        listenMouseMove: listenMouseMove, 
-        listenMouseOut: listenMouseOut, 
-        listenMouseOver: listenMouseOver, 
-        listenTo: listenTo, 
-        onMouseEnter: onMouseEnter, 
-        onMouseLeave: onMouseLeave, 
-        onMouseMove: onMouseMove, 
-        onMouseOut: onMouseOut, 
-        onMouseOver: onMouseOver
-    };
-})();
-var PS = PS || {};
-PS.Data_String_Regex = (function () {
-    "use strict";
-    var Data_String = PS.Data_String;
-    var Data_Function = PS.Data_Function;
-    var Prelude = PS.Prelude;
-    var Data_Maybe = PS.Data_Maybe;
-    
-  function showRegex$prime(r) {
-    return '' + r;
-  }
-  ;
-    
-  function regex$prime(s1) {
-    return function(s2) {
-      return new RegExp(s1, s2);
-    };
-  }
-  ;
-    
-  function source(r) {
-    return r.source;
-  }
-  ;
-    
-  function flags(r) {
-    return {
-      multiline: r.multiline,
-      ignoreCase: r.ignoreCase,
-      global: r.global,
-      sticky: !!r.sticky,
-      unicode: !!r.unicode
-    };
-  }
-  ;
-    
-  function test(r) {
-    return function(s) {
-      return r.test(s);
-    };
-  }
-  ;
-    
-  function _match(r, s, Just, Nothing) {
-    var m = s.match(r);
-    return m == null ? Nothing : Just(m);
-  }
-  ;
-    
-  function replace(r) {
-    return function(s1) {
-      return function(s2) {
-        return s2.replace(r, s1);
-      };
-    };
-  }
-  ;
-    
-  function replace$prime(r) {
-    return function(f) {
-      return function(s2) {
-        return s2.replace(r, function(match) {
-          return f(match)(Array.prototype.splice.call(arguments, 1, arguments.length - 3));
-        });
-      };
-    };
-  }
-  ;
-    
-  function search(r) {
-    return function(s) {
-      return s.search(r);
-    };
-  }
-  ;
-    
-  function split(r) {
-    return function(s) {
-      return s.split(r);
-    };
-  }
-  ;
-    var showRegex = new Prelude.Show(showRegex$prime);
-    var renderFlags = function (flags_1) {
-        return (flags_1.global ? "g" : "") + ((flags_1.ignoreCase ? "i" : "") + ((flags_1.multiline ? "m" : "") + ((flags_1.sticky ? "y" : "") + (flags_1.unicode ? "u" : ""))));
-    };
-    var regex = function (source_1) {
-        return function (flags_1) {
-            return regex$prime(source_1)(renderFlags(flags_1));
-        };
-    };
-    var parseFlags = function (s) {
-        return {
-            global: Data_String.indexOf("g")(s) >= 0, 
-            ignoreCase: Data_String.indexOf("i")(s) >= 0, 
-            multiline: Data_String.indexOf("m")(s) >= 0, 
-            sticky: Data_String.indexOf("y")(s) >= 0, 
-            unicode: Data_String.indexOf("u")(s) >= 0
-        };
-    };
-    var match = function (r) {
-        return function (s) {
-            return _match(r, s, Data_Maybe.Just.create, Data_Maybe.Nothing.value);
-        };
-    };
-    return {
-        flags: flags, 
-        match: match, 
-        parseFlags: parseFlags, 
-        regex: regex, 
-        renderFlags: renderFlags, 
-        replace: replace, 
-        "replace'": replace$prime, 
-        search: search, 
-        showRegex: showRegex, 
-        source: source, 
-        split: split, 
-        test: test
-    };
-})();
-var PS = PS || {};
-PS.Html_Lazy = (function () {
-    "use strict";
-    var Data_Function = PS.Data_Function;
-    var Html_VirtualDOM = PS.Html_VirtualDOM;
-    var Prelude = PS.Prelude;
-    
-function eq1Func(f){
-  return function eq1Func_apply(a,b){
-    return f(a[0], b[0]);
-  }
-};
-    
-function eq2Func(f){
-  return function eq2Func_apply(a,b){
-    return f({a:a[0], b:a[1]}, {a:b[0], b:b[1]});
-  }
-};
-    
-function eq3Func(f){
-  return function eq3Func_apply(a,b){
-    return f( {a:a[0], b:a[1], c:a[2]}
-            , {a:b[0], b:b[1], c:b[2]});
-  }
-};
-    var thunk5 = function (f) {
-        return Data_Function.runFn6(Html_VirtualDOM.virtualDOM.thunk)(Data_Function.mkFn5(f));
-    };
-    var thunk4 = function (f) {
-        return Data_Function.runFn5(Html_VirtualDOM.virtualDOM.thunk)(Data_Function.mkFn4(f));
-    };
-    var thunk3 = function (f) {
-        return Data_Function.runFn4(Html_VirtualDOM.virtualDOM.thunk)(Data_Function.mkFn3(f));
-    };
-    var thunk2 = function (f) {
-        return Data_Function.runFn3(Html_VirtualDOM.virtualDOM.thunk)(Data_Function.mkFn2(f));
-    };
-    var thunk1 = Data_Function.runFn2(Html_VirtualDOM.virtualDOM.thunk);
-    var partial3 = function (eq) {
-        return function (f) {
-            return Data_Function.runFn4(Html_VirtualDOM.virtualDOM.partial(eq3Func(eq)))(Data_Function.mkFn3(f));
-        };
-    };
-    var partial2 = function (eq) {
-        return function (f) {
-            return Data_Function.runFn3(Html_VirtualDOM.virtualDOM.partial(eq2Func(eq)))(Data_Function.mkFn2(f));
-        };
-    };
-    var partial1 = function (eq) {
-        return Data_Function.runFn2(Html_VirtualDOM.virtualDOM.partial(eq1Func(eq)));
-    };
-    return {
-        partial1: partial1, 
-        partial2: partial2, 
-        partial3: partial3, 
-        thunk1: thunk1, 
-        thunk2: thunk2, 
-        thunk3: thunk3, 
-        thunk4: thunk4, 
-        thunk5: thunk5
+        listen: listen, 
+        onClick: onClick
     };
 })();
 var PS = PS || {};
 PS.Main = (function () {
     "use strict";
-    var Html = PS.Html;
-    var Html_Attributes_Html5 = PS.Html_Attributes_Html5;
-    var Html_Attributes = PS.Html_Attributes;
-    var Html_Events_Heavy = PS.Html_Events_Heavy;
-    var Debug_Trace = PS.Debug_Trace;
+    var Data_Html_Elements_Html5 = PS.Data_Html_Elements_Html5;
+    var Data_Html_Attributes_Html5 = PS.Data_Html_Attributes_Html5;
     var Prelude = PS.Prelude;
-    var Html_Lazy = PS.Html_Lazy;
-    var Data_Function = PS.Data_Function;
+    var Data_Html_Events = PS.Data_Html_Events;
+    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
+    var Data_Html = PS.Data_Html;
     var Control_Timer = PS.Control_Timer;
-    var Html_Events = PS.Html_Events;
     var Control_Monad_Eff = PS.Control_Monad_Eff;
     
-    function appendSelector(sel, node) {
-      return function(){
-        var elm = document.querySelector(sel);
-        if(elm) { elm.appendChild(node) }
-      }
-    };
-    function logging(a){console.log(a); return a};
-    var test2 = Html.vnode("div")([ Html_Events_Heavy.onMouseMove(Debug_Trace.print(Html_Events.showMouseHoverEvent)) ])([ Html.text("inu"), Html.vnode("span")([ Html_Attributes.style({
-        color: "red"
-    }) ])([ Html.text("bowow") ]), Html.vnode("input")([  ])([  ]) ]);
-    var test1 = function (color) {
-        return Html.vnode("div")([ Html_Attributes_Html5.class_("neko"), Html_Attributes_Html5.title("title"), Html_Attributes_Html5.id_("idnt"), Html_Attributes.style({
-            color: color
-        }) ])([ Html.text("neko") ]);
+function appendBody (e) {
+  return function appendBodyEff(){
+    document.body.appendChild(e);
+  }
+};
+    var render = function (ref) {
+        return function (count) {
+            return Data_Html_Elements_Html5.div([ Data_Html_Attributes_Html5.style({
+                textAlign: "center", 
+                lineHeight: Prelude.show(Prelude.showNumber)(100 + count) + "px", 
+                border: "1px solid red", 
+                width: Prelude.show(Prelude.showNumber)(100 + count) + "px", 
+                height: Prelude.show(Prelude.showNumber)(100 + count) + "px"
+            }), Data_Html_Events.onClick(function (_) {
+                return Control_Monad_Eff_Ref.writeRef(ref)(0);
+            }) ])([ Data_Html_Elements_Html5.text(Prelude.show(Prelude.showNumber)(count)) ]);
+        };
     };
     var main = function __do() {
-        Html_Events_Heavy.listenMouseMove();
-        var _8 = Html.createElement(Html_Lazy.partial1(Prelude["=="](Prelude.eqString))(test1)("blue"))();
-        Prelude[">>="](Control_Monad_Eff.bindEff)(Html.getNode(_8))(Data_Function.runFn2(appendSelector)("div"))();
-        Control_Timer.timeout(100)(function __do() {
-            Html.patch(Html_Lazy.partial2(function (a) {
-                return function (b) {
-                    return a.a === b.b;
+        Data_Html_Events.listen();
+        var _10 = Control_Monad_Eff_Ref.newRef(0)();
+        var _9 = Data_Html.createElement(render(_10)(0))();
+        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_9))(appendBody)();
+        Control_Timer.interval(100)(function __do() {
+            var _8 = Control_Monad_Eff_Ref["modifyRef'"](_10)(function (r) {
+                var r$prime = r + 1;
+                return {
+                    retVal: r$prime, 
+                    newState: r$prime
                 };
-            })(function (a) {
-                return function (b) {
-                    return test1(a);
-                };
-            })("red")("blue"))(_8)();
-            return Control_Timer.timeout(1000)(Html.patch(test2)(_8))();
+            })();
+            return Data_Html.patch(render(_10)(_8))(_9)();
         })();
         return Prelude.unit;
     };
     return {
-        appendSelector: appendSelector, 
-        logging: logging, 
+        appendBody: appendBody, 
         main: main, 
-        test1: test1, 
-        test2: test2
+        render: render
     };
 })();
 PS.Main.main();

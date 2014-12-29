@@ -3,3 +3,6 @@ node_modules
 output
 wrapper/bundle.js
 .psci
+wrapper/stringify.js
+wrapper/delegator-bundle.js
+tmp

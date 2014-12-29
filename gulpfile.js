@@ -3,16 +3,16 @@ var purescript = require('gulp-purescript');
 var foreach    = require('gulp-foreach');
 var shell      = require('gulp-shell');
 var rename     = require('gulp-rename');
+var mocha      = require('gulp-mocha');
 var sequence   = require('run-sequence');
 
 var path       = require('path');
 
 var bowerPurs = 'bower_components/purescript-*/src/**/*.purs';
-var sources = [bowerPurs, 'src/**/*.purs'];
-
+var sources = [bowerPurs, 'src/**/*.purs', 'examples/**/*.purs'];
 
 gulp.task('wrapper', shell.task([
-  './wrapper/generate.sh Html.VirtualDOM > src/Html/VirtualDOM.purs'
+  './wrapper/generate.sh'
 ]));
 
 gulp.task('pscMake', function(){
@@ -41,17 +41,29 @@ gulp.task('pscDocs', function(){
     }));
 });
 
+gulp.task('test', function(){
+  return gulp
+    .src(sources.concat('tests/**/*.purs'))
+    .pipe(purescript.psc({main: "Test.Main", output: "test.js", modules: ['Test.Main']}))
+    .pipe(gulp.dest('tmp'))
+    .pipe(mocha());
+});
+
 gulp.task('example', function(){
   return gulp
-    .src(sources.concat('examples/Main.purs'))
-    .pipe(purescript.psc({main: "Main", output: 'main.js'}))
+    .src(sources)
+    .pipe(purescript.psc(
+      { main: "Main"
+      , output: 'main.js'
+      , modules: ['Main', "Control.Timer"]
+      }))
     .pipe(gulp.dest('examples/'));
 });
 
 gulp.task('default', function(callback){
   return sequence(
     'wrapper',
-    ['pscMake', 'dotPsci', 'pscDocs', 'example'],
+    ['pscMake', 'dotPsci', 'pscDocs', 'example', 'test'],
     callback
   );
 });
