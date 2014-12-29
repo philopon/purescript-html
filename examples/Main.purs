@@ -1,49 +1,44 @@
 module Main where
 
+-- virtual-dom example(https://github.com/Matt-Esch/virtual-dom#example) clone with click event.
+
 import Data.Html
+import Data.Html.Events
 import qualified Data.Html.Elements.Html5 as E
 import qualified Data.Html.Attributes.Html5 as A
-import Data.Html.Lazy
-import Data.Html.Events
-import Data.Html.Events.Heavy
+
+import Control.Monad.Eff.Ref
 import Control.Timer
-import Debug.Trace
-import Data.Function
 import DOM
 
-import Data.Html.Stringify
+foreign import appendBody """
+function appendBody (e) {
+  return function appendBodyEff(){
+    document.body.appendChild(e);
+  }
+}""" :: forall e. Node -> EffHtml e Unit
 
-foreign import appendSelector """
-  function appendSelector(sel, node) {
-    return function(){
-      var elm = document.querySelector(sel);
-      if(elm) { elm.appendChild(node) }
+render :: RefVal Number -> Number -> E.VTree
+render ref count = E.div
+  [ A.style
+    { textAlign: "center"
+    , lineHeight: show (100 + count) ++ "px"
+    , border: "1px solid red"
+    , width: show (100 + count) ++ "px"
+    , height: show (100 + count) ++ "px"
     }
-  }""" :: forall e. Fn2 String Node (EffHtml e Unit)
-
-test1 color = E.div
-  [ A.class_ "neko"
-  , A.title "title"
-  , A.id_   "idnt"
-  , A.style {color: color}
---    , on_ "click" (\e -> print e.pageX)
-  ] [E.text "neko"]
-
-test2 = E.div [onMouseMove print] 
-  [ E.text "inu"
-  , E.span [A.style {color: "red"}] [E.text "bowow"]
-  , E.input [] []
+  , onClick (\_ -> writeRef ref 0)
   ]
+  [E.text $ show count]
 
-foreign import logging "function logging(a){console.log(a); return a}"
-  :: forall a. a -> a
-
+main :: forall e. EffHtml (timer :: Timer | e) Unit
 main = do
-  listenMouseMove
-  print (test1 "black")
-  html <- createElement $ partial1 (==) test1 "blue"
-  getNode html >>= runFn2 appendSelector "div"
-  timeout 100 $ do
-    patch (partial2 (\a b -> a.a == b.b) (\a b -> test1 a) "red" "blue") html
-    timeout 1000 $ patch  test2 html
+  listen -- dummy function to save event listener from dead code elimination. 
+  ref <- newRef 0
+  html <- createElement $ render ref 0
+  getNode html >>= appendBody
+  interval 100 $ do
+    c' <- modifyRef' ref (\r -> let r' = r + 1 in {retVal: r', newState: r'})
+    patch (render ref c') html
+
   return unit
