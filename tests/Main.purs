@@ -30,3 +30,7 @@ main = runMocha $ do
     it "should be have style" $
       show (E.vnode "div" [A.style {color: "black", "margin-bottom": 200}] [])
       @?= "<div style=\"color: black; margin-bottom: 200;\"></div>"
+
+    it "should be softhooked" $
+      show (E.vnode "input" [A.stringAttribute "value" "neko"] [])
+      @?= "<input value=\"neko\" />"

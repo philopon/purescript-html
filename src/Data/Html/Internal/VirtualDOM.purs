@@ -51,23 +51,27 @@ var virtualDOM =
 	var diff    = __webpack_require__(19);
 	var patch   = __webpack_require__(25);
 	var create  = __webpack_require__(18);
-	var VNode   = __webpack_require__(31);
-	var VText   = __webpack_require__(32);
+	var VNode   = __webpack_require__(32);
+	var VText   = __webpack_require__(33);
+	var isHook  = __webpack_require__(3);
 
 	var evHook = __webpack_require__(30);
+	var softSetHook = __webpack_require__(31);
 
 	var thunk = __webpack_require__(16);
 	var partial = __webpack_require__(7);
 
 	module.exports =
-	  { diff:   diff
-	  , patch:  patch
-	  , create: create
-	  , vnode:  VNode
-	  , vtext:  VText
-	  , evHook: evHook
-	  , thunk: thunk
-	  , partial: partial
+	  { diff:        diff
+	  , patch:       patch
+	  , create:      create
+	  , vnode:       VNode
+	  , vtext:       VText
+	  , evHook:      evHook
+	  , isHook:      isHook
+	  , softSetHook: softSetHook
+	  , thunk:       thunk
+	  , partial:     partial
 	  }
 
 
@@ -93,6 +97,18 @@ var virtualDOM =
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = isHook
+
+	function isHook(hook) {
+	    return hook && typeof hook.hook === "function" &&
+	        !hook.hasOwnProperty("hook")
+	}
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var version = __webpack_require__(2)
 
 	module.exports = isVirtualNode
@@ -103,25 +119,13 @@ var virtualDOM =
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isThunk
 
 	function isThunk(t) {
 	    return t && t.type === "Thunk"
-	}
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = isHook
-
-	function isHook(hook) {
-	    return hook && typeof hook.hook === "function" &&
-	        !hook.hasOwnProperty("hook")
 	}
 
 
@@ -182,7 +186,7 @@ var virtualDOM =
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(34);
+	var minDoc = __webpack_require__(35);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -228,7 +232,7 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var isObject = __webpack_require__(9)
-	var isHook = __webpack_require__(5)
+	var isHook = __webpack_require__(3)
 
 	module.exports = applyProperties
 
@@ -331,7 +335,7 @@ var virtualDOM =
 
 	var applyProperties = __webpack_require__(11)
 
-	var isVNode = __webpack_require__(3)
+	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
 	var handleThunk = __webpack_require__(13)
@@ -379,10 +383,10 @@ var virtualDOM =
 /* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isVNode = __webpack_require__(3)
+	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(4)
+	var isThunk = __webpack_require__(5)
 
 	module.exports = handleThunk
 
@@ -533,7 +537,7 @@ var virtualDOM =
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(33)
+	var diff = __webpack_require__(34)
 
 	module.exports = diff
 
@@ -1074,11 +1078,32 @@ var virtualDOM =
 /* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
+	module.exports = SoftSetHook;
+
+	function SoftSetHook(value) {
+	    if (!(this instanceof SoftSetHook)) {
+	        return new SoftSetHook(value);
+	    }
+
+	    this.value = value;
+	}
+
+	SoftSetHook.prototype.hook = function (node, propertyName) {
+	    if (node[propertyName] !== this.value) {
+	        node[propertyName] = this.value;
+	    }
+	};
+
+
+/***/ },
+/* 32 */
+/***/ function(module, exports, __webpack_require__) {
+
 	var version = __webpack_require__(2)
-	var isVNode = __webpack_require__(3)
+	var isVNode = __webpack_require__(4)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(4)
-	var isVHook = __webpack_require__(5)
+	var isThunk = __webpack_require__(5)
+	var isVHook = __webpack_require__(3)
 
 	module.exports = VirtualNode
 
@@ -1149,7 +1174,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 32 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1165,18 +1190,18 @@ var virtualDOM =
 
 
 /***/ },
-/* 33 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(10)
 	var isObject = __webpack_require__(9)
 
 	var VPatch = __webpack_require__(14)
-	var isVNode = __webpack_require__(3)
+	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var isThunk = __webpack_require__(4)
-	var isHook = __webpack_require__(5)
+	var isThunk = __webpack_require__(5)
+	var isHook = __webpack_require__(3)
 	var handleThunk = __webpack_require__(13)
 
 	module.exports = diff
@@ -1547,20 +1572,22 @@ var virtualDOM =
 
 
 /***/ },
-/* 34 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
 
 /***/ }
-/******/ ])""" :: forall diff patch vnode vtext create dsHook evHook thunk partial.
-  { diff   :: diff
-  , patch  :: patch
-  , create :: create
-  , vnode  :: vnode
-  , vtext  :: vtext
-  , dsHook :: dsHook
-  , evHook :: evHook
-  , thunk     :: thunk
-  , partial   :: partial
+/******/ ])""" :: forall diff patch vnode vtext create dsHook evHook isHook softSetHook thunk partial.
+  { diff        :: diff
+  , patch       :: patch
+  , create      :: create
+  , vnode       :: vnode
+  , vtext       :: vtext
+  , dsHook      :: dsHook
+  , evHook      :: evHook
+  , isHook      :: isHook
+  , softSetHook :: softSetHook
+  , thunk       :: thunk
+  , partial     :: partial
   }

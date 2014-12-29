@@ -12,13 +12,17 @@ import Control.Monad.Eff.Ref
 
 foreign import data VTree :: *
 
-type VNodeFs a = 
-  { attrType :: Attribute -> String
-  , attrKey  :: Attribute -> String
-  , attrVal  :: Attribute -> I.Attr
-  , getKey   :: Attribute -> String
-  , getNs    :: Attribute -> String
-  , vnode    :: a
+foreign import data Dummy :: *
+
+type VNodeFs = 
+  { attrType    :: Attribute -> String
+  , attrKey     :: Attribute -> String
+  , attrVal     :: Attribute -> I.Attr
+  , getKey      :: Attribute -> String
+  , getNs       :: Attribute -> String
+  , isHook      :: Dummy
+  , softSetHook :: Dummy
+  , vnode       :: Dummy
   }
 
 foreign import vnodeImpl """
@@ -38,8 +42,18 @@ function vnodeImpl (fn, name, attrs, children) {
       namespace = fn.getNs(attr);
     }
   }
+
+  if( name.toUpperCase() === "INPUT" &&
+      !namespace &&
+      props.hasOwnProperty('value') &&
+      props.value !== undefined &&
+      !fn.isHook(props.value)
+    ) {
+      props.value = fn.softSetHook(props.value);
+    }
+
   return new fn.vnode(name, props, children, key, namespace);
-}""" :: forall a. Fn4 (VNodeFs a) String [Attribute] [VTree] VTree
+}""" :: Fn4 VNodeFs String [Attribute] [VTree] VTree
 
 vnode :: String -> [Attribute] -> [VTree] -> VTree
 vnode = runFn4 vnodeImpl
@@ -49,6 +63,8 @@ vnode = runFn4 vnodeImpl
   , getKey:   I.getKeyString
   , getNs:    I.getNamespaceString
   , vnode:    virtualDOM.vnode
+  , isHook:   virtualDOM.isHook
+  , softSetHook: virtualDOM.softSetHook
   }
 
 foreign import vtextImpl """
