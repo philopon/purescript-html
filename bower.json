@@ -1,6 +1,6 @@
 {
   "name": "purescript-html",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "authors": [
     "Hirotomo Moriwaki"
   ],
@@ -16,7 +16,9 @@
     "node_modules",
     "bower_components",
     "test",
-    "tests"
+    "tests",
+    "examples/main.js",
+    "wrapper"
   ],
   "dependencies": {
     "purescript-dom": "~0.1.1",
