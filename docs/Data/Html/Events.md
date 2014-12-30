@@ -57,6 +57,8 @@
 
     button :: MouseButtonEvent -> Button
 
+    listen :: forall e. EffHtml e Unit
+
     onBlur :: forall e. Eff e Unit -> Attribute
 
     onChange :: forall e. Eff e Unit -> Attribute
