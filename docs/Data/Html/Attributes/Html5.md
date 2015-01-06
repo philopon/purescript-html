@@ -19,29 +19,15 @@
 
     action :: String -> Attribute
 
-    align :: String -> Attribute
-
-    allowFullScreen :: Boolean -> Attribute
-
-    allowTransparency :: Boolean -> Attribute
-
     alt :: String -> Attribute
 
     async :: Boolean -> Attribute
 
-    autoComplete :: Boolean -> Attribute
+    autocomplete :: String -> Attribute
 
-    autoFocus :: Boolean -> Attribute
+    autofocus :: Boolean -> Attribute
 
-    autoPlay :: Boolean -> Attribute
-
-    autoSave :: Boolean -> Attribute
-
-    cellPadding :: String -> Attribute
-
-    cellSpacing :: String -> Attribute
-
-    challenge :: String -> Attribute
+    autoplay :: Boolean -> Attribute
 
     charset :: String -> Attribute
 
@@ -51,7 +37,7 @@
 
     class_ :: String -> Attribute
 
-    colSpan :: String -> Attribute
+    colSpan :: Number -> Attribute
 
     cols :: Number -> Attribute
 
@@ -59,15 +45,15 @@
 
     contentEditable :: Boolean -> Attribute
 
-    contextMenu :: String -> Attribute
-
     controls :: Boolean -> Attribute
 
     coords :: String -> Attribute
 
     crossOrigin :: String -> Attribute
 
-    datetime :: String -> Attribute
+    data_ :: String -> Attribute
+
+    dateTime :: String -> Attribute
 
     default :: Boolean -> Attribute
 
@@ -83,9 +69,7 @@
 
     draggable :: String -> Attribute
 
-    dropzone :: String -> Attribute
-
-    encType :: String -> Attribute
+    enctype :: String -> Attribute
 
     for :: String -> Attribute
 
@@ -93,7 +77,7 @@
 
     formAction :: String -> Attribute
 
-    formEncType :: String -> Attribute
+    formEnctype :: String -> Attribute
 
     formMethod :: String -> Attribute
 
@@ -107,6 +91,8 @@
 
     hidden :: Boolean -> Attribute
 
+    high :: Number -> Attribute
+
     href :: String -> Attribute
 
     hreflang :: String -> Attribute
@@ -117,33 +103,19 @@
 
     id_ :: String -> Attribute
 
-    inputMode :: String -> Attribute
-
-    isMap :: String -> Attribute
-
-    itemId :: String -> Attribute
-
-    itemProp :: String -> Attribute
-
-    itemRef :: String -> Attribute
-
-    itemScope :: String -> Attribute
-
-    itemType :: String -> Attribute
-
-    keytype :: String -> Attribute
+    isMap :: Boolean -> Attribute
 
     kind :: String -> Attribute
 
-    lang :: String -> Attribute
+    label :: String -> Attribute
 
-    language :: String -> Attribute
+    lang :: String -> Attribute
 
     list :: String -> Attribute
 
     loop :: Boolean -> Attribute
 
-    manifest :: String -> Attribute
+    low :: Number -> Attribute
 
     max :: String -> Attribute
 
@@ -151,13 +123,9 @@
 
     media :: String -> Attribute
 
-    mediaGroup :: String -> Attribute
-
     method :: String -> Attribute
 
     min :: String -> Attribute
-
-    minLength :: Number -> Attribute
 
     multiple :: Boolean -> Attribute
 
@@ -167,19 +135,19 @@
 
     noValidate :: Boolean -> Attribute
 
+    open :: Boolean -> Attribute
+
     optimum :: Number -> Attribute
 
     pattern :: String -> Attribute
-
-    ping :: String -> Attribute
 
     placeholder :: String -> Attribute
 
     poster :: String -> Attribute
 
-    preload :: Boolean -> Attribute
+    preload :: String -> Attribute
 
-    pubdate :: String -> Attribute
+    radiogroup :: String -> Attribute
 
     readOnly :: Boolean -> Attribute
 
@@ -189,9 +157,7 @@
 
     reversed :: Boolean -> Attribute
 
-    role :: String -> Attribute
-
-    rowSpan :: String -> Attribute
+    rowSpan :: Number -> Attribute
 
     rows :: Number -> Attribute
 
@@ -201,10 +167,6 @@
 
     scoped :: Boolean -> Attribute
 
-    scrolling :: String -> Attribute
-
-    seamless :: Boolean -> Attribute
-
     selected :: Boolean -> Attribute
 
     shape :: String -> Attribute
@@ -213,17 +175,13 @@
 
     sizes :: String -> Attribute
 
-    sortable :: Boolean -> Attribute
+    span :: Number -> Attribute
 
-    spellCheck :: Boolean -> Attribute
+    spellcheck :: Boolean -> Attribute
 
     src :: String -> Attribute
 
-    srcDoc :: String -> Attribute
-
-    srcLang :: String -> Attribute
-
-    srcSet :: String -> Attribute
+    srcdoc :: String -> Attribute
 
     start :: Number -> Attribute
 
@@ -237,19 +195,13 @@
 
     title :: String -> Attribute
 
-    translate :: String -> Attribute
-
-    typeMustMatch :: Boolean -> Attribute
-
     type_ :: String -> Attribute
 
-    usemap :: String -> Attribute
+    useMap :: String -> Attribute
 
     value :: String -> Attribute
 
     width :: Number -> Attribute
-
-    wmode :: String -> Attribute
 
     wrap :: String -> Attribute
 

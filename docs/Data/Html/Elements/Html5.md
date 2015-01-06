@@ -15,6 +15,8 @@
 
     address :: [Attribute] -> [VTree] -> VTree
 
+    area :: [Attribute] -> [VTree] -> VTree
+
     article :: [Attribute] -> [VTree] -> VTree
 
     aside :: [Attribute] -> [VTree] -> VTree
@@ -23,13 +25,13 @@
 
     b :: [Attribute] -> [VTree] -> VTree
 
+    base :: [Attribute] -> [VTree] -> VTree
+
     bdi :: [Attribute] -> [VTree] -> VTree
 
     bdo :: [Attribute] -> [VTree] -> VTree
 
     blockquote :: [Attribute] -> [VTree] -> VTree
-
-    body :: [Attribute] -> [VTree] -> VTree
 
     br :: [Attribute] -> [VTree] -> VTree
 
@@ -56,6 +58,8 @@
     details :: [Attribute] -> [VTree] -> VTree
 
     dfn :: [Attribute] -> [VTree] -> VTree
+
+    dialog :: [Attribute] -> [VTree] -> VTree
 
     div :: [Attribute] -> [VTree] -> VTree
 
@@ -91,6 +95,8 @@
 
     header :: [Attribute] -> [VTree] -> VTree
 
+    hgroup :: [Attribute] -> [VTree] -> VTree
+
     hr :: [Attribute] -> [VTree] -> VTree
 
     i :: [Attribute] -> [VTree] -> VTree
@@ -113,19 +119,25 @@
 
     li :: [Attribute] -> [VTree] -> VTree
 
+    link :: [Attribute] -> [VTree] -> VTree
+
     main :: [Attribute] -> [VTree] -> VTree
 
-    mark :: [Attribute] -> [VTree] -> VTree
+    map :: [Attribute] -> [VTree] -> VTree
 
-    math :: [Attribute] -> [VTree] -> VTree
+    mark :: [Attribute] -> [VTree] -> VTree
 
     menu :: [Attribute] -> [VTree] -> VTree
 
     menuitem :: [Attribute] -> [VTree] -> VTree
 
+    meta :: [Attribute] -> [VTree] -> VTree
+
     meter :: [Attribute] -> [VTree] -> VTree
 
     nav :: [Attribute] -> [VTree] -> VTree
+
+    noscript :: [Attribute] -> [VTree] -> VTree
 
     object :: [Attribute] -> [VTree] -> VTree
 
@@ -157,6 +169,8 @@
 
     samp :: [Attribute] -> [VTree] -> VTree
 
+    script :: [Attribute] -> [VTree] -> VTree
+
     section :: [Attribute] -> [VTree] -> VTree
 
     select :: [Attribute] -> [VTree] -> VTree
@@ -169,13 +183,13 @@
 
     strong :: [Attribute] -> [VTree] -> VTree
 
+    style :: [Attribute] -> [VTree] -> VTree
+
     sub :: [Attribute] -> [VTree] -> VTree
 
     summary :: [Attribute] -> [VTree] -> VTree
 
     sup :: [Attribute] -> [VTree] -> VTree
-
-    svg :: [Attribute] -> [VTree] -> VTree
 
     table :: [Attribute] -> [VTree] -> VTree
 
