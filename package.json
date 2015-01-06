@@ -14,8 +14,8 @@
     "gulp-shell": "^0.2.11",
     "run-sequence": "^1.0.2",
     "vdom-thunk": "^3.0.0",
-    "virtual-dom": "0.0.24",
-    "virtual-dom-stringify": "^1.0.0",
-    "webpack": "^1.4.14"
+    "virtual-dom": "^1.0.0",
+    "virtual-dom-stringify": "^1.0.1",
+    "webpack": "^1.4.15"
   }
 }
