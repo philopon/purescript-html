@@ -20,6 +20,8 @@
 
 ### Type Classes
 
+    class EventLike e where
+
     class HasModifier a where
       altKey :: a -> Boolean
       ctrlKey :: a -> Boolean
@@ -33,6 +35,14 @@
 
 
 ### Type Class Instances
+
+    instance eventLikeEvent :: EventLike Event
+
+    instance eventLikeKeyEvent :: EventLike I.KeyEvent
+
+    instance eventLikeMouseButtonEvent :: EventLike I.MouseButtonEvent
+
+    instance eventLikeMouseHoverEvent :: EventLike I.MouseHoverEvent
 
     instance keyEventHasModifier :: HasModifier I.KeyEvent
 
@@ -57,47 +67,51 @@
 
     button :: MouseButtonEvent -> Button
 
-    listen :: forall e. EffHtml e Unit
+    listen :: EffHtml _ Unit
 
-    onBlur :: forall e. Eff e Unit -> Attribute
+    onBlur :: forall e. (Event -> Eff e Unit) -> Attribute
 
-    onChange :: forall e. Eff e Unit -> Attribute
+    onChange :: (Event -> Eff _ Unit) -> Attribute
 
-    onClick :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+    onClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onContextMenu :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+    onContextMenu :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onDoubleClick :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+    onDoubleClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onFocus :: forall e. Eff e Unit -> Attribute
+    onFocus :: (Event -> Eff _ Unit) -> Attribute
 
-    onFocusIn :: forall e. Eff e Unit -> Attribute
+    onFocusIn :: (Event -> Eff _ Unit) -> Attribute
 
-    onFocusOut :: forall e. Eff e Unit -> Attribute
+    onFocusOut :: (Event -> Eff _ Unit) -> Attribute
 
-    onInput :: forall e. Eff e Unit -> Attribute
+    onInput :: (Event -> Eff _ Unit) -> Attribute
 
-    onKeyDown :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+    onKeyDown :: (KeyEvent -> Eff _ Unit) -> Attribute
 
-    onKeyPress :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+    onKeyPress :: (KeyEvent -> Eff _ Unit) -> Attribute
 
-    onKeyUp :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+    onKeyUp :: (KeyEvent -> Eff _ Unit) -> Attribute
 
-    onMouseDown :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+    onMouseDown :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onMouseUp :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+    onMouseUp :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onSelect :: forall e. Eff e Unit -> Attribute
+    onSelect :: (Event -> Eff _ Unit) -> Attribute
 
-    onSubmit :: forall e. Eff e Unit -> Attribute
+    onSubmit :: (Event -> Eff _ Unit) -> Attribute
 
-    onTouchCancel :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onTouchCancel :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onTouchEnd :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onTouchEnd :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onTouchStart :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onTouchStart :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onUnload :: forall e. Eff e Unit -> Attribute
+    onUnload :: (Event -> Eff _ Unit) -> Attribute
+
+    targetChecked :: forall ev. (EventLike ev) => ev -> Boolean
+
+    targetValue :: forall ev. (EventLike ev) => ev -> String
 
 
 

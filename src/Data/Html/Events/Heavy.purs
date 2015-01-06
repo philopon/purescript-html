@@ -23,35 +23,35 @@ function listenToImpl(d, l){
   }
 }""" :: forall delegator e. Fn2 delegator String (EffHtml e Unit)
 
-listenTo :: forall e. String -> EffHtml e Unit
+listenTo :: String -> EffHtml _ Unit
 listenTo = runFn2 listenToImpl delegator
 
-listenMouseMove :: forall e. EffHtml e Unit
+listenMouseMove :: EffHtml _ Unit
 listenMouseMove = listenTo "mousemove"
 
-listenMouseEnter :: forall e. EffHtml e Unit
+listenMouseEnter :: EffHtml _ Unit
 listenMouseEnter = listenTo "mouseenter"
 
-listenMouseLeave :: forall e. EffHtml e Unit
+listenMouseLeave :: EffHtml _ Unit
 listenMouseLeave = listenTo "mouseleave"
 
-listenMouseOver :: forall e. EffHtml e Unit
+listenMouseOver :: EffHtml _ Unit
 listenMouseOver = listenTo "mouseover"
 
-listenMouseOut :: forall e. EffHtml e Unit
+listenMouseOut :: EffHtml _ Unit
 listenMouseOut = listenTo "mouseout"
 
-onMouseMove :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onMouseMove :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseMove f = on_ "mousemove" (f <<< I.MouseHoverEvent)
 
-onMouseEnter :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onMouseEnter :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseEnter f = on_ "mouseenter" (f <<< I.MouseHoverEvent)
 
-onMouseLeave :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onMouseLeave :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseLeave f = on_ "mouseleave" (f <<< I.MouseHoverEvent)
 
-onMouseOver :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onMouseOver :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseOver f = on_ "mouseover" (f <<< I.MouseHoverEvent)
 
-onMouseOut :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onMouseOut :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseOut f = on_ "mouseout" (f <<< I.MouseHoverEvent)
