@@ -1,5 +1,5 @@
 module Data.Html.Events
-  ( KeyEvent(), MouseButtonEvent(), MouseHoverEvent()
+  ( EventLike, KeyEvent(), MouseButtonEvent(), MouseHoverEvent()
   , listen
   , Button(..)
   , HasModifier
@@ -7,6 +7,7 @@ module Data.Html.Events
   , HasPosition, Position(..)
   , client, page, screen
   , button
+  , targetValue, targetChecked
   , onBlur, onChange
   , onFocus, onFocusIn, onFocusOut
   , onSubmit, onInput, onSelect, onUnload
@@ -30,9 +31,21 @@ type KeyEvent = I.KeyEvent
 type MouseButtonEvent = I.MouseButtonEvent
 type MouseHoverEvent  = I.MouseHoverEvent
 
+class EventLike e
+instance eventLikeEvent :: EventLike Event
+instance eventLikeKeyEvent :: EventLike I.KeyEvent
+instance eventLikeMouseButtonEvent :: EventLike I.MouseButtonEvent
+instance eventLikeMouseHoverEvent :: EventLike I.MouseHoverEvent
+
+targetValue :: forall ev. (EventLike ev) => ev -> String
+targetValue e = eventProp (eventProp e "target") "value"
+
+targetChecked :: forall ev. (EventLike ev) => ev -> Boolean
+targetChecked e = eventProp (eventProp e "target") "checked"
+
 type Position = {x :: Number, y :: Number}
 
-listen :: forall e. EffHtml e Unit
+listen :: EffHtml _ Unit
 listen = let _ = delegator in return unit
 
 showPosition :: Position -> String
@@ -81,9 +94,9 @@ instance showMouseHoverEvent :: Show I.MouseHoverEvent where
 foreign import eventPropImpl """
 function eventPropImpl(ev, prop) {
   return ev[prop];
-}""" :: forall a. Fn2 Event String a
+}""" :: forall ev a. Fn2 ev String a
 
-eventProp :: forall a. Event -> String -> a
+eventProp :: forall ev a. ev -> String -> a
 eventProp = runFn2 eventPropImpl
 
 class HasModifier a where
@@ -157,62 +170,62 @@ instance mouseHoverHasPosition :: HasPosition I.MouseHoverEvent where
   page   = runFn2 positionImpl {x: "pageX", y: "pageY"}
   screen = runFn2 positionImpl {x: "screenX", y: "screenY"}
 
-onBlur :: forall e. Eff e Unit -> Attribute
-onBlur f = on_ "blur" (const f)
+onBlur :: forall e. (Event -> Eff e Unit) -> Attribute
+onBlur = on_ "blur"
 
-onChange :: forall e. Eff e Unit -> Attribute
-onChange f = on_ "change" (const f)
+onChange :: (Event -> Eff _ Unit) -> Attribute
+onChange = on_ "change"
 
-onFocus :: forall e. Eff e Unit -> Attribute
-onFocus f = on_ "focus" (const f)
+onFocus :: (Event -> Eff _ Unit) -> Attribute
+onFocus = on_ "focus"
 
-onFocusIn :: forall e. Eff e Unit -> Attribute
-onFocusIn f = on_ "focusin" (const f)
+onFocusIn :: (Event -> Eff _ Unit) -> Attribute
+onFocusIn = on_ "focusin"
 
-onFocusOut :: forall e. Eff e Unit -> Attribute
-onFocusOut f = on_ "focusout" (const f)
+onFocusOut :: (Event -> Eff _ Unit) -> Attribute
+onFocusOut = on_ "focusout"
 
-onSubmit :: forall e. Eff e Unit -> Attribute
-onSubmit f = on_ "submit" (const f)
+onSubmit :: (Event -> Eff _ Unit) -> Attribute
+onSubmit = on_ "submit"
 
-onInput :: forall e. Eff e Unit -> Attribute
-onInput f = on_ "input" (const f)
+onInput :: (Event -> Eff _ Unit) -> Attribute
+onInput = on_ "input"
 
-onSelect :: forall e. Eff e Unit -> Attribute
-onSelect f = on_ "select" (const f)
+onSelect :: (Event -> Eff _ Unit) -> Attribute
+onSelect = on_ "select"
 
-onUnload :: forall e. Eff e Unit -> Attribute
-onUnload f = on_ "unload" (const f)
+onUnload :: (Event -> Eff _ Unit) -> Attribute
+onUnload = on_ "unload"
 
-onKeyUp :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+onKeyUp :: (KeyEvent -> Eff _ Unit) -> Attribute
 onKeyUp f = on_ "keyup" (f <<< I.KeyEvent)
 
-onKeyDown :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+onKeyDown :: (KeyEvent -> Eff _ Unit) -> Attribute
 onKeyDown f = on_ "keydown" (f <<< I.KeyEvent)
 
-onKeyPress :: forall e. (KeyEvent -> Eff e Unit) -> Attribute
+onKeyPress :: (KeyEvent -> Eff _ Unit) -> Attribute
 onKeyPress f = on_ "keypress" (f <<< I.KeyEvent)
 
-onClick :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+onClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 onClick f = on_ "click" (f <<< I.MouseButtonEvent)
 
-onDoubleClick :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+onDoubleClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 onDoubleClick f = on_ "dblclick" (f <<< I.MouseButtonEvent)
 
-onContextMenu :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+onContextMenu :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 onContextMenu f = on_ "contextmenu" (f <<< I.MouseButtonEvent)
 
-onMouseDown :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+onMouseDown :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 onMouseDown f = on_ "mousedown" (f <<< I.MouseButtonEvent)
 
-onMouseUp :: forall e. (MouseButtonEvent -> Eff e Unit) -> Attribute
+onMouseUp :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 onMouseUp f = on_ "mouseup" (f <<< I.MouseButtonEvent)
 
-onTouchCancel :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onTouchCancel :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onTouchCancel f = on_ "touchcalcel" (f <<< I.MouseHoverEvent)
 
-onTouchStart :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onTouchStart :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onTouchStart f = on_ "touchstart" (f <<< I.MouseHoverEvent)
 
-onTouchEnd :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+onTouchEnd :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onTouchEnd f = on_ "touchend" (f <<< I.MouseHoverEvent)

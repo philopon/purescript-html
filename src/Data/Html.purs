@@ -50,23 +50,23 @@ function vnodeImpl (fn, name, attrs, children) {
 
 data Html = Html (RefVal {node :: Node, vtree :: VTree})
 
-getNode :: forall e. Html -> EffHtml e Node
+getNode :: Html -> EffHtml _ Node
 getNode (Html ref) = do
   readRef ref >>= \h -> return h.node
 
-createElementOptions :: forall opts e. { | opts } -> VTree -> EffHtml e Html
+createElementOptions :: forall opts. { | opts } -> VTree -> EffHtml _ Html
 createElementOptions opts vtree = do
   let n = runFn2 virtualDOM.create vtree opts
   ref <- newRef {node: n, vtree: vtree}
   return $ Html ref
 
-createElement :: forall e. VTree -> EffHtml e Html
+createElement :: VTree -> EffHtml _ Html
 createElement vtree = do
   let n = virtualDOM.create vtree
   ref <- newRef {node: n, vtree: vtree}
   return $ Html ref
 
-patch :: forall e. VTree -> Html -> EffHtml e Unit
+patch :: VTree -> Html -> EffHtml _ Unit
 patch new (Html ref) = do
   h <- readRef ref
   let patch = runFn2 virtualDOM.diff h.vtree new

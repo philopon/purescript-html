@@ -11,13 +11,13 @@
 
 ### Values
 
-    createElement :: forall e. VTree -> EffHtml e Html
+    createElement :: VTree -> EffHtml _ Html
 
-    createElementOptions :: forall opts e. {  | opts } -> VTree -> EffHtml e Html
+    createElementOptions :: forall opts. {  | opts } -> VTree -> EffHtml _ Html
 
-    getNode :: forall e. Html -> EffHtml e Node
+    getNode :: Html -> EffHtml _ Node
 
-    patch :: forall e. VTree -> Html -> EffHtml e Unit
+    patch :: VTree -> Html -> EffHtml _ Unit
 
 
 

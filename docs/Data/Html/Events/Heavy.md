@@ -4,27 +4,27 @@
 
 ### Values
 
-    listenMouseEnter :: forall e. EffHtml e Unit
+    listenMouseEnter :: EffHtml _ Unit
 
-    listenMouseLeave :: forall e. EffHtml e Unit
+    listenMouseLeave :: EffHtml _ Unit
 
-    listenMouseMove :: forall e. EffHtml e Unit
+    listenMouseMove :: EffHtml _ Unit
 
-    listenMouseOut :: forall e. EffHtml e Unit
+    listenMouseOut :: EffHtml _ Unit
 
-    listenMouseOver :: forall e. EffHtml e Unit
+    listenMouseOver :: EffHtml _ Unit
 
-    listenTo :: forall e. String -> EffHtml e Unit
+    listenTo :: String -> EffHtml _ Unit
 
-    onMouseEnter :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onMouseEnter :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onMouseLeave :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onMouseLeave :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onMouseMove :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onMouseMove :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onMouseOut :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onMouseOut :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onMouseOver :: forall e. (MouseHoverEvent -> Eff e Unit) -> Attribute
+    onMouseOver :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
 
 
