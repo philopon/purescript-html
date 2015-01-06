@@ -3,7 +3,7 @@ module Data.Html.Events
   , listen
   , Button(..)
   , HasModifier
-  , altKey, ctrlKey, metaKey, shiftKey
+  , keyCode, altKey, ctrlKey, metaKey, shiftKey
   , HasPosition, Position(..)
   , client, page, screen
   , button
