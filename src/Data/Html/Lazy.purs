@@ -5,7 +5,6 @@ module Data.Html.Lazy
   ) where
   
 import Data.Html
-import Data.Html.Elements
 import Data.Html.Internal.VirtualDOM
 import Data.Function
 import Data.Maybe

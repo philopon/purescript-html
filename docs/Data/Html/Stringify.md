@@ -4,7 +4,7 @@
 
 ### Type Class Instances
 
-    instance showVTree :: Show VTree
+    instance showVTree :: Show E.VTree
 
 
 ### Values
