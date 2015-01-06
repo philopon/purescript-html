@@ -3,7 +3,7 @@ module Data.Html.Stringify
   ) where
 
 import Data.Html
-import Data.Html.Elements
+import qualified Data.Html.Elements as E
 import Data.Html.Internal.Stringify
 
 import Data.Function
@@ -16,5 +16,5 @@ function stringifyVNodeImpl(stringify, opts, vnode){
 stringifyVNode :: forall opts. {|opts} -> VTree -> String
 stringifyVNode = runFn3 stringifyVNodeImpl stringify
 
-instance showVTree :: Show VTree where
+instance showVTree :: Show E.VTree where
   show = stringifyVNode {}

@@ -8,6 +8,8 @@
 
     data Html
 
+    type VTree = E.VTree
+
 
 ### Values
 

@@ -1,5 +1,5 @@
 module Data.Html
-  ( Html(), EffHtml()
+  ( Html(), EffHtml(), VTree()
   , createElementOptions, createElement
   , patch
   , getNode
@@ -8,7 +8,8 @@ module Data.Html
 import Control.Monad.Eff
 import Control.Monad.Eff.Ref
 
-import Data.Html.Elements
+import Data.Html.Elements hiding (VTree)
+import qualified Data.Html.Elements as E
 import qualified Data.Html.Internal.Attributes as I
 
 import Data.Html.Attributes
@@ -18,6 +19,7 @@ import Data.Function
 import DOM
 
 type EffHtml e a = Eff (dom :: DOM, ref :: Ref | e) a
+type VTree = E.VTree
 
 type VNodeFs a = 
   { attrType :: Attribute -> String
