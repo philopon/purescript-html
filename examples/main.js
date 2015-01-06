@@ -195,14 +195,14 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var diff    = __webpack_require__(19);
-	var patch   = __webpack_require__(23);
+	var patch   = __webpack_require__(25);
 	var create  = __webpack_require__(18);
-	var VNode   = __webpack_require__(30);
-	var VText   = __webpack_require__(31);
+	var VNode   = __webpack_require__(32);
+	var VText   = __webpack_require__(33);
 	var isHook  = __webpack_require__(3);
 
-	var evHook = __webpack_require__(28);
-	var softSetHook = __webpack_require__(29);
+	var evHook = __webpack_require__(30);
+	var softSetHook = __webpack_require__(31);
 
 	var thunk = __webpack_require__(16);
 	var partial = __webpack_require__(7);
@@ -332,7 +332,7 @@ var virtualDOM =
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(33);
+	var minDoc = __webpack_require__(35);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -683,7 +683,7 @@ var virtualDOM =
 /* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(32)
+	var diff = __webpack_require__(34)
 
 	module.exports = diff
 
@@ -692,25 +692,27 @@ var virtualDOM =
 /* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	module.exports = createHash
 
-	var OneVersionConstraint = __webpack_require__(22);
+	function createHash(elem) {
+	    var attributes = elem.attributes
+	    var hash = {}
 
-	var MY_VERSION = '7';
-	OneVersionConstraint('ev-store', MY_VERSION);
-
-	var hashKey = '__EV_STORE_KEY@' + MY_VERSION;
-
-	module.exports = EvStore;
-
-	function EvStore(elem) {
-	    var hash = elem[hashKey];
-
-	    if (!hash) {
-	        hash = elem[hashKey] = {};
+	    if (attributes === null || attributes === undefined) {
+	        return hash
 	    }
 
-	    return hash;
+	    for (var i = 0; i < attributes.length; i++) {
+	        var attr = attributes[i]
+
+	        if (attr.name.substr(0,5) !== "data-") {
+	            continue
+	        }
+
+	        hash[attr.name.substr(5)] = attr.value
+	    }
+
+	    return hash
 	}
 
 
@@ -718,67 +720,107 @@ var virtualDOM =
 /* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {'use strict';
+	var createStore = __webpack_require__(23)
+	var Individual = __webpack_require__(22)
 
-	/*global window, global*/
+	var createHash = __webpack_require__(20)
 
-	var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
+	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
 
-	module.exports = Individual;
+	module.exports = DataSet
 
-	function Individual(key, value) {
-	    if (key in root) {
-	        return root[key];
+	function DataSet(elem) {
+	    var store = hashStore(elem)
+
+	    if (!store.hash) {
+	        store.hash = createHash(elem)
 	    }
 
-	    root[key] = value;
-
-	    return value;
+	    return store.hash
 	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
 
 /***/ },
 /* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
+	    window : typeof global !== 'undefined' ?
+	    global : {};
 
-	var Individual = __webpack_require__(21);
+	module.exports = Individual
 
-	module.exports = OneVersion;
-
-	function OneVersion(moduleName, version, defaultValue) {
-	    var key = '__INDIVIDUAL_ONE_VERSION_' + moduleName;
-	    var enforceKey = key + '_ENFORCE_SINGLETON';
-
-	    var versionValue = Individual(enforceKey, version);
-
-	    if (versionValue !== version) {
-	        throw new Error('Can only have one copy of ' +
-	            moduleName + '.\n' +
-	            'You already have version ' + versionValue +
-	            ' installed.\n' +
-	            'This means you cannot install version ' + version);
+	function Individual(key, value) {
+	    if (root[key]) {
+	        return root[key]
 	    }
 
-	    return Individual(key, defaultValue);
-	}
+	    Object.defineProperty(root, key, {
+	        value: value
+	        , configurable: true
+	    })
 
+	    return value
+	}
+	
+	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
 /* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var patch = __webpack_require__(26)
+	var hiddenStore = __webpack_require__(24);
+
+	module.exports = createStore;
+
+	function createStore() {
+	    var key = {};
+
+	    return function (obj) {
+	        if (typeof obj !== 'object' || obj === null) {
+	            throw new Error('Weakmap-shim: Key must be object')
+	        }
+
+	        var store = obj.valueOf(key);
+	        return store && store.identity === key ?
+	            store : hiddenStore(obj, key);
+	    };
+	}
+
+
+/***/ },
+/* 24 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = hiddenStore;
+
+	function hiddenStore(obj, key) {
+	    var store = { identity: key };
+	    var valueOf = obj.valueOf;
+
+	    Object.defineProperty(obj, "valueOf", {
+	        value: function (value) {
+	            return value !== key ?
+	                valueOf.apply(this, arguments) : store;
+	        },
+	        writable: true
+	    });
+
+	    return store;
+	}
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var patch = __webpack_require__(28)
 
 	module.exports = patch
 
 
 /***/ },
-/* 24 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
@@ -869,7 +911,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 25 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var applyProperties = __webpack_require__(11)
@@ -878,7 +920,7 @@ var virtualDOM =
 	var VPatch = __webpack_require__(14)
 
 	var render = __webpack_require__(12)
-	var updateWidget = __webpack_require__(27)
+	var updateWidget = __webpack_require__(29)
 
 	module.exports = applyPatch
 
@@ -1045,14 +1087,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 26 */
+/* 28 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var document = __webpack_require__(8)
 	var isArray = __webpack_require__(10)
 
-	var domIndex = __webpack_require__(24)
-	var patchOp = __webpack_require__(25)
+	var domIndex = __webpack_require__(26)
+	var patchOp = __webpack_require__(27)
 	module.exports = patch
 
 	function patch(rootNode, patches) {
@@ -1127,7 +1169,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 27 */
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isWidget = __webpack_require__(1)
@@ -1148,43 +1190,39 @@ var virtualDOM =
 
 
 /***/ },
-/* 28 */
+/* 30 */
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	var DataSet = __webpack_require__(21)
 
-	var EvStore = __webpack_require__(20);
+	module.exports = DataSetHook;
 
-	module.exports = EvHook;
-
-	function EvHook(value) {
-	    if (!(this instanceof EvHook)) {
-	        return new EvHook(value);
+	function DataSetHook(value) {
+	    if (!(this instanceof DataSetHook)) {
+	        return new DataSetHook(value);
 	    }
 
 	    this.value = value;
 	}
 
-	EvHook.prototype.hook = function (node, propertyName) {
-	    var es = EvStore(node);
-	    var propName = propertyName.substr(3);
+	DataSetHook.prototype.hook = function (node, propertyName) {
+	    var ds = DataSet(node)
+	    var propName = propertyName.substr(3)
 
-	    es[propName] = this.value;
+	    ds[propName] = this.value;
 	};
 
-	EvHook.prototype.unhook = function(node, propertyName) {
-	    var es = EvStore(node);
+	DataSetHook.prototype.unhook = function(node, propertyName) {
+	    var ds = DataSet(node);
 	    var propName = propertyName.substr(3);
 
-	    es[propName] = undefined;
-	};
+	    ds[propName] = undefined;
+	}
 
 
 /***/ },
-/* 29 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
 
 	module.exports = SoftSetHook;
 
@@ -1204,7 +1242,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 30 */
+/* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1282,7 +1320,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 31 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1298,7 +1336,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 32 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(10)
@@ -1362,7 +1400,6 @@ var virtualDOM =
 	        }
 	    } else if (isVText(b)) {
 	        if (!isVText(a)) {
-	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
 	            applyClear = true
 	        } else if (a.text !== b.text) {
 	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
@@ -1681,7 +1718,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 33 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
