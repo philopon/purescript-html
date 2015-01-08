@@ -1,9 +1,5 @@
 module Data.Html.Events.Heavy
-  ( listenTo
-  , listenMouseMove
-  , listenMouseEnter, listenMouseLeave
-  , listenMouseOver, listenMouseOut
-  , onMouseMove
+  ( onMouseMove
   , onMouseEnter, onMouseLeave
   , onMouseOver, onMouseOut
   ) where
@@ -14,32 +10,6 @@ import Data.Html.Attributes
 import Data.Html.Events
 import qualified Data.Html.Internal.Events as I
 import Data.Function
-import Data.Html.Internal.Delegator
-
-foreign import listenToImpl """
-function listenToImpl(d, l){
-  return function listenToImpl_Eff(){
-    d.listenTo(l);
-  }
-}""" :: forall delegator e. Fn2 delegator String (EffHtml e Unit)
-
-listenTo :: String -> EffHtml _ Unit
-listenTo = runFn2 listenToImpl delegator
-
-listenMouseMove :: EffHtml _ Unit
-listenMouseMove = listenTo "mousemove"
-
-listenMouseEnter :: EffHtml _ Unit
-listenMouseEnter = listenTo "mouseenter"
-
-listenMouseLeave :: EffHtml _ Unit
-listenMouseLeave = listenTo "mouseleave"
-
-listenMouseOver :: EffHtml _ Unit
-listenMouseOver = listenTo "mouseover"
-
-listenMouseOut :: EffHtml _ Unit
-listenMouseOut = listenTo "mouseout"
 
 onMouseMove :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 onMouseMove f = on_ "mousemove" (f <<< I.MouseHoverEvent)

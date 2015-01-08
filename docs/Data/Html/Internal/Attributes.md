@@ -6,6 +6,10 @@
 
     data Attr :: *
 
+    newtype AttrType
+
+    type AttrTypes = { key :: AttrType, namespace :: AttrType, attribute :: AttrType }
+
     data Attribute where
       Attribute :: String -> Attr -> Attribute
       Key :: String -> Attribute
@@ -14,9 +18,13 @@
 
 ### Values
 
-    attrType :: Attribute -> String
+    attrType :: Attribute -> AttrType
+
+    attrTypes :: AttrTypes
 
     attribute :: String -> Attr -> Attribute
+
+    attriute :: AttrType
 
     getAttrKey :: Attribute -> String
 
@@ -25,6 +33,10 @@
     getKeyString :: Attribute -> String
 
     getNamespaceString :: Attribute -> String
+
+    key :: AttrType
+
+    namespace :: AttrType
 
     unsafeCoerce :: forall a b. a -> b
 

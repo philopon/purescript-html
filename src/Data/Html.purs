@@ -6,7 +6,6 @@ module Data.Html
   ) where
 
 import Control.Monad.Eff
-import Control.Monad.Eff.Ref
 
 import Data.Html.Elements hiding (VTree)
 import qualified Data.Html.Elements as E
@@ -18,59 +17,50 @@ import Data.Html.Internal.VirtualDOM
 import Data.Function
 import DOM
 
-type EffHtml e a = Eff (dom :: DOM, ref :: Ref | e) a
+type EffHtml e a = Eff (dom :: DOM | e) a
 type VTree = E.VTree
 
-type VNodeFs a = 
-  { attrType :: Attribute -> String
-  , attrKey  :: Attribute -> String
-  , attrVal  :: Attribute -> I.Attr
-  , getKey   :: Attribute -> String
-  , getNs    :: Attribute -> String
-  , vnode    :: a
+foreign import data Html :: *
+
+foreign import createElementImpl """
+function createElementImpl(create, vtree){
+  return function createElementImplEff(){
+    return { vtree: vtree
+           , node: create(vtree)
+           }
   }
-
-foreign import vnodeImpl """
-function vnodeImpl (fn, name, attrs, children) {
-  var props     = {}
-    , key       = undefined
-    , namespace = undefined;
-
-  for(var i = 0; i < attrs.length; i++) {
-    var attr = attrs[i];
-    var typ  = fn.attrType(attr);
-    if(typ === "a") {
-      props[fn.attrKey(attr)] = fn.attrVal(attr);
-    } else if (typ === "k") {
-      key = fn.getKey(attr);
-    } else {
-      namespace = fn.getNs(attr);
-    }
-  }
-  return new fn.vnode(name, props, children, key, namespace);
-}""" :: forall a. Fn4 (VNodeFs a) String [Attribute] [VTree] VTree
-
-data Html = Html (RefVal {node :: Node, vtree :: VTree})
-
-getNode :: Html -> EffHtml _ Node
-getNode (Html ref) = do
-  readRef ref >>= \h -> return h.node
-
-createElementOptions :: forall opts. { | opts } -> VTree -> EffHtml _ Html
-createElementOptions opts vtree = do
-  let n = runFn2 virtualDOM.create vtree opts
-  ref <- newRef {node: n, vtree: vtree}
-  return $ Html ref
+}""" :: forall e create. Fn2 create VTree (EffHtml e Html)
 
 createElement :: VTree -> EffHtml _ Html
-createElement vtree = do
-  let n = virtualDOM.create vtree
-  ref <- newRef {node: n, vtree: vtree}
-  return $ Html ref
+createElement = runFn2 createElementImpl virtualDOM.create
+
+foreign import createElementOptitionsImpl """
+function createElementOptitionsImpl(create, opts, vtree){
+  return function createElementImplEff(){
+    return { vtree: vtree
+           , node: create(vtree, opts)
+           }
+  }
+}""" :: forall e create opts. Fn3 create {|opts} VTree (EffHtml e Html)
+
+createElementOptions :: forall opts. { | opts } -> VTree -> EffHtml _ Html
+createElementOptions = runFn3 createElementOptitionsImpl virtualDOM.create
+
+foreign import getNode """
+function getNode(html){
+  return function getNodeEff(){
+    return html.node;
+  }
+}""" :: forall e. Html -> EffHtml e Node
+
+foreign import patchImpl """
+function patchImpl(fn, next, html){
+  return function patchImplEff(){
+    var patch  = fn.diff(html.vtree, next);
+    html.node  = fn.patch(html.node, patch);
+    html.vtree = next;
+  }
+}""" :: forall fn e. Fn3 fn VTree Html (EffHtml e Unit)
 
 patch :: VTree -> Html -> EffHtml _ Unit
-patch new (Html ref) = do
-  h <- readRef ref
-  let patch = runFn2 virtualDOM.diff h.vtree new
-      node' = runFn2 virtualDOM.patch h.node patch
-  writeRef ref {node: node', vtree: new}
+patch = runFn3 patchImpl virtualDOM

@@ -69,8 +69,6 @@
 
     keyCode :: KeyEvent -> Number
 
-    listen :: EffHtml _ Unit
-
     onBlur :: forall e. (Event -> Eff e Unit) -> Attribute
 
     onChange :: (Event -> Eff _ Unit) -> Attribute

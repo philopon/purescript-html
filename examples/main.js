@@ -194,18 +194,14 @@ var virtualDOM =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff    = __webpack_require__(19);
-	var patch   = __webpack_require__(25);
-	var create  = __webpack_require__(18);
-	var VNode   = __webpack_require__(32);
-	var VText   = __webpack_require__(33);
+	var diff    = __webpack_require__(15);
+	var patch   = __webpack_require__(16);
+	var create  = __webpack_require__(14);
+	var VNode   = __webpack_require__(22);
+	var VText   = __webpack_require__(23);
 	var isHook  = __webpack_require__(3);
 
-	var evHook = __webpack_require__(30);
-	var softSetHook = __webpack_require__(31);
-
-	var thunk = __webpack_require__(16);
-	var partial = __webpack_require__(7);
+	var softSetHook = __webpack_require__(21);
 
 	module.exports =
 	  { diff:        diff
@@ -213,11 +209,8 @@ var virtualDOM =
 	  , create:      create
 	  , vnode:       VNode
 	  , vtext:       VText
-	  , evHook:      evHook
 	  , isHook:      isHook
 	  , softSetHook: softSetHook
-	  , thunk:       thunk
-	  , partial:     partial
 	  }
 
 
@@ -292,47 +285,9 @@ var virtualDOM =
 /* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var shallowEq = __webpack_require__(17);
-	var Thunk = __webpack_require__(15);
-
-	module.exports = createPartial;
-
-	function createPartial(eq) {
-	    return function partial(fn) {
-	        var args = copyOver(arguments, 1);
-	        var firstArg = args[0];
-	        var key;
-
-	        var eqArgs = eq || shallowEq;
-
-	        if (typeof firstArg === 'object' && firstArg !== null) {
-	            if ('key' in firstArg) {
-	                key = firstArg.key;
-	            } else if ('id' in firstArg) {
-	                key = firstArg.id;
-	            }
-	        }
-
-	        return new Thunk(fn, args, key, eqArgs);
-	    };
-	}
-
-	function copyOver(list, offset) {
-	    var newList = [];
-	    for (var i = list.length - 1; i >= offset; i--) {
-	        newList[i - offset] = list[i];
-	    }
-	    return newList;
-	}
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(35);
+	var minDoc = __webpack_require__(25);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -349,7 +304,7 @@ var virtualDOM =
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -360,7 +315,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 10 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var nativeIsArray = Array.isArray
@@ -374,10 +329,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 11 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isObject = __webpack_require__(9)
+	var isObject = __webpack_require__(8)
 	var isHook = __webpack_require__(3)
 
 	module.exports = applyProperties
@@ -474,17 +429,17 @@ var virtualDOM =
 
 
 /***/ },
-/* 12 */
+/* 11 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(8)
+	var document = __webpack_require__(7)
 
-	var applyProperties = __webpack_require__(11)
+	var applyProperties = __webpack_require__(10)
 
 	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
-	var handleThunk = __webpack_require__(13)
+	var handleThunk = __webpack_require__(12)
 
 	module.exports = createElement
 
@@ -526,7 +481,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 13 */
+/* 12 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isVNode = __webpack_require__(4)
@@ -572,7 +527,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 14 */
+/* 13 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -600,227 +555,34 @@ var virtualDOM =
 
 
 /***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var createElement = __webpack_require__(11)
+
+	module.exports = createElement
+
+
+/***/ },
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	function Thunk(fn, args, key, eqArgs) {
-	    this.fn = fn;
-	    this.args = args;
-	    this.key = key;
-	    this.eqArgs = eqArgs;
-	}
+	var diff = __webpack_require__(24)
 
-	Thunk.prototype.type = 'Thunk';
-	Thunk.prototype.render = render;
-	module.exports = Thunk;
-
-	function shouldUpdate(current, previous) {
-	    if (!current || !previous || current.fn !== previous.fn) {
-	        return true;
-	    }
-
-	    var cargs = current.args;
-	    var pargs = previous.args;
-
-	    return !current.eqArgs(cargs, pargs);
-	}
-
-	function render(previous) {
-	    if (shouldUpdate(this, previous)) {
-	        return this.fn.apply(null, this.args);
-	    } else {
-	        return previous.vnode;
-	    }
-	}
+	module.exports = diff
 
 
 /***/ },
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var Partial = __webpack_require__(7);
-
-	module.exports = Partial();
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = shallowEq;
-
-	function shallowEq(currentArgs, previousArgs) {
-	    if (currentArgs.length === 0 && previousArgs.length === 0) {
-	        return true;
-	    }
-
-	    if (currentArgs.length !== previousArgs.length) {
-	        return false;
-	    }
-
-	    var len = currentArgs.length;
-
-	    for (var i = 0; i < len; i++) {
-	        if (currentArgs[i] !== previousArgs[i]) {
-	            return false;
-	        }
-	    }
-
-	    return true;
-	}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createElement = __webpack_require__(12)
-
-	module.exports = createElement
-
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var diff = __webpack_require__(34)
-
-	module.exports = diff
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createStore = __webpack_require__(23)
-	var Individual = __webpack_require__(22)
-
-	var createHash = __webpack_require__(20)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 23 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(24);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 25 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var patch = __webpack_require__(28)
+	var patch = __webpack_require__(19)
 
 	module.exports = patch
 
 
 /***/ },
-/* 26 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
@@ -911,16 +673,16 @@ var virtualDOM =
 
 
 /***/ },
-/* 27 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var applyProperties = __webpack_require__(11)
+	var applyProperties = __webpack_require__(10)
 
 	var isWidget = __webpack_require__(1)
-	var VPatch = __webpack_require__(14)
+	var VPatch = __webpack_require__(13)
 
-	var render = __webpack_require__(12)
-	var updateWidget = __webpack_require__(29)
+	var render = __webpack_require__(11)
+	var updateWidget = __webpack_require__(20)
 
 	module.exports = applyPatch
 
@@ -1049,22 +811,33 @@ var virtualDOM =
 	    var move
 	    var node
 	    var insertNode
-	    for (i = 0; i < len; i++) {
+	    var chainLength
+	    var insertedLength
+	    var nextSibling
+	    for (i = 0; i < len;) {
 	        move = bIndex[i]
+	        chainLength = 1
 	        if (move !== undefined && move !== i) {
+	            // try to bring forward as long of a chain as possible
+	            while (bIndex[i + chainLength] === move + chainLength) {
+	                chainLength++;
+	            }
+
 	            // the element currently at this index will be moved later so increase the insert offset
-	            if (reverseIndex[i] > i) {
+	            if (reverseIndex[i] > i + chainLength) {
 	                insertOffset++
 	            }
 
 	            node = children[move]
 	            insertNode = childNodes[i + insertOffset] || null
-	            if (node !== insertNode) {
-	                domNode.insertBefore(node, insertNode)
+	            insertedLength = 0
+	            while (node !== insertNode && insertedLength++ < chainLength) {
+	                domNode.insertBefore(node, insertNode);
+	                node = children[move + insertedLength];
 	            }
 
 	            // the moved element came from the front of the array so reduce the insert offset
-	            if (move < i) {
+	            if (move + chainLength < i) {
 	                insertOffset--
 	            }
 	        }
@@ -1073,6 +846,8 @@ var virtualDOM =
 	        if (i in bIndex.removes) {
 	            insertOffset++
 	        }
+
+	        i += chainLength
 	    }
 	}
 
@@ -1087,14 +862,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 28 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var document = __webpack_require__(8)
-	var isArray = __webpack_require__(10)
+	var document = __webpack_require__(7)
+	var isArray = __webpack_require__(9)
 
-	var domIndex = __webpack_require__(26)
-	var patchOp = __webpack_require__(27)
+	var domIndex = __webpack_require__(17)
+	var patchOp = __webpack_require__(18)
 	module.exports = patch
 
 	function patch(rootNode, patches) {
@@ -1169,7 +944,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 29 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isWidget = __webpack_require__(1)
@@ -1190,39 +965,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 30 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(21)
-
-	module.exports = DataSetHook;
-
-	function DataSetHook(value) {
-	    if (!(this instanceof DataSetHook)) {
-	        return new DataSetHook(value);
-	    }
-
-	    this.value = value;
-	}
-
-	DataSetHook.prototype.hook = function (node, propertyName) {
-	    var ds = DataSet(node)
-	    var propName = propertyName.substr(3)
-
-	    ds[propName] = this.value;
-	};
-
-	DataSetHook.prototype.unhook = function(node, propertyName) {
-	    var ds = DataSet(node);
-	    var propName = propertyName.substr(3);
-
-	    ds[propName] = undefined;
-	}
-
-
-/***/ },
-/* 31 */
-/***/ function(module, exports, __webpack_require__) {
+	'use strict';
 
 	module.exports = SoftSetHook;
 
@@ -1242,7 +988,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 32 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1320,7 +1066,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 33 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1336,19 +1082,19 @@ var virtualDOM =
 
 
 /***/ },
-/* 34 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(10)
-	var isObject = __webpack_require__(9)
+	var isArray = __webpack_require__(9)
+	var isObject = __webpack_require__(8)
 
-	var VPatch = __webpack_require__(14)
+	var VPatch = __webpack_require__(13)
 	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
 	var isThunk = __webpack_require__(5)
 	var isHook = __webpack_require__(3)
-	var handleThunk = __webpack_require__(13)
+	var handleThunk = __webpack_require__(12)
 
 	module.exports = diff
 
@@ -1400,6 +1146,7 @@ var virtualDOM =
 	        }
 	    } else if (isVText(b)) {
 	        if (!isVText(a)) {
+	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
 	            applyClear = true
 	        } else if (a.text !== b.text) {
 	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
@@ -1718,7 +1465,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 35 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
@@ -1730,810 +1477,15 @@ var virtualDOM =
     };
 })();
 var PS = PS || {};
-PS.Data_Html_Internal_Delegator = (function () {
-    "use strict";
-    var Prelude = PS.Prelude;
-    
-var delegator =
-/******/ (function(modules) { // webpackBootstrap
-/******/ 	// The module cache
-/******/ 	var installedModules = {};
-/******/
-/******/ 	// The require function
-/******/ 	function __webpack_require__(moduleId) {
-/******/
-/******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
-/******/ 			return installedModules[moduleId].exports;
-/******/
-/******/ 		// Create a new module (and put it into the cache)
-/******/ 		var module = installedModules[moduleId] = {
-/******/ 			exports: {},
-/******/ 			id: moduleId,
-/******/ 			loaded: false
-/******/ 		};
-/******/
-/******/ 		// Execute the module function
-/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
-/******/ 		// Flag the module as loaded
-/******/ 		module.loaded = true;
-/******/
-/******/ 		// Return the exports of the module
-/******/ 		return module.exports;
-/******/ 	}
-/******/
-/******/
-/******/ 	// expose the modules object (__webpack_modules__)
-/******/ 	__webpack_require__.m = modules;
-/******/
-/******/ 	// expose the module cache
-/******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
-/******/
-/******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(0);
-/******/ })
-/************************************************************************/
-/******/ ([
-/* 0 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var delegator = __webpack_require__(6);
-
-	module.exports = delegator();
-
-
-/***/ },
-/* 1 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createStore = __webpack_require__(9)
-	var Individual = __webpack_require__(3)
-
-	var createHash = __webpack_require__(8)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
-	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(16);
-
-	if (typeof document !== 'undefined') {
-	    module.exports = document;
-	} else {
-	    var doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'];
-
-	    if (!doccy) {
-	        doccy = topLevel['__GLOBAL_DOCUMENT_CACHE@4'] = minDoc;
-	    }
-
-	    module.exports = doccy;
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 3 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 4 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(1)
-
-	module.exports = addEvent
-
-	function addEvent(target, type, handler) {
-	    var ds = DataSet(target)
-	    var events = ds[type]
-
-	    if (!events) {
-	        ds[type] = handler
-	    } else if (Array.isArray(events)) {
-	        if (events.indexOf(handler) === -1) {
-	            events.push(handler)
-	        }
-	    } else if (events !== handler) {
-	        ds[type] = [events, handler]
-	    }
-	}
-
-
-/***/ },
-/* 5 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var globalDocument = __webpack_require__(2)
-	var DataSet = __webpack_require__(1)
-	var createStore = __webpack_require__(12)
-
-	var addEvent = __webpack_require__(4)
-	var removeEvent = __webpack_require__(15)
-	var ProxyEvent = __webpack_require__(14)
-
-	var HANDLER_STORE = createStore()
-
-	module.exports = DOMDelegator
-
-	function DOMDelegator(document) {
-	    if (!(this instanceof DOMDelegator)) {
-	        return new DOMDelegator(document);
-	    }
-
-	    document = document || globalDocument
-
-	    this.target = document.documentElement
-	    this.events = {}
-	    this.rawEventListeners = {}
-	    this.globalListeners = {}
-	}
-
-	DOMDelegator.prototype.addEventListener = addEvent
-	DOMDelegator.prototype.removeEventListener = removeEvent
-
-	DOMDelegator.allocateHandle =
-	    function allocateHandle(func) {
-	        var handle = new Handle()
-
-	        HANDLER_STORE(handle).func = func;
-
-	        return handle
-	    }
-
-	DOMDelegator.transformHandle =
-	    function transformHandle(handle, broadcast) {
-	        var func = HANDLER_STORE(handle).func
-
-	        return this.allocateHandle(function (ev) {
-	            broadcast(ev, func);
-	        })
-	    }
-
-	DOMDelegator.prototype.addGlobalEventListener =
-	    function addGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-	        if (listeners.indexOf(fn) === -1) {
-	            listeners.push(fn)
-	        }
-
-	        this.globalListeners[eventName] = listeners;
-	    }
-
-	DOMDelegator.prototype.removeGlobalEventListener =
-	    function removeGlobalEventListener(eventName, fn) {
-	        var listeners = this.globalListeners[eventName] || [];
-
-	        var index = listeners.indexOf(fn)
-	        if (index !== -1) {
-	            listeners.splice(index, 1)
-	        }
-	    }
-
-	DOMDelegator.prototype.listenTo = function listenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    this.events[eventName]++;
-
-	    if (this.events[eventName] !== 1) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-	    if (!listener) {
-	        listener = this.rawEventListeners[eventName] =
-	            createHandler(eventName, this)
-	    }
-
-	    this.target.addEventListener(eventName, listener, true)
-	}
-
-	DOMDelegator.prototype.unlistenTo = function unlistenTo(eventName) {
-	    if (!(eventName in this.events)) {
-	        this.events[eventName] = 0;
-	    }
-
-	    if (this.events[eventName] === 0) {
-	        throw new Error("already unlistened to event.");
-	    }
-
-	    this.events[eventName]--;
-
-	    if (this.events[eventName] !== 0) {
-	        return
-	    }
-
-	    var listener = this.rawEventListeners[eventName]
-
-	    if (!listener) {
-	        throw new Error("dom-delegator#unlistenTo: cannot " +
-	            "unlisten to " + eventName)
-	    }
-
-	    this.target.removeEventListener(eventName, listener, true)
-	}
-
-	function createHandler(eventName, delegator) {
-	    var globalListeners = delegator.globalListeners;
-	    var delegatorTarget = delegator.target;
-
-	    return handler
-
-	    function handler(ev) {
-	        var globalHandlers = globalListeners[eventName] || []
-
-	        if (globalHandlers.length > 0) {
-	            var globalEvent = new ProxyEvent(ev);
-	            globalEvent.currentTarget = delegatorTarget;
-	            callListeners(globalHandlers, globalEvent)
-	        }
-
-	        findAndInvokeListeners(ev.target, ev, eventName)
-	    }
-	}
-
-	function findAndInvokeListeners(elem, ev, eventName) {
-	    var listener = getListener(elem, eventName)
-
-	    if (listener && listener.handlers.length > 0) {
-	        var listenerEvent = new ProxyEvent(ev);
-	        listenerEvent.currentTarget = listener.currentTarget
-	        callListeners(listener.handlers, listenerEvent)
-
-	        if (listenerEvent._bubbles) {
-	            var nextTarget = listener.currentTarget.parentNode
-	            findAndInvokeListeners(nextTarget, ev, eventName)
-	        }
-	    }
-	}
-
-	function getListener(target, type) {
-	    // terminate recursion if parent is `null`
-	    if (target === null) {
-	        return null
-	    }
-
-	    var ds = DataSet(target)
-	    // fetch list of handler fns for this event
-	    var handler = ds[type]
-	    var allHandler = ds.event
-
-	    if (!handler && !allHandler) {
-	        return getListener(target.parentNode, type)
-	    }
-
-	    var handlers = [].concat(handler || [], allHandler || [])
-	    return new Listener(target, handlers)
-	}
-
-	function callListeners(handlers, ev) {
-	    handlers.forEach(function (handler) {
-	        if (typeof handler === "function") {
-	            handler(ev)
-	        } else if (typeof handler.handleEvent === "function") {
-	            handler.handleEvent(ev)
-	        } else if (handler.type === "dom-delegator-handle") {
-	            HANDLER_STORE(handler).func(ev)
-	        } else {
-	            throw new Error("dom-delegator: unknown handler " +
-	                "found: " + JSON.stringify(handlers));
-	        }
-	    })
-	}
-
-	function Listener(target, handlers) {
-	    this.currentTarget = target
-	    this.handlers = handlers
-	}
-
-	function Handle() {
-	    this.type = "dom-delegator-handle"
-	}
-
-
-/***/ },
-/* 6 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var Individual = __webpack_require__(3)
-	var cuid = __webpack_require__(7)
-	var globalDocument = __webpack_require__(2)
-
-	var DOMDelegator = __webpack_require__(5)
-
-	var versionKey = "12"
-	var cacheKey = "__DOM_DELEGATOR_CACHE@" + versionKey
-	var cacheTokenKey = "__DOM_DELEGATOR_CACHE_TOKEN@" + versionKey
-	var delegatorCache = Individual(cacheKey, {
-	    delegators: {}
-	})
-	var commonEvents = [
-	    "blur", "change", "click",  "contextmenu", "dblclick",
-	    "error","focus", "focusin", "focusout", "input", "keydown",
-	    "keypress", "keyup", "load", "mousedown", "mouseup",
-	    "resize", "select", "submit", "touchcancel",
-	    "touchend", "touchstart", "unload"
-	]
-
-	/*  Delegator is a thin wrapper around a singleton `DOMDelegator`
-	        instance.
-
-	    Only one DOMDelegator should exist because we do not want
-	        duplicate event listeners bound to the DOM.
-
-	    `Delegator` will also `listenTo()` all events unless
-	        every caller opts out of it
-	*/
-	module.exports = Delegator
-
-	function Delegator(opts) {
-	    opts = opts || {}
-	    var document = opts.document || globalDocument
-
-	    var cacheKey = document[cacheTokenKey]
-
-	    if (!cacheKey) {
-	        cacheKey =
-	            document[cacheTokenKey] = cuid()
-	    }
-
-	    var delegator = delegatorCache.delegators[cacheKey]
-
-	    if (!delegator) {
-	        delegator = delegatorCache.delegators[cacheKey] =
-	            new DOMDelegator(document)
-	    }
-
-	    if (opts.defaultEvents !== false) {
-	        for (var i = 0; i < commonEvents.length; i++) {
-	            delegator.listenTo(commonEvents[i])
-	        }
-	    }
-
-	    return delegator
-	}
-
-	Delegator.allocateHandle = DOMDelegator.allocateHandle;
-	Delegator.transformHandle = DOMDelegator.transformHandle;
-
-
-/***/ },
-/* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/**
-	 * cuid.js
-	 * Collision-resistant UID generator for browsers and node.
-	 * Sequential for fast db lookups and recency sorting.
-	 * Safe for element IDs and server-side lookups.
-	 *
-	 * Extracted from CLCTR
-	 * 
-	 * Copyright (c) Eric Elliott 2012
-	 * MIT License
-	 */
-
-	/*global window, navigator, document, require, process, module */
-	(function (app) {
-	  'use strict';
-	  var namespace = 'cuid',
-	    c = 0,
-	    blockSize = 4,
-	    base = 36,
-	    discreteValues = Math.pow(base, blockSize),
-
-	    pad = function pad(num, size) {
-	      var s = "000000000" + num;
-	      return s.substr(s.length-size);
-	    },
-
-	    randomBlock = function randomBlock() {
-	      return pad((Math.random() *
-	            discreteValues << 0)
-	            .toString(base), blockSize);
-	    },
-
-	    safeCounter = function () {
-	      c = (c < discreteValues) ? c : 0;
-	      c++; // this is not subliminal
-	      return c - 1;
-	    },
-
-	    api = function cuid() {
-	      // Starting with a lowercase letter makes
-	      // it HTML element ID friendly.
-	      var letter = 'c', // hard-coded allows for sequential access
-
-	        // timestamp
-	        // warning: this exposes the exact date and time
-	        // that the uid was created.
-	        timestamp = (new Date().getTime()).toString(base),
-
-	        // Prevent same-machine collisions.
-	        counter,
-
-	        // A few chars to generate distinct ids for different
-	        // clients (so different computers are far less
-	        // likely to generate the same id)
-	        fingerprint = api.fingerprint(),
-
-	        // Grab some more chars from Math.random()
-	        random = randomBlock() + randomBlock();
-
-	        counter = pad(safeCounter().toString(base), blockSize);
-
-	      return  (letter + timestamp + counter + fingerprint + random);
-	    };
-
-	  api.slug = function slug() {
-	    var date = new Date().getTime().toString(36),
-	      counter,
-	      print = api.fingerprint().slice(0,1) +
-	        api.fingerprint().slice(-1),
-	      random = randomBlock().slice(-2);
-
-	      counter = safeCounter().toString(36).slice(-4);
-
-	    return date.slice(-2) + 
-	      counter + print + random;
-	  };
-
-	  api.globalCount = function globalCount() {
-	    // We want to cache the results of this
-	    var cache = (function calc() {
-	        var i,
-	          count = 0;
-
-	        for (i in window) {
-	          count++;
-	        }
-
-	        return count;
-	      }());
-
-	    api.globalCount = function () { return cache; };
-	    return cache;
-	  };
-
-	  api.fingerprint = function browserPrint() {
-	    return pad((navigator.mimeTypes.length +
-	      navigator.userAgent.length).toString(36) +
-	      api.globalCount().toString(36), 4);
-	  };
-
-	  // don't change anything from here down.
-	  if (app.register) {
-	    app.register(namespace, api);
-	  } else if (true) {
-	    module.exports = api;
-	  } else {
-	    app[namespace] = api;
-	  }
-
-	}(this.applitude || this));
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 9 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(10);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports, __webpack_require__) {
-
-	if (typeof Object.create === 'function') {
-	  // implementation from standard node.js 'util' module
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  // old school shim for old browsers
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    var TempCtor = function () {}
-	    TempCtor.prototype = superCtor.prototype
-	    ctor.prototype = new TempCtor()
-	    ctor.prototype.constructor = ctor
-	  }
-	}
-
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(13);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if ((typeof obj !== 'object' || obj === null) &&
-	            typeof obj !== 'function'
-	        ) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 14 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var inherits = __webpack_require__(11)
-
-	var ALL_PROPS = [
-	    "altKey", "bubbles", "cancelable", "ctrlKey",
-	    "eventPhase", "metaKey", "relatedTarget", "shiftKey",
-	    "target", "timeStamp", "type", "view", "which"
-	]
-	var KEY_PROPS = ["char", "charCode", "key", "keyCode"]
-	var MOUSE_PROPS = [
-	    "button", "buttons", "clientX", "clientY", "layerX",
-	    "layerY", "offsetX", "offsetY", "pageX", "pageY",
-	    "screenX", "screenY", "toElement"
-	]
-
-	var rkeyEvent = /^key|input/
-	var rmouseEvent = /^(?:mouse|pointer|contextmenu)|click/
-
-	module.exports = ProxyEvent
-
-	function ProxyEvent(ev) {
-	    if (!(this instanceof ProxyEvent)) {
-	        return new ProxyEvent(ev)
-	    }
-
-	    if (rkeyEvent.test(ev.type)) {
-	        return new KeyEvent(ev)
-	    } else if (rmouseEvent.test(ev.type)) {
-	        return new MouseEvent(ev)
-	    }
-
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    this._rawEvent = ev
-	    this._bubbles = false;
-	}
-
-	ProxyEvent.prototype.preventDefault = function () {
-	    this._rawEvent.preventDefault()
-	}
-
-	ProxyEvent.prototype.startPropagation = function () {
-	    this._bubbles = true;
-	}
-
-	function MouseEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < MOUSE_PROPS.length; j++) {
-	        var mousePropKey = MOUSE_PROPS[j]
-	        this[mousePropKey] = ev[mousePropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(MouseEvent, ProxyEvent)
-
-	function KeyEvent(ev) {
-	    for (var i = 0; i < ALL_PROPS.length; i++) {
-	        var propKey = ALL_PROPS[i]
-	        this[propKey] = ev[propKey]
-	    }
-
-	    for (var j = 0; j < KEY_PROPS.length; j++) {
-	        var keyPropKey = KEY_PROPS[j]
-	        this[keyPropKey] = ev[keyPropKey]
-	    }
-
-	    this._rawEvent = ev
-	}
-
-	inherits(KeyEvent, ProxyEvent)
-
-
-/***/ },
-/* 15 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var DataSet = __webpack_require__(1)
-
-	module.exports = removeEvent
-
-	function removeEvent(target, type, handler) {
-	    var ds = DataSet(target)
-	    var events = ds[type]
-
-	    if (!events) {
-	        return
-	    } else if (Array.isArray(events)) {
-	        var index = events.indexOf(handler)
-	        if (index !== -1) {
-	            events.splice(index, 1)
-	        }
-	    } else if (events === handler) {
-	        ds[type] = null
-	    }
-	}
-
-
-/***/ },
-/* 16 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* (ignored) */
-
-/***/ }
-/******/ ]);
-    return {
-        delegator: delegator
-    };
-})();
-var PS = PS || {};
 PS.Data_Function = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     function runFn2(fn) {  return function(a) {    return function(b) {      return fn(a, b);    };  };};
+    function runFn3(fn) {  return function(a) {    return function(b) {      return function(c) {        return fn(a, b, c);      };    };  };};
     function runFn4(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return fn(a, b, c, d);        };      };    };  };};
     return {
         runFn2: runFn2, 
+        runFn3: runFn3, 
         runFn4: runFn4
     };
 })();
@@ -2562,44 +1514,57 @@ PS.Data_Html_Internal_Attributes = (function () {
     Namespace.create = function (value0) {
         return new Namespace(value0);
     };
+    var AttrType = {
+        create: function (value) {
+            return value;
+        }
+    };
     
 function unsafeCoerce(a) {
   return a;
 };
-    var getNamespaceString = function (_37) {
-        if (_37 instanceof Namespace) {
-            return _37.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getKeyString = function (_36) {
-        if (_36 instanceof Key) {
-            return _36.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrValue = function (_35) {
-        if (_35 instanceof Attribute) {
-            return _35.value1;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrKey = function (_34) {
-        if (_34 instanceof Attribute) {
+    var namespace = 1;
+    var key = 2;
+    var getNamespaceString = function (_34) {
+        if (_34 instanceof Namespace) {
             return _34.value0;
         };
         throw new Error("Failed pattern match");
     };
-    var attribute = Attribute.create;
-    var attrType = function (_33) {
-        if (_33 instanceof Attribute) {
-            return "a";
-        };
-        if (_33 instanceof Namespace) {
-            return "n";
-        };
+    var getKeyString = function (_33) {
         if (_33 instanceof Key) {
-            return "k";
+            return _33.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrValue = function (_32) {
+        if (_32 instanceof Attribute) {
+            return _32.value1;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrKey = function (_31) {
+        if (_31 instanceof Attribute) {
+            return _31.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var attriute = 0;
+    var attribute = Attribute.create;
+    var attrTypes = {
+        attribute: attriute, 
+        namespace: namespace, 
+        key: key
+    };
+    var attrType = function (_30) {
+        if (_30 instanceof Attribute) {
+            return attriute;
+        };
+        if (_30 instanceof Namespace) {
+            return namespace;
+        };
+        if (_30 instanceof Key) {
+            return key;
         };
         throw new Error("Failed pattern match");
     };
@@ -2608,11 +1573,15 @@ function unsafeCoerce(a) {
         Key: Key, 
         Namespace: Namespace, 
         attrType: attrType, 
+        attrTypes: attrTypes, 
         attribute: attribute, 
+        attriute: attriute, 
         getAttrKey: getAttrKey, 
         getAttrValue: getAttrValue, 
         getKeyString: getKeyString, 
         getNamespaceString: getNamespaceString, 
+        key: key, 
+        namespace: namespace, 
         unsafeCoerce: unsafeCoerce
     };
 })();
@@ -2659,13 +1628,6 @@ PS.Control_Monad_Eff_Ref = (function () {
   }
 ;
     
-  function readRef(ref) {
-    return function() {
-      return ref.value;
-    };
-  }
-;
-    
   function modifyRef$prime(ref) {
     return function(f) {
       return function() {
@@ -2689,7 +1651,6 @@ PS.Control_Monad_Eff_Ref = (function () {
     return {
         "modifyRef'": modifyRef$prime, 
         newRef: newRef, 
-        readRef: readRef, 
         writeRef: writeRef
     };
 })();
@@ -2745,22 +1706,19 @@ var PS = PS || {};
 PS.Data_Html_Attributes = (function () {
     "use strict";
     var Data_Html_Internal_Attributes = PS.Data_Html_Internal_Attributes;
-    var Data_Function = PS.Data_Function;
-    var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
     var Prelude = PS.Prelude;
     
-function mkEvHook (eh, fn) {
-  function mkEvHook_callback(ev){
+function mkEvent (fn) {
+  return function mkEvHook_callback(ev){
     fn(ev)();
   }
-  return eh(mkEvHook_callback);
 };
     var style = function (v) {
         return Data_Html_Internal_Attributes.attribute("style")(Data_Html_Internal_Attributes.unsafeCoerce(v));
     };
     var on_ = function (ev) {
         return function (fn) {
-            return Data_Html_Internal_Attributes.attribute("ev-" + ev)(Data_Html_Internal_Attributes.unsafeCoerce(mkEvHook(Data_Html_Internal_VirtualDOM.virtualDOM.evHook, fn)));
+            return Data_Html_Internal_Attributes.attribute("on" + ev)(mkEvent(fn));
         };
     };
     return {
@@ -2807,9 +1765,9 @@ function vnodeImpl (fn, name, attrs, children) {
   for(var i = 0; i < attrs.length; i++) {
     var attr = attrs[i];
     var typ  = fn.attrType(attr);
-    if(typ === "a") {
+    if(typ === fn.attrTypes.attribute) {
       props[fn.attrKey(attr)] = fn.attrVal(attr);
-    } else if (typ === "k") {
+    } else if (typ === fn.attrTypes.key) {
       key = fn.getKey(attr);
     } else {
       namespace = fn.getNs(attr);
@@ -2833,6 +1791,7 @@ function vtextImpl(vtext, text){
 };
     var vnode = Data_Function.runFn4(vnodeImpl)({
         attrType: Data_Html_Internal_Attributes.attrType, 
+        attrTypes: Data_Html_Internal_Attributes.attrTypes, 
         attrKey: Data_Html_Internal_Attributes.getAttrKey, 
         attrVal: Data_Html_Internal_Attributes.getAttrValue, 
         getKey: Data_Html_Internal_Attributes.getKeyString, 
@@ -2850,48 +1809,33 @@ function vtextImpl(vtext, text){
 var PS = PS || {};
 PS.Data_Html = (function () {
     "use strict";
-    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
-    var Prelude = PS.Prelude;
     var Data_Function = PS.Data_Function;
     var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
-    var Control_Monad_Eff = PS.Control_Monad_Eff;
-    function Html(value0) {
-        this.value0 = value0;
-    };
-    Html.create = function (value0) {
-        return new Html(value0);
-    };
-    var patch = function (_50) {
-        return function (_51) {
-            return function __do() {
-                var _5 = Control_Monad_Eff_Ref.readRef(_51.value0)();
-                return (function () {
-                    var patch_1 = Data_Html_Internal_VirtualDOM.virtualDOM.diff(_5.vtree, _50);
-                    var node$prime = Data_Html_Internal_VirtualDOM.virtualDOM.patch(_5.node, patch_1);
-                    return Control_Monad_Eff_Ref.writeRef(_51.value0)({
-                        node: node$prime, 
-                        vtree: _50
-                    });
-                })()();
-            };
-        };
-    };
-    var getNode = function (_49) {
-        return function __do() {
-            var h = Control_Monad_Eff_Ref.readRef(_49.value0)();
-            return h.node;
-        };
-    };
-    var createElement = function (vtree) {
-        var n = Data_Html_Internal_VirtualDOM.virtualDOM.create(vtree);
-        return function __do() {
-            var _4 = Control_Monad_Eff_Ref.newRef({
-                node: n, 
-                vtree: vtree
-            })();
-            return new Html(_4);
-        };
-    };
+    var Prelude = PS.Prelude;
+    
+function createElementImpl(create, vtree){
+  return function createElementImplEff(){
+    return { vtree: vtree
+           , node: create(vtree)
+           }
+  }
+};
+    
+function getNode(html){
+  return function getNodeEff(){
+    return html.node;
+  }
+};
+    
+function patchImpl(fn, next, html){
+  return function patchImplEff(){
+    var patch  = fn.diff(html.vtree, next);
+    html.node  = fn.patch(html.node, patch);
+    html.vtree = next;
+  }
+};
+    var patch = Data_Function.runFn3(patchImpl)(Data_Html_Internal_VirtualDOM.virtualDOM);
+    var createElement = Data_Function.runFn2(createElementImpl)(Data_Html_Internal_VirtualDOM.virtualDOM.create);
     return {
         createElement: createElement, 
         getNode: getNode, 
@@ -2913,19 +1857,15 @@ PS.Data_Html_Elements_Html5 = (function () {
 var PS = PS || {};
 PS.Data_Html_Events = (function () {
     "use strict";
-    var Data_Html_Internal_Delegator = PS.Data_Html_Internal_Delegator;
     var Prelude = PS.Prelude;
     var Data_String = PS.Data_String;
     var Data_Function = PS.Data_Function;
     var Data_Html_Attributes = PS.Data_Html_Attributes;
     var Data_Html_Internal_Events = PS.Data_Html_Internal_Events;
-    var Control_Monad_Eff = PS.Control_Monad_Eff;
     var onClick = function (f) {
         return Data_Html_Attributes.on_("click")(Prelude["<<<"](Prelude.semigroupoidArr)(f)(Data_Html_Internal_Events.MouseButtonEvent.create));
     };
-    var listen = Prelude["return"](Control_Monad_Eff.monadEff)(Prelude.unit);
     return {
-        listen: listen, 
         onClick: onClick
     };
 })();
@@ -2960,19 +1900,18 @@ function appendBody (e) {
         };
     };
     var main = function __do() {
-        Data_Html_Events.listen();
-        var _10 = Control_Monad_Eff_Ref.newRef(0)();
-        var _9 = Data_Html.createElement(render(_10)(0))();
-        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_9))(appendBody)();
+        var _7 = Control_Monad_Eff_Ref.newRef(0)();
+        var _6 = Data_Html.createElement(render(_7)(0))();
+        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_6))(appendBody)();
         Control_Timer.interval(100)(function __do() {
-            var _8 = Control_Monad_Eff_Ref["modifyRef'"](_10)(function (r) {
+            var _5 = Control_Monad_Eff_Ref["modifyRef'"](_7)(function (r) {
                 var r$prime = r + 1;
                 return {
                     retVal: r$prime, 
                     newState: r$prime
                 };
             })();
-            return Data_Html.patch(render(_10)(_8))(_9)();
+            return Data_Html.patch(render(_7)(_5))(_6)();
         })();
         return Prelude.unit;
     };

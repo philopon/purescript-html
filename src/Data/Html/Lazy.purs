@@ -1,62 +1,89 @@
 module Data.Html.Lazy
-  ( thunk1, thunk2, thunk3, thunk4, thunk5
+  ( thunk1, thunk2, thunk3
   , A2(..), A3(..)
   , partial1, partial2, partial3
   ) where
   
 import Data.Html
-import Data.Html.Internal.VirtualDOM
 import Data.Function
 import Data.Maybe
 
-thunk1 :: forall a. (a -> VTree) -> a -> VTree
-thunk1 = runFn2 virtualDOM.thunk
-
-thunk2 :: forall a b. (a -> b -> VTree) -> a -> b -> VTree
-thunk2 f = runFn3 virtualDOM.thunk (mkFn2 f)
-
-thunk3 :: forall a b c. (a -> b -> c -> VTree) -> a -> b -> c -> VTree
-thunk3 f = runFn4 virtualDOM.thunk (mkFn3 f)
-
-thunk4 :: forall a b c d. (a -> b -> c -> d -> VTree) -> a -> b -> c -> d -> VTree
-thunk4 f = runFn5 virtualDOM.thunk (mkFn4 f)
-
-thunk5 :: forall a b c d e. (a -> b -> c -> d -> e -> VTree)
-       -> a -> b -> c -> d -> e -> VTree
-thunk5 f = runFn6 virtualDOM.thunk (mkFn5 f)
-
-foreign import eq1Func """
-function eq1Func(f){
-  return function eq1Func_apply(a,b){
-    return f(a[0], b[0]);
+foreign import thunkImpl """
+var thunkImpl = (function(){
+  function Thunk(fn, args, eqFn){
+    this.fn   = fn;
+    this.args = args;
+    this.eqFn = eqFn;
   }
-}""" :: forall a. a
+
+  Thunk.prototype.type = "Thunk";
+  Thunk.prototype.render = render;
+
+  function shouldUpdate(current, prev){
+    if(!current || !prev) return true;
+
+    var cargs = current.args;
+    var pargs = prev.args;
+
+    return !current.eqFn(cargs, pargs);
+  }
+
+  function render(prev){
+    if(shouldUpdate(this, prev)) {
+       return this.fn(this.args);
+    } else {
+      return prev.vnode;
+    }
+  }
+
+  return Thunk;
+})();""" :: forall a b c. Fn3 a b c VTree
+
+foreign import partial1Impl """
+function partial1Impl(Thunk, eqFn, fn, a){
+  function compare(x, y){
+    return eqFn(x[0])(y[0]);
+  }
+
+  return new Thunk(function(a){return fn(a[0]);}, [a], compare);
+}""" :: forall a b c d. Fn4 a b c d VTree
 
 partial1 :: forall a. (a -> a -> Boolean) -> (a -> VTree) -> a -> VTree
-partial1 eq = runFn2 (virtualDOM.partial $ eq1Func eq)
+partial1 = runFn4 partial1Impl thunkImpl
 
-foreign import eq2Func """
-function eq2Func(f){
-  return function eq2Func_apply(a,b){
-    return f({a:a[0], b:a[1]}, {a:b[0], b:b[1]});
+thunk1 :: forall a. (Eq a) => (a -> VTree) -> a -> VTree
+thunk1 = partial1 (==)
+
+foreign import partial2Impl """
+function partial2Impl(Thunk, eqFn, fn, a, b) {
+  function compare(x, y){
+    return eqFn({"_0": x[0], "_1": x[1]})({"_0": y[0], "_1": y[1]});
   }
-}""" :: forall a. a
 
-type A2 a b = { a :: a, b :: b }
-partial2 :: forall a b. (A2 a b -> A2 a b -> Boolean)
-         -> (a -> b -> VTree) -> a -> b -> VTree
-partial2 eq f = runFn3 (virtualDOM.partial $ eq2Func eq) (mkFn2 f)
+  return new Thunk(function(a){return fn(a[0])(a[1]);}, [a, b], compare);
+}""" :: forall a b c d e. Fn5 a b c d e VTree
 
-foreign import eq3Func """
-function eq3Func(f){
-  return function eq3Func_apply(a,b){
-    return f( {a:a[0], b:a[1], c:a[2]}
-            , {a:b[0], b:b[1], c:b[2]});
+type A2 a b = {_0 :: a, _1 :: b}
+
+partial2 :: forall a b. (A2 a b -> A2 a b -> Boolean) -> (a -> b -> VTree) -> a -> b -> VTree
+partial2 = runFn5 partial2Impl thunkImpl
+
+thunk2 :: forall a b. (Eq a, Eq b) => (a -> b -> VTree) -> a -> b -> VTree
+thunk2 = partial2 (\x y -> x._0 == y._0 && x._1 == y._1)
+
+foreign import partial3Impl """
+function partial3Impl(Thunk, eqFn, fn, a, b, c) {
+  function compare(x, y){
+    return eqFn({"_0": x[0], "_1": x[1], "_2": x[2]})({"_0": y[0], "_1": y[1], "_2": y[2]});
   }
-}""" :: forall a. a
 
-type A3 a b c = { a :: a, b :: b, c :: c}
-partial3 :: forall a b c. (A3 a b c -> A3 a b c -> Boolean)
-         -> (a -> b -> c -> VTree) -> a -> b -> c -> VTree
-partial3 eq f = runFn4 (virtualDOM.partial $ eq3Func eq) (mkFn3 f)
+  return new Thunk(function(a){return fn(a[0])(a[1])(a[2]);}, [a, b, c], compare);
+}""" :: forall a b c d e f. Fn6 a b c d e f VTree
 
+type A3 a b c = {_0 :: a, _1 :: b, _2 :: c}
+
+partial3 :: forall a b c. (A3 a b c -> A3 a b c -> Boolean) -> (a -> b -> c -> VTree) -> a -> b -> c -> VTree
+partial3 = runFn6 partial3Impl thunkImpl
+
+thunk3 :: forall a b c. (Eq a, Eq b, Eq c) => (a -> b -> c -> VTree) -> a -> b -> c -> VTree
+thunk3 = partial3 (\x y -> x._0 == y._0 && x._1 == y._1 && x._2 == y._2)

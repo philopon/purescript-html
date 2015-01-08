@@ -39,13 +39,12 @@ namespace = I.Namespace
 
 foreign import data Event :: *
 
-foreign import mkEvHook """
-function mkEvHook (eh, fn) {
-  function mkEvHook_callback(ev){
+foreign import mkEvent """
+function mkEvent (fn) {
+  return function mkEvHook_callback(ev){
     fn(ev)();
   }
-  return eh(mkEvHook_callback);
-}""" :: forall eh event e. Fn2 eh (Event -> Eff e Unit) I.Attr
+}""" :: forall e. (Event -> Eff e Unit) -> I.Attr
 
 on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
-on_ ev fn = I.attribute ("ev-" ++ ev) $ I.unsafeCoerce (runFn2 mkEvHook virtualDOM.evHook fn)
+on_ ev fn = I.attribute ("on" ++ ev) $ mkEvent fn
