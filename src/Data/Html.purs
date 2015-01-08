@@ -56,9 +56,9 @@ function getNode(html){
 foreign import patchImpl """
 function patchImpl(fn, next, html){
   return function patchImplEff(){
-    var patch = fn.diff(html.vtree, next);
-    var node_ = fn.patch(html.node, patch);
-    return {node: node_, vtree: next};
+    var patch  = fn.diff(html.vtree, next);
+    html.node  = fn.patch(html.node, patch);
+    html.vtree = next;
   }
 }""" :: forall fn e. Fn3 fn VTree Html (EffHtml e Unit)
 

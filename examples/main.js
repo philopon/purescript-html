@@ -1829,9 +1829,9 @@ function getNode(html){
     
 function patchImpl(fn, next, html){
   return function patchImplEff(){
-    var patch = fn.diff(html.vtree, next);
-    var node_ = fn.patch(html.node, patch);
-    return {node: node_, vtree: next};
+    var patch  = fn.diff(html.vtree, next);
+    html.node  = fn.patch(html.node, patch);
+    html.vtree = next;
   }
 };
     var patch = Data_Function.runFn3(patchImpl)(Data_Html_Internal_VirtualDOM.virtualDOM);
