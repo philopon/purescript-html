@@ -48,12 +48,13 @@ showPosition p = "(" ++ show p.x ++ "," ++ show p.y ++ ")"
 data Button = Left | Middle | Right
 
 instance showKeyEvent :: Show I.KeyEvent where
-  show e =
-    (if altKey   e then "Alt-"   else "") ++
-    (if ctrlKey  e then "Ctrl-"  else "") ++
-    (if metaKey  e then "Meta-"  else "") ++
-    (if shiftKey e then "Shift-" else "") ++
-    fromCharCode (keyCode e)
+  show e = joinWith ""
+    [ if altKey   e then "Alt-"   else ""
+    , if ctrlKey  e then "Ctrl-"  else ""
+    , if metaKey  e then "Meta-"  else ""
+    , if shiftKey e then "Shift-" else ""
+    , fromCharCode (keyCode e)
+    ]
 
 instance showButton :: Show Button where
   show Left   = "Left"
@@ -61,28 +62,28 @@ instance showButton :: Show Button where
   show Right  = "Right"
 
 instance showMouseButtonEvent :: Show I.MouseButtonEvent where
-  show e = joinWith "-" $
-    (if altKey       e then ((:) "Alt")    else id) $
-    (if ctrlKey      e then ((:) "Ctrl")   else id) $
-    (if metaKey      e then ((:) "Meta")   else id) $
-    (if shiftKey     e then ((:) "Shift")  else id) $
-    [show (button e) ++
-      "[client:" ++ showPosition (client e) ++
-      ",page:"   ++ showPosition (page   e) ++
-      ",screen:" ++ showPosition (screen e) ++
-      "]"
+  show e = joinWith ""
+    [ if altKey       e then "Alt-"    else ""
+    , if ctrlKey      e then "Ctrl-"   else ""
+    , if metaKey      e then "Meta-"   else ""
+    , if shiftKey     e then "Shift-"  else ""
+    , show (button e)
+    , "[client:", showPosition (client e)
+    , ",page:",   showPosition (page   e)
+    , ",screen:", showPosition (screen e)
+    , "]"
     ]
 
 instance showMouseHoverEvent :: Show I.MouseHoverEvent where
-  show e = joinWith "-" $
-    (if altKey       e then ((:) "Alt")    else id) $
-    (if ctrlKey      e then ((:) "Ctrl")   else id) $
-    (if metaKey      e then ((:) "Meta")   else id) $
-    (if shiftKey     e then ((:) "Shift")  else id) $
-    [ "[client:" ++ showPosition (client e) ++
-      ",page:"   ++ showPosition (page   e) ++
-      ",screen:" ++ showPosition (screen e) ++
-      "]"
+  show e = joinWith ""
+    [ if altKey       e then "Alt-"    else ""
+    , if ctrlKey      e then "Ctrl-"   else ""
+    , if metaKey      e then "Meta-"   else ""
+    , if shiftKey     e then "Shift-"  else ""
+    , "[client:", showPosition (client e)
+    , ",page:",   showPosition (page   e)
+    , ",screen:", showPosition (screen e)
+    , "]"
     ]
 
 foreign import eventPropImpl """

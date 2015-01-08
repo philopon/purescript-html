@@ -1481,9 +1481,11 @@ PS.Data_Function = (function () {
     "use strict";
     var Prelude = PS.Prelude;
     function runFn2(fn) {  return function(a) {    return function(b) {      return fn(a, b);    };  };};
+    function runFn3(fn) {  return function(a) {    return function(b) {      return function(c) {        return fn(a, b, c);      };    };  };};
     function runFn4(fn) {  return function(a) {    return function(b) {      return function(c) {        return function(d) {          return fn(a, b, c, d);        };      };    };  };};
     return {
         runFn2: runFn2, 
+        runFn3: runFn3, 
         runFn4: runFn4
     };
 })();
@@ -1512,44 +1514,57 @@ PS.Data_Html_Internal_Attributes = (function () {
     Namespace.create = function (value0) {
         return new Namespace(value0);
     };
+    var AttrType = {
+        create: function (value) {
+            return value;
+        }
+    };
     
 function unsafeCoerce(a) {
   return a;
 };
-    var getNamespaceString = function (_37) {
-        if (_37 instanceof Namespace) {
-            return _37.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getKeyString = function (_36) {
-        if (_36 instanceof Key) {
-            return _36.value0;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrValue = function (_35) {
-        if (_35 instanceof Attribute) {
-            return _35.value1;
-        };
-        throw new Error("Failed pattern match");
-    };
-    var getAttrKey = function (_34) {
-        if (_34 instanceof Attribute) {
+    var namespace = 1;
+    var key = 2;
+    var getNamespaceString = function (_34) {
+        if (_34 instanceof Namespace) {
             return _34.value0;
         };
         throw new Error("Failed pattern match");
     };
-    var attribute = Attribute.create;
-    var attrType = function (_33) {
-        if (_33 instanceof Attribute) {
-            return "a";
-        };
-        if (_33 instanceof Namespace) {
-            return "n";
-        };
+    var getKeyString = function (_33) {
         if (_33 instanceof Key) {
-            return "k";
+            return _33.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrValue = function (_32) {
+        if (_32 instanceof Attribute) {
+            return _32.value1;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var getAttrKey = function (_31) {
+        if (_31 instanceof Attribute) {
+            return _31.value0;
+        };
+        throw new Error("Failed pattern match");
+    };
+    var attriute = 0;
+    var attribute = Attribute.create;
+    var attrTypes = {
+        attribute: attriute, 
+        namespace: namespace, 
+        key: key
+    };
+    var attrType = function (_30) {
+        if (_30 instanceof Attribute) {
+            return attriute;
+        };
+        if (_30 instanceof Namespace) {
+            return namespace;
+        };
+        if (_30 instanceof Key) {
+            return key;
         };
         throw new Error("Failed pattern match");
     };
@@ -1558,11 +1573,15 @@ function unsafeCoerce(a) {
         Key: Key, 
         Namespace: Namespace, 
         attrType: attrType, 
+        attrTypes: attrTypes, 
         attribute: attribute, 
+        attriute: attriute, 
         getAttrKey: getAttrKey, 
         getAttrValue: getAttrValue, 
         getKeyString: getKeyString, 
         getNamespaceString: getNamespaceString, 
+        key: key, 
+        namespace: namespace, 
         unsafeCoerce: unsafeCoerce
     };
 })();
@@ -1609,13 +1628,6 @@ PS.Control_Monad_Eff_Ref = (function () {
   }
 ;
     
-  function readRef(ref) {
-    return function() {
-      return ref.value;
-    };
-  }
-;
-    
   function modifyRef$prime(ref) {
     return function(f) {
       return function() {
@@ -1639,7 +1651,6 @@ PS.Control_Monad_Eff_Ref = (function () {
     return {
         "modifyRef'": modifyRef$prime, 
         newRef: newRef, 
-        readRef: readRef, 
         writeRef: writeRef
     };
 })();
@@ -1754,9 +1765,9 @@ function vnodeImpl (fn, name, attrs, children) {
   for(var i = 0; i < attrs.length; i++) {
     var attr = attrs[i];
     var typ  = fn.attrType(attr);
-    if(typ === "a") {
+    if(typ === fn.attrTypes.attribute) {
       props[fn.attrKey(attr)] = fn.attrVal(attr);
-    } else if (typ === "k") {
+    } else if (typ === fn.attrTypes.key) {
       key = fn.getKey(attr);
     } else {
       namespace = fn.getNs(attr);
@@ -1780,6 +1791,7 @@ function vtextImpl(vtext, text){
 };
     var vnode = Data_Function.runFn4(vnodeImpl)({
         attrType: Data_Html_Internal_Attributes.attrType, 
+        attrTypes: Data_Html_Internal_Attributes.attrTypes, 
         attrKey: Data_Html_Internal_Attributes.getAttrKey, 
         attrVal: Data_Html_Internal_Attributes.getAttrValue, 
         getKey: Data_Html_Internal_Attributes.getKeyString, 
@@ -1797,48 +1809,33 @@ function vtextImpl(vtext, text){
 var PS = PS || {};
 PS.Data_Html = (function () {
     "use strict";
-    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
-    var Prelude = PS.Prelude;
     var Data_Function = PS.Data_Function;
     var Data_Html_Internal_VirtualDOM = PS.Data_Html_Internal_VirtualDOM;
-    var Control_Monad_Eff = PS.Control_Monad_Eff;
-    function Html(value0) {
-        this.value0 = value0;
-    };
-    Html.create = function (value0) {
-        return new Html(value0);
-    };
-    var patch = function (_50) {
-        return function (_51) {
-            return function __do() {
-                var _5 = Control_Monad_Eff_Ref.readRef(_51.value0)();
-                return (function () {
-                    var patch_1 = Data_Html_Internal_VirtualDOM.virtualDOM.diff(_5.vtree, _50);
-                    var node$prime = Data_Html_Internal_VirtualDOM.virtualDOM.patch(_5.node, patch_1);
-                    return Control_Monad_Eff_Ref.writeRef(_51.value0)({
-                        node: node$prime, 
-                        vtree: _50
-                    });
-                })()();
-            };
-        };
-    };
-    var getNode = function (_49) {
-        return function __do() {
-            var h = Control_Monad_Eff_Ref.readRef(_49.value0)();
-            return h.node;
-        };
-    };
-    var createElement = function (vtree) {
-        var n = Data_Html_Internal_VirtualDOM.virtualDOM.create(vtree);
-        return function __do() {
-            var _4 = Control_Monad_Eff_Ref.newRef({
-                node: n, 
-                vtree: vtree
-            })();
-            return new Html(_4);
-        };
-    };
+    var Prelude = PS.Prelude;
+    
+function createElementImpl(create, vtree){
+  return function createElementImplEff(){
+    return { vtree: vtree
+           , node: create(vtree)
+           }
+  }
+};
+    
+function getNode(html){
+  return function getNodeEff(){
+    return html.node;
+  }
+};
+    
+function patchImpl(fn, next, html){
+  return function patchImplEff(){
+    var patch = fn.diff(html.vtree, next);
+    var node_ = fn.patch(html.node, patch);
+    return {node: node_, vtree: next};
+  }
+};
+    var patch = Data_Function.runFn3(patchImpl)(Data_Html_Internal_VirtualDOM.virtualDOM);
+    var createElement = Data_Function.runFn2(createElementImpl)(Data_Html_Internal_VirtualDOM.virtualDOM.create);
     return {
         createElement: createElement, 
         getNode: getNode, 
@@ -1903,18 +1900,18 @@ function appendBody (e) {
         };
     };
     var main = function __do() {
-        var _10 = Control_Monad_Eff_Ref.newRef(0)();
-        var _9 = Data_Html.createElement(render(_10)(0))();
-        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_9))(appendBody)();
+        var _7 = Control_Monad_Eff_Ref.newRef(0)();
+        var _6 = Data_Html.createElement(render(_7)(0))();
+        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_6))(appendBody)();
         Control_Timer.interval(100)(function __do() {
-            var _8 = Control_Monad_Eff_Ref["modifyRef'"](_10)(function (r) {
+            var _5 = Control_Monad_Eff_Ref["modifyRef'"](_7)(function (r) {
                 var r$prime = r + 1;
                 return {
                     retVal: r$prime, 
                     newState: r$prime
                 };
             })();
-            return Data_Html.patch(render(_10)(_8))(_9)();
+            return Data_Html.patch(render(_7)(_5))(_6)();
         })();
         return Prelude.unit;
     };

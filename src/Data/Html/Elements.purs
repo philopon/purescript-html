@@ -15,7 +15,8 @@ foreign import data VTree :: *
 foreign import data Dummy :: *
 
 type VNodeFs = 
-  { attrType    :: Attribute -> String
+  { attrType    :: Attribute -> I.AttrType
+  , attrTypes   :: I.AttrTypes
   , attrKey     :: Attribute -> String
   , attrVal     :: Attribute -> I.Attr
   , getKey      :: Attribute -> String
@@ -34,9 +35,9 @@ function vnodeImpl (fn, name, attrs, children) {
   for(var i = 0; i < attrs.length; i++) {
     var attr = attrs[i];
     var typ  = fn.attrType(attr);
-    if(typ === "a") {
+    if(typ === fn.attrTypes.attribute) {
       props[fn.attrKey(attr)] = fn.attrVal(attr);
-    } else if (typ === "k") {
+    } else if (typ === fn.attrTypes.key) {
       key = fn.getKey(attr);
     } else {
       namespace = fn.getNs(attr);
@@ -57,13 +58,14 @@ function vnodeImpl (fn, name, attrs, children) {
 
 vnode :: String -> [Attribute] -> [VTree] -> VTree
 vnode = runFn4 vnodeImpl
-  { attrType: I.attrType
-  , attrKey:  I.getAttrKey
-  , attrVal:  I.getAttrValue
-  , getKey:   I.getKeyString
-  , getNs:    I.getNamespaceString
-  , vnode:    virtualDOM.vnode
-  , isHook:   virtualDOM.isHook
+  { attrType:  I.attrType
+  , attrTypes: I.attrTypes
+  , attrKey:   I.getAttrKey
+  , attrVal:   I.getAttrValue
+  , getKey:    I.getKeyString
+  , getNs:     I.getNamespaceString
+  , vnode:     virtualDOM.vnode
+  , isHook:    virtualDOM.isHook
   , softSetHook: virtualDOM.softSetHook
   }
 

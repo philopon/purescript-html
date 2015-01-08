@@ -1,6 +1,8 @@
 module Data.Html.Internal.Attributes
   ( Attribute(..)
   , Attr(..)
+  , AttrTypes(), attrTypes
+  , AttrType(), attriute, namespace, key
   , attribute
   , attrType
   , unsafeCoerce
@@ -28,10 +30,33 @@ function unsafeCoerce(a) {
 attribute :: String -> Attr -> Attribute
 attribute = Attribute
 
-attrType :: Attribute -> String
-attrType (Attribute _ _) = "a"
-attrType (Namespace _)   = "n"
-attrType (Key _)         = "k"
+newtype AttrType = AttrType Number
+type AttrTypes =
+  { attribute :: AttrType
+  , namespace :: AttrType
+  , key       :: AttrType
+  }
+
+attrTypes :: AttrTypes
+attrTypes =
+  { attribute: attriute
+  , namespace: namespace
+  , key:       key
+  }
+
+attriute :: AttrType
+attriute = AttrType 0
+
+namespace :: AttrType
+namespace = AttrType 1
+
+key :: AttrType
+key = AttrType 2
+
+attrType :: Attribute -> AttrType
+attrType (Attribute _ _) = attriute
+attrType (Namespace _)   = namespace
+attrType (Key _)         = key
 
 getAttrKey :: Attribute -> String
 getAttrKey (Attribute s _) = s

@@ -6,7 +6,7 @@
 
     type EffHtml e a = Eff (ref :: Ref, dom :: DOM | e) a
 
-    data Html
+    data Html :: *
 
     type VTree = E.VTree
 
@@ -17,7 +17,7 @@
 
     createElementOptions :: forall opts. {  | opts } -> VTree -> EffHtml _ Html
 
-    getNode :: Html -> EffHtml _ Node
+    getNode :: forall e. Html -> EffHtml e Node
 
     patch :: VTree -> Html -> EffHtml _ Unit
 
