@@ -1789,18 +1789,26 @@ function vnodeImpl (fn, name, attrs, children) {
 function vtextImpl(vtext, text){
   return new vtext(text);
 };
-    var vnode = Data_Function.runFn4(vnodeImpl)({
-        attrType: Data_Html_Internal_Attributes.attrType, 
-        attrTypes: Data_Html_Internal_Attributes.attrTypes, 
-        attrKey: Data_Html_Internal_Attributes.getAttrKey, 
-        attrVal: Data_Html_Internal_Attributes.getAttrValue, 
-        getKey: Data_Html_Internal_Attributes.getKeyString, 
-        getNs: Data_Html_Internal_Attributes.getNamespaceString, 
-        vnode: Data_Html_Internal_VirtualDOM.virtualDOM.vnode, 
-        isHook: Data_Html_Internal_VirtualDOM.virtualDOM.isHook, 
-        softSetHook: Data_Html_Internal_VirtualDOM.virtualDOM.softSetHook
-    });
-    var text = Data_Function.runFn2(vtextImpl)(Data_Html_Internal_VirtualDOM.virtualDOM.vtext);
+    var vnode = function (t) {
+        return function (a) {
+            return function (c) {
+                return vnodeImpl({
+                    attrType: Data_Html_Internal_Attributes.attrType, 
+                    attrTypes: Data_Html_Internal_Attributes.attrTypes, 
+                    attrKey: Data_Html_Internal_Attributes.getAttrKey, 
+                    attrVal: Data_Html_Internal_Attributes.getAttrValue, 
+                    getKey: Data_Html_Internal_Attributes.getKeyString, 
+                    getNs: Data_Html_Internal_Attributes.getNamespaceString, 
+                    vnode: Data_Html_Internal_VirtualDOM.virtualDOM.vnode, 
+                    isHook: Data_Html_Internal_VirtualDOM.virtualDOM.isHook, 
+                    softSetHook: Data_Html_Internal_VirtualDOM.virtualDOM.softSetHook
+                }, t, a, c);
+            };
+        };
+    };
+    var text = function (s) {
+        return vtextImpl(Data_Html_Internal_VirtualDOM.virtualDOM.vtext, s);
+    };
     return {
         text: text, 
         vnode: vnode
@@ -1834,8 +1842,14 @@ function patchImpl(fn, next, html){
     html.vtree = next;
   }
 };
-    var patch = Data_Function.runFn3(patchImpl)(Data_Html_Internal_VirtualDOM.virtualDOM);
-    var createElement = Data_Function.runFn2(createElementImpl)(Data_Html_Internal_VirtualDOM.virtualDOM.create);
+    var patch = function (v) {
+        return function (h) {
+            return patchImpl(Data_Html_Internal_VirtualDOM.virtualDOM, v, h);
+        };
+    };
+    var createElement = function (v) {
+        return createElementImpl(Data_Html_Internal_VirtualDOM.virtualDOM.create, v);
+    };
     return {
         createElement: createElement, 
         getNode: getNode, 

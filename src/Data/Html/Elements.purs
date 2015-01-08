@@ -57,7 +57,7 @@ function vnodeImpl (fn, name, attrs, children) {
 }""" :: Fn4 VNodeFs String [Attribute] [VTree] VTree
 
 vnode :: String -> [Attribute] -> [VTree] -> VTree
-vnode = runFn4 vnodeImpl
+vnode t a c = runFn4 vnodeImpl
   { attrType:  I.attrType
   , attrTypes: I.attrTypes
   , attrKey:   I.getAttrKey
@@ -67,7 +67,7 @@ vnode = runFn4 vnodeImpl
   , vnode:     virtualDOM.vnode
   , isHook:    virtualDOM.isHook
   , softSetHook: virtualDOM.softSetHook
-  }
+  } t a c
 
 foreign import vtextImpl """
 function vtextImpl(vtext, text){
@@ -75,4 +75,4 @@ function vtextImpl(vtext, text){
 }""" :: forall a. Fn2 a String VTree
 
 text :: String -> VTree
-text = runFn2 vtextImpl virtualDOM.vtext
+text s = runFn2 vtextImpl virtualDOM.vtext s
