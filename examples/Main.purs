@@ -31,7 +31,7 @@ render ref count = E.div
   ]
   [E.text $ show count]
 
-main :: forall e. EffHtml (timer :: Timer | e) Unit
+main :: forall e. EffHtml (ref :: Ref, timer :: Timer | e) Unit
 main = do
   ref <- newRef 0
   html <- createElement $ render ref 0

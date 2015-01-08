@@ -4,7 +4,7 @@
 
 ### Types
 
-    type EffHtml e a = Eff (ref :: Ref, dom :: DOM | e) a
+    type EffHtml e a = Eff (dom :: DOM | e) a
 
     data Html :: *
 

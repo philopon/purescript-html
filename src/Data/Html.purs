@@ -6,7 +6,6 @@ module Data.Html
   ) where
 
 import Control.Monad.Eff
-import Control.Monad.Eff.Ref
 
 import Data.Html.Elements hiding (VTree)
 import qualified Data.Html.Elements as E
@@ -18,7 +17,7 @@ import Data.Html.Internal.VirtualDOM
 import Data.Function
 import DOM
 
-type EffHtml e a = Eff (dom :: DOM, ref :: Ref | e) a
+type EffHtml e a = Eff (dom :: DOM | e) a
 type VTree = E.VTree
 
 foreign import data Html :: *
