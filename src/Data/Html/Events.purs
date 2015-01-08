@@ -92,7 +92,7 @@ function eventPropImpl(ev, prop) {
 }""" :: forall ev a. Fn2 ev String a
 
 eventProp :: forall ev a. ev -> String -> a
-eventProp = runFn2 eventPropImpl
+eventProp ev p = runFn2 eventPropImpl ev p
 
 class HasModifier a where
   altKey   :: a -> Boolean
@@ -156,14 +156,14 @@ class HasPosition a where
   screen :: a -> Position
 
 instance mouseButtonHasPosition :: HasPosition I.MouseButtonEvent where
-  client = runFn2 positionImpl {x: "clientX", y: "clientY"}
-  page   = runFn2 positionImpl {x: "pageX", y: "pageY"}
-  screen = runFn2 positionImpl {x: "screenX", y: "screenY"}
+  client a = runFn2 positionImpl {x: "clientX", y: "clientY"} a
+  page   a = runFn2 positionImpl {x: "pageX", y: "pageY"}     a
+  screen a = runFn2 positionImpl {x: "screenX", y: "screenY"} a
 
 instance mouseHoverHasPosition :: HasPosition I.MouseHoverEvent where
-  client = runFn2 positionImpl {x: "clientX", y: "clientY"}
-  page   = runFn2 positionImpl {x: "pageX", y: "pageY"}
-  screen = runFn2 positionImpl {x: "screenX", y: "screenY"}
+  client a = runFn2 positionImpl {x: "clientX", y: "clientY"} a
+  page   a = runFn2 positionImpl {x: "pageX", y: "pageY"}     a
+  screen a = runFn2 positionImpl {x: "screenX", y: "screenY"} a
 
 onBlur :: forall e. (Event -> Eff e Unit) -> Attribute
 onBlur = on_ "blur"

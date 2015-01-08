@@ -49,7 +49,7 @@ function partial1Impl(Thunk, eqFn, fn, a){
 }""" :: forall a b c d. Fn4 a b c d VTree
 
 partial1 :: forall a. (a -> a -> Boolean) -> (a -> VTree) -> a -> VTree
-partial1 = runFn4 partial1Impl thunkImpl
+partial1 p f a = runFn4 partial1Impl thunkImpl p f a
 
 thunk1 :: forall a. (Eq a) => (a -> VTree) -> a -> VTree
 thunk1 = partial1 (==)
@@ -66,7 +66,7 @@ function partial2Impl(Thunk, eqFn, fn, a, b) {
 type A2 a b = {_0 :: a, _1 :: b}
 
 partial2 :: forall a b. (A2 a b -> A2 a b -> Boolean) -> (a -> b -> VTree) -> a -> b -> VTree
-partial2 = runFn5 partial2Impl thunkImpl
+partial2 p f a b = runFn5 partial2Impl thunkImpl p f a b
 
 thunk2 :: forall a b. (Eq a, Eq b) => (a -> b -> VTree) -> a -> b -> VTree
 thunk2 = partial2 (\x y -> x._0 == y._0 && x._1 == y._1)
@@ -83,7 +83,7 @@ function partial3Impl(Thunk, eqFn, fn, a, b, c) {
 type A3 a b c = {_0 :: a, _1 :: b, _2 :: c}
 
 partial3 :: forall a b c. (A3 a b c -> A3 a b c -> Boolean) -> (a -> b -> c -> VTree) -> a -> b -> c -> VTree
-partial3 = runFn6 partial3Impl thunkImpl
+partial3 p f a b c = runFn6 partial3Impl thunkImpl p f a b c
 
 thunk3 :: forall a b c. (Eq a, Eq b, Eq c) => (a -> b -> c -> VTree) -> a -> b -> c -> VTree
 thunk3 = partial3 (\x y -> x._0 == y._0 && x._1 == y._1 && x._2 == y._2)

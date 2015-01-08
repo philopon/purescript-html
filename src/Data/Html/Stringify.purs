@@ -14,7 +14,7 @@ function stringifyVNodeImpl(stringify, opts, vnode){
 }""" :: forall stringify opts. Fn3 stringify {|opts} VTree String
 
 stringifyVNode :: forall opts. {|opts} -> VTree -> String
-stringifyVNode = runFn3 stringifyVNodeImpl stringify
+stringifyVNode o v = runFn3 stringifyVNodeImpl stringify o v
 
 instance showVTree :: Show E.VTree where
   show = stringifyVNode {}
