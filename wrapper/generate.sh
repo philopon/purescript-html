@@ -16,7 +16,7 @@ EOC
 cat bundle.js | tr -d '\r' >> $OUT
 
 cat <<EOC >> $OUT
-""" :: forall diff patch vnode vtext create dsHook evHook isHook softSetHook thunk partial.
+""" :: forall diff patch vnode vtext create dsHook evHook isHook softSetHook.
   { diff        :: diff
   , patch       :: patch
   , create      :: create
@@ -26,8 +26,6 @@ cat <<EOC >> $OUT
   , evHook      :: evHook
   , isHook      :: isHook
   , softSetHook :: softSetHook
-  , thunk       :: thunk
-  , partial     :: partial
   }
 EOC
 

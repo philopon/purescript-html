@@ -8,9 +8,6 @@ var isHook  = require('virtual-dom/vnode/is-vhook');
 var evHook = require('virtual-dom/virtual-hyperscript/hooks/ev-hook');
 var softSetHook = require('virtual-dom/virtual-hyperscript/hooks/soft-set-hook');
 
-var thunk = require('vdom-thunk');
-var partial = require('vdom-thunk/partial');
-
 module.exports =
   { diff:        diff
   , patch:       patch
@@ -20,6 +17,4 @@ module.exports =
   , evHook:      evHook
   , isHook:      isHook
   , softSetHook: softSetHook
-  , thunk:       thunk
-  , partial:     partial
   }
