@@ -1,6 +1,5 @@
 module Data.Html.Events
   ( EventLike, KeyEvent(), MouseButtonEvent(), MouseHoverEvent()
-  , listen
   , Button(..)
   , HasModifier
   , keyCode, altKey, ctrlKey, metaKey, shiftKey
@@ -25,8 +24,6 @@ import Data.Html.Attributes
 import Data.Html.Internal.VirtualDOM
 import qualified Data.Html.Internal.Events as I
 
-import Data.Html.Internal.Delegator
-
 type KeyEvent = I.KeyEvent
 type MouseButtonEvent = I.MouseButtonEvent
 type MouseHoverEvent  = I.MouseHoverEvent
@@ -44,9 +41,6 @@ targetChecked :: forall ev. (EventLike ev) => ev -> Boolean
 targetChecked e = eventProp (eventProp e "target") "checked"
 
 type Position = {x :: Number, y :: Number}
-
-listen :: EffHtml _ Unit
-listen = let _ = delegator in return unit
 
 showPosition :: Position -> String
 showPosition p = "(" ++ show p.x ++ "," ++ show p.y ++ ")"

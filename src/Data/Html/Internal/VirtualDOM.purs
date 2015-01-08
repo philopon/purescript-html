@@ -49,14 +49,13 @@ var virtualDOM =
 /***/ function(module, exports, __webpack_require__) {
 
 	var diff    = __webpack_require__(15);
-	var patch   = __webpack_require__(21);
+	var patch   = __webpack_require__(16);
 	var create  = __webpack_require__(14);
-	var VNode   = __webpack_require__(28);
-	var VText   = __webpack_require__(29);
+	var VNode   = __webpack_require__(22);
+	var VText   = __webpack_require__(23);
 	var isHook  = __webpack_require__(3);
 
-	var evHook = __webpack_require__(26);
-	var softSetHook = __webpack_require__(27);
+	var softSetHook = __webpack_require__(21);
 
 	module.exports =
 	  { diff:        diff
@@ -64,7 +63,6 @@ var virtualDOM =
 	  , create:      create
 	  , vnode:       VNode
 	  , vtext:       VText
-	  , evHook:      evHook
 	  , isHook:      isHook
 	  , softSetHook: softSetHook
 	  }
@@ -143,7 +141,7 @@ var virtualDOM =
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(31);
+	var minDoc = __webpack_require__(25);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -423,7 +421,7 @@ var virtualDOM =
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(30)
+	var diff = __webpack_require__(24)
 
 	module.exports = diff
 
@@ -432,135 +430,13 @@ var virtualDOM =
 /* 16 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = createHash
-
-	function createHash(elem) {
-	    var attributes = elem.attributes
-	    var hash = {}
-
-	    if (attributes === null || attributes === undefined) {
-	        return hash
-	    }
-
-	    for (var i = 0; i < attributes.length; i++) {
-	        var attr = attributes[i]
-
-	        if (attr.name.substr(0,5) !== "data-") {
-	            continue
-	        }
-
-	        hash[attr.name.substr(5)] = attr.value
-	    }
-
-	    return hash
-	}
-
-
-/***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var createStore = __webpack_require__(19)
-	var Individual = __webpack_require__(18)
-
-	var createHash = __webpack_require__(16)
-
-	var hashStore = Individual("__DATA_SET_WEAKMAP@3", createStore())
-
-	module.exports = DataSet
-
-	function DataSet(elem) {
-	    var store = hashStore(elem)
-
-	    if (!store.hash) {
-	        store.hash = createHash(elem)
-	    }
-
-	    return store.hash
-	}
-
-
-/***/ },
-/* 18 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* WEBPACK VAR INJECTION */(function(global) {var root = typeof window !== 'undefined' ?
-	    window : typeof global !== 'undefined' ?
-	    global : {};
-
-	module.exports = Individual
-
-	function Individual(key, value) {
-	    if (root[key]) {
-	        return root[key]
-	    }
-
-	    Object.defineProperty(root, key, {
-	        value: value
-	        , configurable: true
-	    })
-
-	    return value
-	}
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
-
-/***/ },
-/* 19 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var hiddenStore = __webpack_require__(20);
-
-	module.exports = createStore;
-
-	function createStore() {
-	    var key = {};
-
-	    return function (obj) {
-	        if (typeof obj !== 'object' || obj === null) {
-	            throw new Error('Weakmap-shim: Key must be object')
-	        }
-
-	        var store = obj.valueOf(key);
-	        return store && store.identity === key ?
-	            store : hiddenStore(obj, key);
-	    };
-	}
-
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = hiddenStore;
-
-	function hiddenStore(obj, key) {
-	    var store = { identity: key };
-	    var valueOf = obj.valueOf;
-
-	    Object.defineProperty(obj, "valueOf", {
-	        value: function (value) {
-	            return value !== key ?
-	                valueOf.apply(this, arguments) : store;
-	        },
-	        writable: true
-	    });
-
-	    return store;
-	}
-
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	var patch = __webpack_require__(24)
+	var patch = __webpack_require__(19)
 
 	module.exports = patch
 
 
 /***/ },
-/* 22 */
+/* 17 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// Maps a virtual DOM tree onto a real DOM tree in an efficient manner.
@@ -651,7 +527,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 23 */
+/* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var applyProperties = __webpack_require__(10)
@@ -660,7 +536,7 @@ var virtualDOM =
 	var VPatch = __webpack_require__(13)
 
 	var render = __webpack_require__(11)
-	var updateWidget = __webpack_require__(25)
+	var updateWidget = __webpack_require__(20)
 
 	module.exports = applyPatch
 
@@ -789,22 +665,33 @@ var virtualDOM =
 	    var move
 	    var node
 	    var insertNode
-	    for (i = 0; i < len; i++) {
+	    var chainLength
+	    var insertedLength
+	    var nextSibling
+	    for (i = 0; i < len;) {
 	        move = bIndex[i]
+	        chainLength = 1
 	        if (move !== undefined && move !== i) {
+	            // try to bring forward as long of a chain as possible
+	            while (bIndex[i + chainLength] === move + chainLength) {
+	                chainLength++;
+	            }
+
 	            // the element currently at this index will be moved later so increase the insert offset
-	            if (reverseIndex[i] > i) {
+	            if (reverseIndex[i] > i + chainLength) {
 	                insertOffset++
 	            }
 
 	            node = children[move]
 	            insertNode = childNodes[i + insertOffset] || null
-	            if (node !== insertNode) {
-	                domNode.insertBefore(node, insertNode)
+	            insertedLength = 0
+	            while (node !== insertNode && insertedLength++ < chainLength) {
+	                domNode.insertBefore(node, insertNode);
+	                node = children[move + insertedLength];
 	            }
 
 	            // the moved element came from the front of the array so reduce the insert offset
-	            if (move < i) {
+	            if (move + chainLength < i) {
 	                insertOffset--
 	            }
 	        }
@@ -813,6 +700,8 @@ var virtualDOM =
 	        if (i in bIndex.removes) {
 	            insertOffset++
 	        }
+
+	        i += chainLength
 	    }
 	}
 
@@ -827,14 +716,14 @@ var virtualDOM =
 
 
 /***/ },
-/* 24 */
+/* 19 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var document = __webpack_require__(7)
 	var isArray = __webpack_require__(9)
 
-	var domIndex = __webpack_require__(22)
-	var patchOp = __webpack_require__(23)
+	var domIndex = __webpack_require__(17)
+	var patchOp = __webpack_require__(18)
 	module.exports = patch
 
 	function patch(rootNode, patches) {
@@ -909,7 +798,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 25 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isWidget = __webpack_require__(1)
@@ -930,39 +819,10 @@ var virtualDOM =
 
 
 /***/ },
-/* 26 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var DataSet = __webpack_require__(17)
-
-	module.exports = DataSetHook;
-
-	function DataSetHook(value) {
-	    if (!(this instanceof DataSetHook)) {
-	        return new DataSetHook(value);
-	    }
-
-	    this.value = value;
-	}
-
-	DataSetHook.prototype.hook = function (node, propertyName) {
-	    var ds = DataSet(node)
-	    var propName = propertyName.substr(3)
-
-	    ds[propName] = this.value;
-	};
-
-	DataSetHook.prototype.unhook = function(node, propertyName) {
-	    var ds = DataSet(node);
-	    var propName = propertyName.substr(3);
-
-	    ds[propName] = undefined;
-	}
-
-
-/***/ },
-/* 27 */
-/***/ function(module, exports, __webpack_require__) {
+	'use strict';
 
 	module.exports = SoftSetHook;
 
@@ -982,7 +842,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 28 */
+/* 22 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1060,7 +920,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 29 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(2)
@@ -1076,7 +936,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 30 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var isArray = __webpack_require__(9)
@@ -1140,6 +1000,7 @@ var virtualDOM =
 	        }
 	    } else if (isVText(b)) {
 	        if (!isVText(a)) {
+	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
 	            applyClear = true
 	        } else if (a.text !== b.text) {
 	            apply = appendPatch(apply, new VPatch(VPatch.VTEXT, a, b))
@@ -1458,20 +1319,19 @@ var virtualDOM =
 
 
 /***/ },
-/* 31 */
+/* 25 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
 
 /***/ }
-/******/ ])""" :: forall diff patch vnode vtext create dsHook evHook isHook softSetHook.
+/******/ ])""" :: forall diff patch vnode vtext create dsHook isHook softSetHook.
   { diff        :: diff
   , patch       :: patch
   , create      :: create
   , vnode       :: vnode
   , vtext       :: vtext
   , dsHook      :: dsHook
-  , evHook      :: evHook
   , isHook      :: isHook
   , softSetHook :: softSetHook
   }

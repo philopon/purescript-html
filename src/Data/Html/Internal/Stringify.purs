@@ -90,10 +90,12 @@ var stringify =
 	  }
 
 	  if (isVNode(node)) {
-	    html.push('<' + node.tagName);
+	    var properties = node.properties.attributes || node.properties;
 
-	    for (var attrName in node.properties) {
-	      var prop = node.properties[attrName];
+	    html.push('<' + node.tagName.toLowerCase());
+
+	    for (var attrName in properties) {
+	      var prop = properties[attrName];
 	      var validProp = options.validAttributes[camelCase(attrName)];
 	      var attrVal;
 
@@ -144,7 +146,7 @@ var stringify =
 	        }
 	      }
 
-	      html.push('</' + node.tagName + '>');
+	      html.push('</' + node.tagName.toLowerCase() + '>');
 	    }
 	  }
 	  else if (isVText(node)) {

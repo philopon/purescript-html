@@ -5,7 +5,6 @@ var VNode   = require('virtual-dom/vnode/vnode');
 var VText   = require('virtual-dom/vnode/vtext');
 var isHook  = require('virtual-dom/vnode/is-vhook');
 
-var evHook = require('virtual-dom/virtual-hyperscript/hooks/ev-hook');
 var softSetHook = require('virtual-dom/virtual-hyperscript/hooks/soft-set-hook');
 
 module.exports =
@@ -14,7 +13,6 @@ module.exports =
   , create:      create
   , vnode:       VNode
   , vtext:       VText
-  , evHook:      evHook
   , isHook:      isHook
   , softSetHook: softSetHook
   }

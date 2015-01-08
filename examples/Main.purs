@@ -33,7 +33,6 @@ render ref count = E.div
 
 main :: forall e. EffHtml (timer :: Timer | e) Unit
 main = do
-  listen -- dummy function to save event listener from dead code elimination. 
   ref <- newRef 0
   html <- createElement $ render ref 0
   getNode html >>= appendBody
