@@ -8,14 +8,16 @@
 
     type A3 a b c = { _2 :: c, _1 :: b, _0 :: a }
 
+    type Compare a = a -> a -> Boolean
+
 
 ### Values
 
-    partial1 :: forall a. (a -> a -> Boolean) -> (a -> VTree) -> a -> VTree
+    partial1 :: forall a. Compare a -> (a -> VTree) -> a -> VTree
 
-    partial2 :: forall a b. (A2 a b -> A2 a b -> Boolean) -> (a -> b -> VTree) -> a -> b -> VTree
+    partial2 :: forall a b. Compare (A2 a b) -> (a -> b -> VTree) -> a -> b -> VTree
 
-    partial3 :: forall a b c. (A3 a b c -> A3 a b c -> Boolean) -> (a -> b -> c -> VTree) -> a -> b -> c -> VTree
+    partial3 :: forall a b c. Compare (A3 a b c) -> (a -> b -> c -> VTree) -> a -> b -> c -> VTree
 
     thunk1 :: forall a. (Eq a) => (a -> VTree) -> a -> VTree
 
