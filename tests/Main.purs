@@ -15,6 +15,10 @@ main = runMocha $ do
     it "should be text" $ show (E.text "Hello")      @?= "Hello"
 
   describe "attributes" $ do
+    it "should be semigroup" $
+      show (E.vnode "a" [A.stringAttribute "href" "#" <> A.stringAttribute "title" "neko"] [])
+      @?= "<a href=\"#\" title=\"neko\"></a>"
+
     it "should be have bool attr" $
       show (E.vnode "input" [A.booleanAttribute "disabled" true] [])
       @?= "<input disabled />"
