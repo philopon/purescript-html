@@ -1764,18 +1764,18 @@ PS.Data_Html_Elements = (function () {
     var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
     
 function vnodeImpl (fn, name, attrs, children) {
-  var props     = {}
+  var attrTypes = fn.attrTypes
+    , props     = {}
     , key       = undefined
     , namespace = undefined;
 
   for(var i = 0, li = attrs.length; i < li; i++) {
     for(var j = 0, lj = attrs[i].length; j < lj; j++){
       var attr = attrs[i][j];
-      console.log('!!!!!!!!!!!!!!', attr)
       var typ  = fn.attrType(attr);
-      if(typ === fn.attrTypes.attribute) {
+      if(typ === attrTypes.attribute) {
         props[fn.attrKey(attr)] = fn.attrVal(attr);
-      } else if (typ === fn.attrTypes.key) {
+      } else if (typ === attrTypes.key) {
         key = fn.getKey(attr);
       } else {
         namespace = fn.getNs(attr);
