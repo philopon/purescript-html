@@ -1,5 +1,5 @@
 module Data.Html.Attributes
-  ( Attribute(..)
+  ( Attribute()
   , stringAttribute
   , booleanAttribute
   , numberAttribute
@@ -16,26 +16,30 @@ import Data.Html.Internal.VirtualDOM
 import qualified Data.Html.Internal.Attributes as I
 
 import Data.Function
+import Data.Array
 
-type Attribute = I.Attribute
+newtype Attribute = Attribute [I.Attribute]
+
+instance semigroupAttribute :: Semigroup Attribute where
+  (<>) (Attribute a) (Attribute b) = Attribute (a ++ b)
 
 stringAttribute :: String -> String -> Attribute
-stringAttribute n v = I.attribute n $ I.unsafeCoerce v
+stringAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
 
 booleanAttribute :: String -> Boolean -> Attribute
-booleanAttribute n v = I.attribute n $ I.unsafeCoerce v
+booleanAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
 
 numberAttribute :: String -> Number -> Attribute
-numberAttribute n v = I.attribute n $ I.unsafeCoerce v
+numberAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
 
 style :: forall styles. {|styles} -> Attribute
-style v = I.attribute "style" $ I.unsafeCoerce v
+style v = Attribute [I.attribute "style" $ I.unsafeCoerce v]
 
 key :: String -> Attribute
-key = I.Key
+key k = Attribute [I.Key k]
 
 namespace :: String -> Attribute
-namespace = I.Namespace
+namespace n = Attribute [I.Namespace n]
 
 foreign import data Event :: *
 
@@ -47,4 +51,4 @@ function mkEvent (fn) {
 }""" :: forall e. (Event -> Eff e Unit) -> I.Attr
 
 on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
-on_ ev fn = I.attribute ("on" ++ ev) $ mkEvent fn
+on_ ev fn = Attribute [I.attribute ("on" ++ ev) $ mkEvent fn]

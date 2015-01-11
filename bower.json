@@ -1,6 +1,6 @@
 {
   "name": "purescript-html",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "authors": [
     "Hirotomo Moriwaki"
   ],
@@ -22,11 +22,12 @@
   ],
   "dependencies": {
     "purescript-dom": "~0.1.1",
-    "purescript-strings": "~0.4.2"
+    "purescript-strings": "~0.4.2",
+    "purescript-arrays": "~0.3.0"
   },
   "devDependencies": {
     "purescript-simple-assert": "~0.2.1",
-    "purescript-pspec": "~0.3.0",
+    "purescript-pspec": "~0.6.0",
     "purescript-timers": "~0.0.8",
     "purescript-refs": "~0.1.2"
   }

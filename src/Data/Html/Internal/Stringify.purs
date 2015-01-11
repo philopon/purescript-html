@@ -139,7 +139,9 @@ var stringify =
 	    } else {
 	      html.push('>');
 
-	      if (node.children && node.children.length) {
+	      if (node.properties.innerHTML) {
+	        html.push(node.properties.innerHTML);
+	      } else if (node.children && node.children.length) {
 	        for (var i=0, l=node.children.length; i<l; i++) {
 	          var child = node.children[i];
 	          html.push(stringify(child, node));
