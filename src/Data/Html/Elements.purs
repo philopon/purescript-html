@@ -15,12 +15,12 @@ foreign import data VTree :: *
 foreign import data Dummy :: *
 
 type VNodeFs = 
-  { attrType    :: Attribute -> I.AttrType
+  { attrType    :: I.Attribute -> I.AttrType
   , attrTypes   :: I.AttrTypes
-  , attrKey     :: Attribute -> String
-  , attrVal     :: Attribute -> I.Attr
-  , getKey      :: Attribute -> String
-  , getNs       :: Attribute -> String
+  , attrKey     :: I.Attribute -> String
+  , attrVal     :: I.Attribute -> I.Attr
+  , getKey      :: I.Attribute -> String
+  , getNs       :: I.Attribute -> String
   , isHook      :: Dummy
   , softSetHook :: Dummy
   , vnode       :: Dummy
@@ -32,15 +32,17 @@ function vnodeImpl (fn, name, attrs, children) {
     , key       = undefined
     , namespace = undefined;
 
-  for(var i = 0; i < attrs.length; i++) {
-    var attr = attrs[i];
-    var typ  = fn.attrType(attr);
-    if(typ === fn.attrTypes.attribute) {
-      props[fn.attrKey(attr)] = fn.attrVal(attr);
-    } else if (typ === fn.attrTypes.key) {
-      key = fn.getKey(attr);
-    } else {
-      namespace = fn.getNs(attr);
+  for(var i = 0, li = attrs.length; i < li; i++) {
+    for(var j = 0, lj = attrs[i].length; j < lj; j++){
+      var attr = attrs[i][j];
+      var typ  = fn.attrType(attr);
+      if(typ === fn.attrTypes.attribute) {
+        props[fn.attrKey(attr)] = fn.attrVal(attr);
+      } else if (typ === fn.attrTypes.key) {
+        key = fn.getKey(attr);
+      } else {
+        namespace = fn.getNs(attr);
+      }
     }
   }
 
