@@ -1854,6 +1854,7 @@ function patchImpl(fn, next, html){
     var patch  = fn.diff(html.vtree, next);
     html.node  = fn.patch(html.node, patch);
     html.vtree = next;
+    return {};
   }
 };
     var patch = function (v) {
