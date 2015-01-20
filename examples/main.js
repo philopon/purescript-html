@@ -237,8 +237,9 @@ var virtualDOM =
 	module.exports = isHook
 
 	function isHook(hook) {
-	    return hook && typeof hook.hook === "function" &&
-	        !hook.hasOwnProperty("hook")
+	    return hook &&
+	      (typeof hook.hook === "function" && !hook.hasOwnProperty("hook") ||
+	       typeof hook.unhook === "function" && !hook.hasOwnProperty("unhook"))
 	}
 
 
@@ -342,6 +343,7 @@ var virtualDOM =
 	        if (propValue === undefined) {
 	            removeProperty(node, props, previous, propName);
 	        } else if (isHook(propValue)) {
+	            removeProperty(node, props, previous, propName)
 	            propValue.hook(node,
 	                propName,
 	                previous ? previous[propName] : undefined)

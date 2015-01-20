@@ -12,8 +12,8 @@
     "gulp-rename": "^1.2.0",
     "gulp-shell": "^0.2.11",
     "run-sequence": "^1.0.2",
-    "virtual-dom": "^1.1.0",
+    "virtual-dom": "^1.2.0",
     "virtual-dom-stringify": "^1.0.4",
-    "webpack": "^1.4.15"
+    "webpack": "^1.5.1"
   }
 }
