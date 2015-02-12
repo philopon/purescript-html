@@ -142,7 +142,7 @@ var virtualDOM =
 
 	/* WEBPACK VAR INJECTION */(function(global) {var topLevel = typeof global !== 'undefined' ? global :
 	    typeof window !== 'undefined' ? window : {}
-	var minDoc = __webpack_require__(25);
+	var minDoc = __webpack_require__(26);
 
 	if (typeof document !== 'undefined') {
 	    module.exports = document;
@@ -197,23 +197,25 @@ var virtualDOM =
 	        var propValue = props[propName]
 
 	        if (propValue === undefined) {
-	            removeProperty(node, props, previous, propName);
+	            removeProperty(node, propName, propValue, previous);
 	        } else if (isHook(propValue)) {
-	            removeProperty(node, props, previous, propName)
-	            propValue.hook(node,
-	                propName,
-	                previous ? previous[propName] : undefined)
+	            removeProperty(node, propName, propValue, previous)
+	            if (propValue.hook) {
+	                propValue.hook(node,
+	                    propName,
+	                    previous ? previous[propName] : undefined)
+	            }
 	        } else {
 	            if (isObject(propValue)) {
 	                patchObject(node, props, previous, propName, propValue);
-	            } else if (propValue !== undefined) {
+	            } else {
 	                node[propName] = propValue
 	            }
 	        }
 	    }
 	}
 
-	function removeProperty(node, props, previous, propName) {
+	function removeProperty(node, propName, propValue, previous) {
 	    if (previous) {
 	        var previousValue = previous[propName]
 
@@ -232,7 +234,7 @@ var virtualDOM =
 	                node[propName] = null
 	            }
 	        } else if (previousValue.unhook) {
-	            previousValue.unhook(node, propName)
+	            previousValue.unhook(node, propName, propValue)
 	        }
 	    }
 	}
@@ -423,7 +425,7 @@ var virtualDOM =
 /* 15 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var diff = __webpack_require__(24)
+	var diff = __webpack_require__(25)
 
 	module.exports = diff
 
@@ -941,16 +943,80 @@ var virtualDOM =
 /* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isArray = __webpack_require__(9)
 	var isObject = __webpack_require__(8)
+	var isHook = __webpack_require__(3)
+
+	module.exports = diffProps
+
+	function diffProps(a, b) {
+	    var diff
+
+	    for (var aKey in a) {
+	        if (!(aKey in b)) {
+	            diff = diff || {}
+	            diff[aKey] = undefined
+	        }
+
+	        var aValue = a[aKey]
+	        var bValue = b[aKey]
+
+	        if (aValue === bValue) {
+	            continue
+	        } else if (isObject(aValue) && isObject(bValue)) {
+	            if (getPrototype(bValue) !== getPrototype(aValue)) {
+	                diff = diff || {}
+	                diff[aKey] = bValue
+	            } else if (isHook(bValue)) {
+	                 diff = diff || {}
+	                 diff[aKey] = bValue
+	            } else {
+	                var objectDiff = diffProps(aValue, bValue)
+	                if (objectDiff) {
+	                    diff = diff || {}
+	                    diff[aKey] = objectDiff
+	                }
+	            }
+	        } else {
+	            diff = diff || {}
+	            diff[aKey] = bValue
+	        }
+	    }
+
+	    for (var bKey in b) {
+	        if (!(bKey in a)) {
+	            diff = diff || {}
+	            diff[bKey] = b[bKey]
+	        }
+	    }
+
+	    return diff
+	}
+
+	function getPrototype(value) {
+	  if (Object.getPrototypeOf) {
+	    return Object.getPrototypeOf(value)
+	  } else if (value.__proto__) {
+	    return value.__proto__
+	  } else if (value.constructor) {
+	    return value.constructor.prototype
+	  }
+	}
+
+
+/***/ },
+/* 25 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var isArray = __webpack_require__(9)
 
 	var VPatch = __webpack_require__(13)
 	var isVNode = __webpack_require__(4)
 	var isVText = __webpack_require__(6)
 	var isWidget = __webpack_require__(1)
 	var isThunk = __webpack_require__(5)
-	var isHook = __webpack_require__(3)
 	var handleThunk = __webpack_require__(12)
+
+	var diffProps = __webpack_require__(24)
 
 	module.exports = diff
 
@@ -1021,60 +1087,6 @@ var virtualDOM =
 
 	    if (applyClear) {
 	        clearState(a, patch, index)
-	    }
-	}
-
-	function diffProps(a, b) {
-	    var diff
-
-	    for (var aKey in a) {
-	        if (!(aKey in b)) {
-	            diff = diff || {}
-	            diff[aKey] = undefined
-	        }
-
-	        var aValue = a[aKey]
-	        var bValue = b[aKey]
-
-	        if (aValue === bValue) {
-	            continue
-	        } else if (isObject(aValue) && isObject(bValue)) {
-	            if (getPrototype(bValue) !== getPrototype(aValue)) {
-	                diff = diff || {}
-	                diff[aKey] = bValue
-	            } else if (isHook(bValue)) {
-	                 diff = diff || {}
-	                 diff[aKey] = bValue
-	            } else {
-	                var objectDiff = diffProps(aValue, bValue)
-	                if (objectDiff) {
-	                    diff = diff || {}
-	                    diff[aKey] = objectDiff
-	                }
-	            }
-	        } else {
-	            diff = diff || {}
-	            diff[aKey] = bValue
-	        }
-	    }
-
-	    for (var bKey in b) {
-	        if (!(bKey in a)) {
-	            diff = diff || {}
-	            diff[bKey] = b[bKey]
-	        }
-	    }
-
-	    return diff
-	}
-
-	function getPrototype(value) {
-	    if (Object.getPrototypeOf) {
-	        return Object.getPrototypeOf(value)
-	    } else if (value.__proto__) {
-	        return value.__proto__
-	    } else if (value.constructor) {
-	        return value.constructor.prototype
 	    }
 	}
 
@@ -1321,7 +1333,7 @@ var virtualDOM =
 
 
 /***/ },
-/* 25 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
