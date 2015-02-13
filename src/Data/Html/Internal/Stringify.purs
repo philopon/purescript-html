@@ -57,19 +57,31 @@ var stringify =
 	var paramCase = __webpack_require__(10);
 	var selfClosingTags = __webpack_require__(2);
 
+	/**
+	 * @module virtual-dom-stringify
+	 */
 
 	/**
 	 * Stringify given virtual dom tree and return html.
 	 *
+	 * @example
+	 *
+	 * ```javascript
+	 * var VirtualNode = require('vtree/vnode');
+	 * var stringify = require('virtual-dom-stringify');
+	 *
+	 * stringify(new VirtualNode('div'));
+	 * // => "<div></div>"
+	 * ```
+	 *
 	 * @param {VirtualNode} node
 	 * @param {VirtualNode?} parent
 	 * @param {Object=} options
-	 * @param {Array} options.selfClosingTags array of self-closing tag names
-	 * @param {Object} options.validAttributes map of valid attribute names where
-	 * keys are camelCased attribute name and values are HTML attribute name.
-	 * @param {Boolean=false} options.invalidAttributes output invalid attributes
-	 * @return {String}
-	 * @api public
+	 * @param {Array.<String>=} options.selfClosingTags tags that are self-closing
+	 * @param {Object.<String, String>=} options.attributes map of attribute names
+	 * where keys are camelCased name and values are the HTML attribute name.
+	 * @returns {String}
+	 * @alias module:virtual-dom-stringify
 	 */
 
 	module.exports = function stringify (node, parent, options) {
@@ -86,8 +98,8 @@ var stringify =
 	  options = options || {};
 	  options.selfClosingTags = (options.selfClosingTags || selfClosingTags);
 
-	  if (!options.validAttributes) {
-	    options.validAttributes = merge(htmlAttrs, svgAttrs);
+	  if (!options.attributes) {
+	    options.attributes = merge(htmlAttrs, svgAttrs);
 	  }
 
 	  if (isThunk(node)) {
@@ -99,37 +111,28 @@ var stringify =
 
 	    html.push('<' + node.tagName.toLowerCase());
 
-	    for (var attrName in properties) {
-	      var prop = properties[attrName];
-	      var validProp = options.validAttributes[camelCase(attrName)];
-	      var attrVal;
+	    for (var key in properties) {
+	      var prop = options.attributes[camelCase(key)] || key;
+	      var attrVal = properties[key];
 
-	      if (!validProp && options.invalidAttributes) {
-	        validProp = attrName;
-	      }
-
-	      if (prop && validProp) {
-	        attrName = validProp || attrName;
-
-	        if (typeof prop === 'object' && attrName !== 'style') {
-	          attrVal = prop.value;
-	        } else {
-	          attrVal = prop;
+	      if (prop && prop !== 'innerHTML') {
+	        if (typeof attrVal === 'object' && key !== 'style') {
+	          attrVal = attrVal.value;
 	        }
 
 	        if (attrVal) {
 	          // Special case for style. We need to iterate over all rules to create a
 	          // hash of applied css properties.
-	          if (attrName === 'style') {
+	          if (key === 'style') {
 	            var css = [];
 	            for (var styleProp in attrVal) {
 	              css.push(paramCase(styleProp) + ': ' + attrVal[styleProp] + ';');
 	            }
-	            attributes.push(attrName + '="' + css.join(' ') + '"');
+	            attributes.push(prop + '="' + css.join(' ') + '"');
 	          } else if (attrVal === "true" || attrVal === true) {
-	            attributes.push(attrName);
+	            attributes.push(prop);
 	          } else {
-	            attributes.push(attrName + '="' + encode(String(attrVal)) + '"');
+	            attributes.push(prop + '="' + encode(String(attrVal)) + '"');
 	          }
 	        }
 	      }
@@ -157,7 +160,7 @@ var stringify =
 	    }
 	  }
 	  else if (isVText(node)) {
-	    if (parent && parent.tagName === 'script') {
+	    if (parent && parent.tagName.toLowerCase() === 'script') {
 	      html.push(String(node.text));
 	    } else {
 	      html.push(encode(String(node.text)));
