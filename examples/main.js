@@ -1863,7 +1863,6 @@ PS.Data_Html_Elements = (function () {
     var Control_Monad_Eff = PS.Control_Monad_Eff;
     var Data_Html_Attributes = PS.Data_Html_Attributes;
     var DOM = PS.DOM;
-    var Control_Monad_Eff_Ref = PS.Control_Monad_Eff_Ref;
     
 function vnodeImpl (fn, name, attrs, children) {
   var attrTypes = fn.attrTypes

@@ -8,7 +8,6 @@ import Data.Html.Attributes
 import Data.Html.Internal.VirtualDOM
 import Data.Function
 import DOM
-import Control.Monad.Eff.Ref
 
 foreign import data VTree :: *
 
