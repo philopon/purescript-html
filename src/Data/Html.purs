@@ -9,7 +9,6 @@ import Control.Monad.Eff
 
 import Data.Html.Elements hiding (VTree)
 import qualified Data.Html.Elements as E
-import qualified Data.Html.Internal.Attributes as I
 
 import Data.Html.Attributes
 import Data.Html.Internal.VirtualDOM

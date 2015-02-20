@@ -48,7 +48,7 @@ var stringify =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(3).encode;
+	var he = __webpack_require__(3);
 	var isVNode = __webpack_require__(13);
 	var isVText = __webpack_require__(14);
 	var isThunk = __webpack_require__(12);
@@ -80,6 +80,7 @@ var stringify =
 	 * @param {Array.<String>=} options.selfClosingTags tags that are self-closing
 	 * @param {Object.<String, String>=} options.attributes map of attribute names
 	 * where keys are camelCased name and values are the HTML attribute name.
+	 * @param {Boolean=} options.asciiSafe encode non-ASCII symbols (default: false)
 	 * @returns {String}
 	 * @alias module:virtual-dom-stringify
 	 */
@@ -101,6 +102,8 @@ var stringify =
 	  if (!options.attributes) {
 	    options.attributes = merge(htmlAttrs, svgAttrs);
 	  }
+
+	  var encode = options.asciiSafe ? he.encode : he.escape;
 
 	  if (isThunk(node)) {
 	    node = (node.vnode || node.render());
@@ -131,7 +134,7 @@ var stringify =
 	            attributes.push(prop + '="' + css.join(' ') + '"');
 	          } else if (attrVal === "true" || attrVal === true) {
 	            attributes.push(prop);
-	          } else {
+	          } else if (typeof attrVal !== 'function') {
 	            attributes.push(prop + '="' + encode(String(attrVal)) + '"');
 	          }
 	        }
