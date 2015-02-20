@@ -13,33 +13,55 @@ import Control.Monad.Eff
 
 import Data.Html.Internal.VirtualDOM
 
-import qualified Data.Html.Internal.Attributes as I
-
 import Data.Function
 import Data.Array
 
-newtype Attribute = Attribute [I.Attribute]
+foreign import data Attribute :: *
+
+foreign import attributeImpl """
+function attributeImpl(k, v){
+  var prop = {};
+  prop[k] = v;
+  return prop;
+}
+""" :: forall v. Fn2 String v Attribute
+
+attribute :: forall v. String -> v -> Attribute
+attribute k v = runFn2 attributeImpl k v
+
+foreign import appendAttributeImpl """
+function appendAttributeImpl (a, b) {
+  var props = {};
+  var merge = function(from){
+    for(var key in from){
+      props[key] = from[key];
+    }
+  }
+  merge(a);
+  merge(b);
+  return props;
+}""" :: Fn2 Attribute Attribute Attribute
 
 instance semigroupAttribute :: Semigroup Attribute where
-  (<>) (Attribute a) (Attribute b) = Attribute (a ++ b)
+  (<>) a b = runFn2 appendAttributeImpl a b
 
 stringAttribute :: String -> String -> Attribute
-stringAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
+stringAttribute = attribute
 
 booleanAttribute :: String -> Boolean -> Attribute
-booleanAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
+booleanAttribute = attribute
 
 numberAttribute :: String -> Number -> Attribute
-numberAttribute n v = Attribute [I.attribute n $ I.unsafeCoerce v]
+numberAttribute = attribute
 
 style :: forall styles. {|styles} -> Attribute
-style v = Attribute [I.attribute "style" $ I.unsafeCoerce v]
+style = attribute "style"
 
 key :: String -> Attribute
-key k = Attribute [I.Key k]
+key = attribute "key"
 
 namespace :: String -> Attribute
-namespace n = Attribute [I.Namespace n]
+namespace = attribute "namespace"
 
 foreign import data Event :: *
 
@@ -48,7 +70,7 @@ function mkEvent (fn) {
   return function mkEvHook_callback(ev){
     fn(ev)();
   }
-}""" :: forall e. (Event -> Eff e Unit) -> I.Attr
+}""" :: forall e ev. (Event -> Eff e Unit) -> ev
 
 on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
-on_ ev fn = Attribute [I.attribute ("on" ++ ev) $ mkEvent fn]
+on_ ev fn = attribute ("on" ++ ev) $ mkEvent fn
