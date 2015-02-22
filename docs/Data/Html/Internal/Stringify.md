@@ -2,9 +2,12 @@
 
 ## Module Data.Html.Internal.Stringify
 
-### Values
+#### `stringify`
 
-    stringify :: forall stringify. stringify
+``` purescript
+stringify :: forall stringify. stringify
+```
+
 
 
 

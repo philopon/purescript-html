@@ -2,16 +2,29 @@
 
 ## Module Data.Html.Internal.Events
 
-### Types
+#### `KeyEvent`
 
-    newtype KeyEvent where
-      KeyEvent :: Event -> KeyEvent
+``` purescript
+newtype KeyEvent
+  = KeyEvent Event
+```
 
-    newtype MouseButtonEvent where
-      MouseButtonEvent :: Event -> MouseButtonEvent
 
-    newtype MouseHoverEvent where
-      MouseHoverEvent :: Event -> MouseHoverEvent
+#### `MouseButtonEvent`
+
+``` purescript
+newtype MouseButtonEvent
+  = MouseButtonEvent Event
+```
+
+
+#### `MouseHoverEvent`
+
+``` purescript
+newtype MouseHoverEvent
+  = MouseHoverEvent Event
+```
+
 
 
 

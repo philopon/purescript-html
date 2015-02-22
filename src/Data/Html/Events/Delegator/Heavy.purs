@@ -1,4 +1,4 @@
-module Data.Html.Events.Heavy
+module Data.Html.Events.Delegator.Heavy
   ( onMouseMove
   , onMouseEnter, onMouseLeave
   , onMouseOver, onMouseOut

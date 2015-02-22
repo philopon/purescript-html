@@ -2,43 +2,82 @@
 
 ## Module Data.Html.Attributes
 
-### Types
+#### `Attribute`
+
+``` purescript
+data Attribute :: *
+```
 
 
-    newtype Attribute
+#### `semigroupAttribute`
+
+``` purescript
+instance semigroupAttribute :: Semigroup Attribute
+```
 
 
-    data Event :: *
+#### `stringAttribute`
+
+``` purescript
+stringAttribute :: String -> String -> Attribute
+```
 
 
-### Type Class Instances
+#### `booleanAttribute`
+
+``` purescript
+booleanAttribute :: String -> Boolean -> Attribute
+```
 
 
-    instance semigroupAttribute :: Semigroup Attribute
+#### `numberAttribute`
+
+``` purescript
+numberAttribute :: String -> Number -> Attribute
+```
 
 
-### Values
+#### `style`
+
+``` purescript
+style :: forall styles. {  | styles } -> Attribute
+```
 
 
-    booleanAttribute :: String -> Boolean -> Attribute
+#### `key`
+
+``` purescript
+key :: String -> Attribute
+```
 
 
-    key :: String -> Attribute
+#### `namespace`
+
+``` purescript
+namespace :: String -> Attribute
+```
 
 
-    namespace :: String -> Attribute
+#### `Event`
+
+``` purescript
+data Event :: *
+```
 
 
-    numberAttribute :: String -> Number -> Attribute
+#### `on_`
+
+``` purescript
+on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
+```
 
 
-    on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
+#### `ev_`
 
+``` purescript
+ev_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
+```
 
-    stringAttribute :: String -> String -> Attribute
-
-
-    style :: forall styles. {  | styles } -> Attribute
 
 
 

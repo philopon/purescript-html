@@ -2,9 +2,12 @@
 
 ## Module Data.Html.Internal.VirtualDOM
 
-### Values
+#### `virtualDOM`
 
-    virtualDOM :: forall diff patch vnode vtext create dsHook isHook softSetHook. { softSetHook :: softSetHook, isHook :: isHook, dsHook :: dsHook, vtext :: vtext, vnode :: vnode, create :: create, patch :: patch, diff :: diff }
+``` purescript
+virtualDOM :: forall diff patch create vtext hyperscript. { hyperscript :: hyperscript, vtext :: vtext, create :: create, patch :: patch, diff :: diff }
+```
+
 
 
 

@@ -2,16 +2,26 @@
 
 ## Module Data.Html.Elements
 
-### Types
+#### `VTree`
 
-    data VTree :: *
+``` purescript
+data VTree :: *
+```
 
 
-### Values
+#### `vnode`
 
-    text :: String -> VTree
+``` purescript
+vnode :: String -> [Attribute] -> [VTree] -> VTree
+```
 
-    vnode :: String -> [Attribute] -> [VTree] -> VTree
+
+#### `text`
+
+``` purescript
+text :: String -> VTree
+```
+
 
 
 

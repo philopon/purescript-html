@@ -1,6 +1,6 @@
 # Module Documentation
 
-## Module Data.Html.Events.Heavy
+## Module Data.Html.Events.Delegator.Heavy
 
 #### `onMouseMove`
 

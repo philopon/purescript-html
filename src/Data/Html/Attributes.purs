@@ -5,7 +5,7 @@ module Data.Html.Attributes
   , numberAttribute
   , style
   , key
-  , Event(), on_
+  , Event(), on_, ev_
   , namespace
   ) where
 
@@ -74,3 +74,6 @@ function mkEvent (fn) {
 
 on_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
 on_ ev fn = attribute ("on" ++ ev) $ mkEvent fn
+
+ev_ :: forall event e. String -> (Event -> Eff e Unit) -> Attribute
+ev_ ev fn = attribute ("ev-" ++ ev) $ mkEvent fn

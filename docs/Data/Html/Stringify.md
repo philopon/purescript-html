@@ -2,14 +2,19 @@
 
 ## Module Data.Html.Stringify
 
-### Type Class Instances
+#### `stringifyVNode`
 
-    instance showVTree :: Show E.VTree
+``` purescript
+stringifyVNode :: forall opts. {  | opts } -> VTree -> String
+```
 
 
-### Values
+#### `showVTree`
 
-    stringifyVNode :: forall opts. {  | opts } -> VTree -> String
+``` purescript
+instance showVTree :: Show E.VTree
+```
+
 
 
 

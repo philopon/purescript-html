@@ -2,24 +2,54 @@
 
 ## Module Data.Html
 
-### Types
+#### `EffHtml`
 
-    type EffHtml e a = Eff (dom :: DOM | e) a
-
-    data Html :: *
-
-    type VTree = E.VTree
+``` purescript
+type EffHtml e a = Eff (dom :: DOM | e) a
+```
 
 
-### Values
+#### `VTree`
 
-    createElement :: VTree -> EffHtml _ Html
+``` purescript
+type VTree = E.VTree
+```
 
-    createElementOptions :: forall opts. {  | opts } -> VTree -> EffHtml _ Html
 
-    getNode :: forall e. Html -> EffHtml e Node
+#### `Html`
 
-    patch :: VTree -> Html -> EffHtml _ Unit
+``` purescript
+data Html :: *
+```
+
+
+#### `createElement`
+
+``` purescript
+createElement :: VTree -> EffHtml _ Html
+```
+
+
+#### `createElementOptions`
+
+``` purescript
+createElementOptions :: forall opts. {  | opts } -> VTree -> EffHtml _ Html
+```
+
+
+#### `getNode`
+
+``` purescript
+getNode :: forall e. Html -> EffHtml e Node
+```
+
+
+#### `patch`
+
+``` purescript
+patch :: VTree -> Html -> EffHtml _ Unit
+```
+
 
 
 
