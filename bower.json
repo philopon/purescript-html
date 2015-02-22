@@ -1,6 +1,6 @@
 {
   "name": "purescript-html",
-  "version": "0.6.9",
+  "version": "0.7.0",
   "authors": [
     "Hirotomo Moriwaki"
   ],
@@ -29,6 +29,7 @@
     "purescript-simple-assert": "~0.2.1",
     "purescript-pspec": "~0.6.0",
     "purescript-timers": "~0.0.8",
-    "purescript-refs": "~0.1.2"
+    "purescript-refs": "~0.1.2",
+    "purescript-dom-delegator": "~0.1.0"
   }
 }

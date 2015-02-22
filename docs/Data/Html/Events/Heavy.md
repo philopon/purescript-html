@@ -2,17 +2,40 @@
 
 ## Module Data.Html.Events.Heavy
 
-### Values
+#### `onMouseMove`
 
-    onMouseEnter :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+``` purescript
+onMouseMove :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+```
 
-    onMouseLeave :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onMouseMove :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+#### `onMouseEnter`
 
-    onMouseOut :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+``` purescript
+onMouseEnter :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+```
 
-    onMouseOver :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+
+#### `onMouseLeave`
+
+``` purescript
+onMouseLeave :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+```
+
+
+#### `onMouseOver`
+
+``` purescript
+onMouseOver :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+```
+
+
+#### `onMouseOut`
+
+``` purescript
+onMouseOut :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+```
+
 
 
 

@@ -2,226 +2,749 @@
 
 ## Module Data.Html.Elements.Html5
 
-### Types
+#### `VTree`
 
-    type VTree = E.VTree
+``` purescript
+type VTree = E.VTree
+```
 
 
-### Values
+#### `text`
 
-    a :: [Attribute] -> [VTree] -> VTree
+``` purescript
+text :: String -> VTree
+```
 
-    abbr :: [Attribute] -> [VTree] -> VTree
 
-    address :: [Attribute] -> [VTree] -> VTree
+#### `h1`
 
-    area :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h1 :: [Attribute] -> [VTree] -> VTree
+```
 
-    article :: [Attribute] -> [VTree] -> VTree
+#### `h2`
 
-    aside :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h2 :: [Attribute] -> [VTree] -> VTree
+```
 
-    audio :: [Attribute] -> [VTree] -> VTree
 
-    b :: [Attribute] -> [VTree] -> VTree
+#### `h3`
 
-    base :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h3 :: [Attribute] -> [VTree] -> VTree
+```
 
-    bdi :: [Attribute] -> [VTree] -> VTree
 
-    bdo :: [Attribute] -> [VTree] -> VTree
+#### `h4`
 
-    blockquote :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h4 :: [Attribute] -> [VTree] -> VTree
+```
 
-    br :: [Attribute] -> [VTree] -> VTree
 
-    button :: [Attribute] -> [VTree] -> VTree
+#### `h5`
 
-    canvas :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h5 :: [Attribute] -> [VTree] -> VTree
+```
 
-    caption :: [Attribute] -> [VTree] -> VTree
 
-    cite :: [Attribute] -> [VTree] -> VTree
+#### `h6`
 
-    code :: [Attribute] -> [VTree] -> VTree
+``` purescript
+h6 :: [Attribute] -> [VTree] -> VTree
+```
 
-    col :: [Attribute] -> [VTree] -> VTree
 
-    colgroup :: [Attribute] -> [VTree] -> VTree
+#### `p`
 
-    datalist :: [Attribute] -> [VTree] -> VTree
+``` purescript
+p :: [Attribute] -> [VTree] -> VTree
+```
 
-    dd :: [Attribute] -> [VTree] -> VTree
 
-    del :: [Attribute] -> [VTree] -> VTree
+#### `br`
 
-    details :: [Attribute] -> [VTree] -> VTree
+``` purescript
+br :: [Attribute] -> [VTree] -> VTree
+```
 
-    dfn :: [Attribute] -> [VTree] -> VTree
 
-    dialog :: [Attribute] -> [VTree] -> VTree
+#### `hr`
 
-    div :: [Attribute] -> [VTree] -> VTree
+``` purescript
+hr :: [Attribute] -> [VTree] -> VTree
+```
 
-    dl :: [Attribute] -> [VTree] -> VTree
 
-    dt :: [Attribute] -> [VTree] -> VTree
+#### `abbr`
 
-    em :: [Attribute] -> [VTree] -> VTree
+``` purescript
+abbr :: [Attribute] -> [VTree] -> VTree
+```
 
-    embed :: [Attribute] -> [VTree] -> VTree
+#### `address`
 
-    fieldset :: [Attribute] -> [VTree] -> VTree
+``` purescript
+address :: [Attribute] -> [VTree] -> VTree
+```
 
-    figcaption :: [Attribute] -> [VTree] -> VTree
 
-    figure :: [Attribute] -> [VTree] -> VTree
+#### `b`
 
-    footer :: [Attribute] -> [VTree] -> VTree
+``` purescript
+b :: [Attribute] -> [VTree] -> VTree
+```
 
-    form :: [Attribute] -> [VTree] -> VTree
 
-    h1 :: [Attribute] -> [VTree] -> VTree
+#### `bdi`
 
-    h2 :: [Attribute] -> [VTree] -> VTree
+``` purescript
+bdi :: [Attribute] -> [VTree] -> VTree
+```
 
-    h3 :: [Attribute] -> [VTree] -> VTree
 
-    h4 :: [Attribute] -> [VTree] -> VTree
+#### `bdo`
 
-    h5 :: [Attribute] -> [VTree] -> VTree
+``` purescript
+bdo :: [Attribute] -> [VTree] -> VTree
+```
 
-    h6 :: [Attribute] -> [VTree] -> VTree
 
-    header :: [Attribute] -> [VTree] -> VTree
+#### `blockquote`
 
-    hgroup :: [Attribute] -> [VTree] -> VTree
+``` purescript
+blockquote :: [Attribute] -> [VTree] -> VTree
+```
 
-    hr :: [Attribute] -> [VTree] -> VTree
 
-    i :: [Attribute] -> [VTree] -> VTree
+#### `cite`
 
-    iframe :: [Attribute] -> [VTree] -> VTree
+``` purescript
+cite :: [Attribute] -> [VTree] -> VTree
+```
 
-    img :: [Attribute] -> [VTree] -> VTree
 
-    input :: [Attribute] -> [VTree] -> VTree
+#### `code`
 
-    ins :: [Attribute] -> [VTree] -> VTree
+``` purescript
+code :: [Attribute] -> [VTree] -> VTree
+```
 
-    kbd :: [Attribute] -> [VTree] -> VTree
 
-    keygen :: [Attribute] -> [VTree] -> VTree
+#### `del`
 
-    label :: [Attribute] -> [VTree] -> VTree
+``` purescript
+del :: [Attribute] -> [VTree] -> VTree
+```
 
-    legend :: [Attribute] -> [VTree] -> VTree
 
-    li :: [Attribute] -> [VTree] -> VTree
+#### `dfn`
 
-    link :: [Attribute] -> [VTree] -> VTree
+``` purescript
+dfn :: [Attribute] -> [VTree] -> VTree
+```
 
-    main :: [Attribute] -> [VTree] -> VTree
 
-    map :: [Attribute] -> [VTree] -> VTree
+#### `em`
 
-    mark :: [Attribute] -> [VTree] -> VTree
+``` purescript
+em :: [Attribute] -> [VTree] -> VTree
+```
 
-    menu :: [Attribute] -> [VTree] -> VTree
 
-    menuitem :: [Attribute] -> [VTree] -> VTree
+#### `i`
 
-    meta :: [Attribute] -> [VTree] -> VTree
+``` purescript
+i :: [Attribute] -> [VTree] -> VTree
+```
 
-    meter :: [Attribute] -> [VTree] -> VTree
 
-    nav :: [Attribute] -> [VTree] -> VTree
+#### `ins`
 
-    noscript :: [Attribute] -> [VTree] -> VTree
+``` purescript
+ins :: [Attribute] -> [VTree] -> VTree
+```
 
-    object :: [Attribute] -> [VTree] -> VTree
 
-    ol :: [Attribute] -> [VTree] -> VTree
+#### `kbd`
 
-    optgroup :: [Attribute] -> [VTree] -> VTree
+``` purescript
+kbd :: [Attribute] -> [VTree] -> VTree
+```
 
-    option :: [Attribute] -> [VTree] -> VTree
 
-    output :: [Attribute] -> [VTree] -> VTree
+#### `mark`
 
-    p :: [Attribute] -> [VTree] -> VTree
+``` purescript
+mark :: [Attribute] -> [VTree] -> VTree
+```
 
-    param :: [Attribute] -> [VTree] -> VTree
 
-    pre :: [Attribute] -> [VTree] -> VTree
+#### `meter`
 
-    progress :: [Attribute] -> [VTree] -> VTree
+``` purescript
+meter :: [Attribute] -> [VTree] -> VTree
+```
 
-    q :: [Attribute] -> [VTree] -> VTree
 
-    rp :: [Attribute] -> [VTree] -> VTree
+#### `pre`
 
-    rt :: [Attribute] -> [VTree] -> VTree
+``` purescript
+pre :: [Attribute] -> [VTree] -> VTree
+```
 
-    ruby :: [Attribute] -> [VTree] -> VTree
 
-    s :: [Attribute] -> [VTree] -> VTree
+#### `progress`
 
-    samp :: [Attribute] -> [VTree] -> VTree
+``` purescript
+progress :: [Attribute] -> [VTree] -> VTree
+```
 
-    script :: [Attribute] -> [VTree] -> VTree
 
-    section :: [Attribute] -> [VTree] -> VTree
+#### `q`
 
-    select :: [Attribute] -> [VTree] -> VTree
+``` purescript
+q :: [Attribute] -> [VTree] -> VTree
+```
 
-    small :: [Attribute] -> [VTree] -> VTree
 
-    source :: [Attribute] -> [VTree] -> VTree
+#### `rp`
 
-    span :: [Attribute] -> [VTree] -> VTree
+``` purescript
+rp :: [Attribute] -> [VTree] -> VTree
+```
 
-    strong :: [Attribute] -> [VTree] -> VTree
 
-    style :: [Attribute] -> [VTree] -> VTree
+#### `rt`
 
-    sub :: [Attribute] -> [VTree] -> VTree
+``` purescript
+rt :: [Attribute] -> [VTree] -> VTree
+```
 
-    summary :: [Attribute] -> [VTree] -> VTree
 
-    sup :: [Attribute] -> [VTree] -> VTree
+#### `ruby`
 
-    table :: [Attribute] -> [VTree] -> VTree
+``` purescript
+ruby :: [Attribute] -> [VTree] -> VTree
+```
 
-    tbody :: [Attribute] -> [VTree] -> VTree
 
-    td :: [Attribute] -> [VTree] -> VTree
+#### `s`
 
-    text :: String -> VTree
+``` purescript
+s :: [Attribute] -> [VTree] -> VTree
+```
 
-    textarea :: [Attribute] -> [VTree] -> VTree
 
-    tfoot :: [Attribute] -> [VTree] -> VTree
+#### `samp`
 
-    th :: [Attribute] -> [VTree] -> VTree
+``` purescript
+samp :: [Attribute] -> [VTree] -> VTree
+```
 
-    thead :: [Attribute] -> [VTree] -> VTree
 
-    time :: [Attribute] -> [VTree] -> VTree
+#### `small`
 
-    tr :: [Attribute] -> [VTree] -> VTree
+``` purescript
+small :: [Attribute] -> [VTree] -> VTree
+```
 
-    track :: [Attribute] -> [VTree] -> VTree
 
-    u :: [Attribute] -> [VTree] -> VTree
+#### `strong`
 
-    ul :: [Attribute] -> [VTree] -> VTree
+``` purescript
+strong :: [Attribute] -> [VTree] -> VTree
+```
 
-    var :: [Attribute] -> [VTree] -> VTree
 
-    video :: [Attribute] -> [VTree] -> VTree
+#### `sub`
 
-    wbr :: [Attribute] -> [VTree] -> VTree
+``` purescript
+sub :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `sup`
+
+``` purescript
+sup :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `time`
+
+``` purescript
+time :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `u`
+
+``` purescript
+u :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `var`
+
+``` purescript
+var :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `wbr`
+
+``` purescript
+wbr :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `form`
+
+``` purescript
+form :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `input`
+
+``` purescript
+input :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `textarea`
+
+``` purescript
+textarea :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `button`
+
+``` purescript
+button :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `select`
+
+``` purescript
+select :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `optgroup`
+
+``` purescript
+optgroup :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `option`
+
+``` purescript
+option :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `label`
+
+``` purescript
+label :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `fieldset`
+
+``` purescript
+fieldset :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `legend`
+
+``` purescript
+legend :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `datalist`
+
+``` purescript
+datalist :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `keygen`
+
+``` purescript
+keygen :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `output`
+
+``` purescript
+output :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `iframe`
+
+``` purescript
+iframe :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `img`
+
+``` purescript
+img :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `map`
+
+``` purescript
+map :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `area`
+
+``` purescript
+area :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `canvas`
+
+``` purescript
+canvas :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `figcaption`
+
+``` purescript
+figcaption :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `figure`
+
+``` purescript
+figure :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `audio`
+
+``` purescript
+audio :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `source`
+
+``` purescript
+source :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `track`
+
+``` purescript
+track :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `video`
+
+``` purescript
+video :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `a`
+
+``` purescript
+a :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `link`
+
+``` purescript
+link :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `nav`
+
+``` purescript
+nav :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `ul`
+
+``` purescript
+ul :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `ol`
+
+``` purescript
+ol :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `li`
+
+``` purescript
+li :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `dl`
+
+``` purescript
+dl :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `dt`
+
+``` purescript
+dt :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `dd`
+
+``` purescript
+dd :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `menu`
+
+``` purescript
+menu :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `menuitem`
+
+``` purescript
+menuitem :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `table`
+
+``` purescript
+table :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `caption`
+
+``` purescript
+caption :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `th`
+
+``` purescript
+th :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `tr`
+
+``` purescript
+tr :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `td`
+
+``` purescript
+td :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `thead`
+
+``` purescript
+thead :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `tbody`
+
+``` purescript
+tbody :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `tfoot`
+
+``` purescript
+tfoot :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `col`
+
+``` purescript
+col :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `colgroup`
+
+``` purescript
+colgroup :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `style`
+
+``` purescript
+style :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `div`
+
+``` purescript
+div :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `span`
+
+``` purescript
+span :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `header`
+
+``` purescript
+header :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `hgroup`
+
+``` purescript
+hgroup :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `footer`
+
+``` purescript
+footer :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `main`
+
+``` purescript
+main :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `section`
+
+``` purescript
+section :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `article`
+
+``` purescript
+article :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `aside`
+
+``` purescript
+aside :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `details`
+
+``` purescript
+details :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `dialog`
+
+``` purescript
+dialog :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `summary`
+
+``` purescript
+summary :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `meta`
+
+``` purescript
+meta :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `base`
+
+``` purescript
+base :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `script`
+
+``` purescript
+script :: [Attribute] -> [VTree] -> VTree
+```
+
+#### `noscript`
+
+``` purescript
+noscript :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `embed`
+
+``` purescript
+embed :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `object`
+
+``` purescript
+object :: [Attribute] -> [VTree] -> VTree
+```
+
+
+#### `param`
+
+``` purescript
+param :: [Attribute] -> [VTree] -> VTree
+```
+
 
 
 

@@ -4,12 +4,14 @@ module Main where
 
 import Data.Html
 import Data.Html.Events
+import Data.Html.Events.Delegator
 import qualified Data.Html.Elements.Html5 as E
 import qualified Data.Html.Attributes.Html5 as A
 
 import Control.Monad.Eff.Ref
 import Control.Timer
 import DOM
+import DOM.Delegator
 
 foreign import appendBody """
 function appendBody (e) {
@@ -32,7 +34,7 @@ render ref count = E.div
   [E.text $ show count]
 
 main :: forall e. EffHtml (ref :: Ref, timer :: Timer | e) Unit
-main = do
+main = domDelegator $ do
   ref <- newRef 0
   html <- createElement $ render ref 0
   getNode html >>= appendBody

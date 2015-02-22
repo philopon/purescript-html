@@ -2,208 +2,653 @@
 
 ## Module Data.Html.Attributes.Html5
 
-### Types
+#### `Attribute`
 
-    type Attribute = A.Attribute
+``` purescript
+type Attribute = A.Attribute
+```
 
 
-### Values
+#### `style`
 
-    abbr :: String -> Attribute
+``` purescript
+style :: forall styles. {  | styles } -> Attribute
+```
 
-    accept :: String -> Attribute
 
-    acceptCharset :: String -> Attribute
+#### `accessKey`
 
-    accessKey :: String -> Attribute
+``` purescript
+accessKey :: String -> Attribute
+```
 
-    action :: String -> Attribute
+#### `class_`
 
-    alt :: String -> Attribute
+``` purescript
+class_ :: String -> Attribute
+```
 
-    async :: Boolean -> Attribute
 
-    autocomplete :: String -> Attribute
+#### `contentEditable`
 
-    autofocus :: Boolean -> Attribute
+``` purescript
+contentEditable :: Boolean -> Attribute
+```
 
-    autoplay :: Boolean -> Attribute
 
-    charset :: String -> Attribute
+#### `dir`
 
-    checked :: Boolean -> Attribute
+``` purescript
+dir :: String -> Attribute
+```
 
-    cite :: String -> Attribute
 
-    class_ :: String -> Attribute
+#### `draggable`
 
-    colSpan :: Number -> Attribute
+``` purescript
+draggable :: String -> Attribute
+```
 
-    cols :: Number -> Attribute
 
-    content :: String -> Attribute
+#### `hidden`
 
-    contentEditable :: Boolean -> Attribute
+``` purescript
+hidden :: Boolean -> Attribute
+```
 
-    controls :: Boolean -> Attribute
+#### `id_`
 
-    coords :: String -> Attribute
+``` purescript
+id_ :: String -> Attribute
+```
 
-    crossOrigin :: String -> Attribute
 
-    data_ :: String -> Attribute
+#### `lang`
 
-    dateTime :: String -> Attribute
+``` purescript
+lang :: String -> Attribute
+```
 
-    default :: Boolean -> Attribute
 
-    defer :: Boolean -> Attribute
+#### `spellcheck`
 
-    dir :: String -> Attribute
+``` purescript
+spellcheck :: Boolean -> Attribute
+```
 
-    disabled :: Boolean -> Attribute
 
-    download :: Boolean -> Attribute
+#### `tabIndex`
 
-    downloadAs :: String -> Attribute
+``` purescript
+tabIndex :: Number -> Attribute
+```
 
-    draggable :: String -> Attribute
 
-    enctype :: String -> Attribute
+#### `title`
 
-    for :: String -> Attribute
+``` purescript
+title :: String -> Attribute
+```
 
-    form :: String -> Attribute
 
-    formAction :: String -> Attribute
+#### `download`
 
-    formEnctype :: String -> Attribute
+``` purescript
+download :: Boolean -> Attribute
+```
 
-    formMethod :: String -> Attribute
+#### `downloadAs`
 
-    formNoValidate :: Boolean -> Attribute
+``` purescript
+downloadAs :: String -> Attribute
+```
 
-    formTarget :: String -> Attribute
 
-    headers :: String -> Attribute
+#### `href`
 
-    height :: Number -> Attribute
+``` purescript
+href :: String -> Attribute
+```
 
-    hidden :: Boolean -> Attribute
 
-    high :: Number -> Attribute
+#### `hreflang`
 
-    href :: String -> Attribute
+``` purescript
+hreflang :: String -> Attribute
+```
 
-    hreflang :: String -> Attribute
 
-    httpEquiv :: String -> Attribute
+#### `media`
 
-    icon :: String -> Attribute
+``` purescript
+media :: String -> Attribute
+```
 
-    id_ :: String -> Attribute
 
-    isMap :: Boolean -> Attribute
+#### `rel`
 
-    kind :: String -> Attribute
+``` purescript
+rel :: String -> Attribute
+```
 
-    label :: String -> Attribute
 
-    lang :: String -> Attribute
+#### `target`
 
-    list :: String -> Attribute
+``` purescript
+target :: String -> Attribute
+```
 
-    loop :: Boolean -> Attribute
 
-    low :: Number -> Attribute
+#### `type_`
 
-    max :: String -> Attribute
+``` purescript
+type_ :: String -> Attribute
+```
 
-    maxLength :: Number -> Attribute
 
-    media :: String -> Attribute
+#### `alt`
 
-    method :: String -> Attribute
+``` purescript
+alt :: String -> Attribute
+```
 
-    min :: String -> Attribute
+#### `coords`
 
-    multiple :: Boolean -> Attribute
+``` purescript
+coords :: String -> Attribute
+```
 
-    muted :: Boolean -> Attribute
 
-    name :: String -> Attribute
+#### `shape`
 
-    noValidate :: Boolean -> Attribute
+``` purescript
+shape :: String -> Attribute
+```
 
-    open :: Boolean -> Attribute
+#### `autoplay`
 
-    optimum :: Number -> Attribute
+``` purescript
+autoplay :: Boolean -> Attribute
+```
 
-    pattern :: String -> Attribute
+#### `controls`
 
-    placeholder :: String -> Attribute
+``` purescript
+controls :: Boolean -> Attribute
+```
 
-    poster :: String -> Attribute
 
-    preload :: String -> Attribute
+#### `loop`
 
-    radiogroup :: String -> Attribute
+``` purescript
+loop :: Boolean -> Attribute
+```
 
-    readOnly :: Boolean -> Attribute
 
-    rel :: String -> Attribute
+#### `muted`
 
-    required :: Boolean -> Attribute
+``` purescript
+muted :: Boolean -> Attribute
+```
 
-    reversed :: Boolean -> Attribute
 
-    rowSpan :: Number -> Attribute
+#### `preload`
 
-    rows :: Number -> Attribute
+``` purescript
+preload :: String -> Attribute
+```
 
-    sandbox :: String -> Attribute
 
-    scope :: String -> Attribute
+#### `src`
 
-    scoped :: Boolean -> Attribute
+``` purescript
+src :: String -> Attribute
+```
 
-    selected :: Boolean -> Attribute
 
-    shape :: String -> Attribute
+#### `cite`
 
-    size :: Number -> Attribute
+``` purescript
+cite :: String -> Attribute
+```
 
-    sizes :: String -> Attribute
+#### `autofocus`
 
-    span :: Number -> Attribute
+``` purescript
+autofocus :: Boolean -> Attribute
+```
 
-    spellcheck :: Boolean -> Attribute
+#### `disabled`
 
-    src :: String -> Attribute
+``` purescript
+disabled :: Boolean -> Attribute
+```
 
-    srcdoc :: String -> Attribute
 
-    start :: Number -> Attribute
+#### `form`
 
-    step :: Number -> Attribute
+``` purescript
+form :: String -> Attribute
+```
 
-    style :: forall styles. {  | styles } -> Attribute
 
-    tabIndex :: Number -> Attribute
+#### `formAction`
 
-    target :: String -> Attribute
+``` purescript
+formAction :: String -> Attribute
+```
 
-    title :: String -> Attribute
 
-    type_ :: String -> Attribute
+#### `formEnctype`
 
-    useMap :: String -> Attribute
+``` purescript
+formEnctype :: String -> Attribute
+```
 
-    value :: String -> Attribute
 
-    width :: Number -> Attribute
+#### `formMethod`
 
-    wrap :: String -> Attribute
+``` purescript
+formMethod :: String -> Attribute
+```
+
+
+#### `formNoValidate`
+
+``` purescript
+formNoValidate :: Boolean -> Attribute
+```
+
+
+#### `formTarget`
+
+``` purescript
+formTarget :: String -> Attribute
+```
+
+
+#### `name`
+
+``` purescript
+name :: String -> Attribute
+```
+
+
+#### `value`
+
+``` purescript
+value :: String -> Attribute
+```
+
+#### `height`
+
+``` purescript
+height :: Number -> Attribute
+```
+
+#### `width`
+
+``` purescript
+width :: Number -> Attribute
+```
+
+
+#### `span`
+
+``` purescript
+span :: Number -> Attribute
+```
+
+#### `dateTime`
+
+``` purescript
+dateTime :: String -> Attribute
+```
+
+#### `open`
+
+``` purescript
+open :: Boolean -> Attribute
+```
+
+#### `acceptCharset`
+
+``` purescript
+acceptCharset :: String -> Attribute
+```
+
+#### `action`
+
+``` purescript
+action :: String -> Attribute
+```
+
+
+#### `autocomplete`
+
+``` purescript
+autocomplete :: String -> Attribute
+```
+
+
+#### `enctype`
+
+``` purescript
+enctype :: String -> Attribute
+```
+
+
+#### `method`
+
+``` purescript
+method :: String -> Attribute
+```
+
+
+#### `noValidate`
+
+``` purescript
+noValidate :: Boolean -> Attribute
+```
+
+#### `sandbox`
+
+``` purescript
+sandbox :: String -> Attribute
+```
+
+#### `srcdoc`
+
+``` purescript
+srcdoc :: String -> Attribute
+```
+
+#### `crossOrigin`
+
+``` purescript
+crossOrigin :: String -> Attribute
+```
+
+#### `isMap`
+
+``` purescript
+isMap :: Boolean -> Attribute
+```
+
+#### `useMap`
+
+``` purescript
+useMap :: String -> Attribute
+```
+
+
+#### `accept`
+
+``` purescript
+accept :: String -> Attribute
+```
+
+#### `checked`
+
+``` purescript
+checked :: Boolean -> Attribute
+```
+
+#### `list`
+
+``` purescript
+list :: String -> Attribute
+```
+
+#### `max`
+
+``` purescript
+max :: String -> Attribute
+```
+
+
+#### `maxLength`
+
+``` purescript
+maxLength :: Number -> Attribute
+```
+
+
+#### `min`
+
+``` purescript
+min :: String -> Attribute
+```
+
+
+#### `multiple`
+
+``` purescript
+multiple :: Boolean -> Attribute
+```
+
+
+#### `pattern`
+
+``` purescript
+pattern :: String -> Attribute
+```
+
+#### `placeholder`
+
+``` purescript
+placeholder :: String -> Attribute
+```
+
+
+#### `readOnly`
+
+``` purescript
+readOnly :: Boolean -> Attribute
+```
+
+
+#### `required`
+
+``` purescript
+required :: Boolean -> Attribute
+```
+
+
+#### `size`
+
+``` purescript
+size :: Number -> Attribute
+```
+
+
+#### `step`
+
+``` purescript
+step :: Number -> Attribute
+```
+
+#### `for`
+
+``` purescript
+for :: String -> Attribute
+```
+
+#### `sizes`
+
+``` purescript
+sizes :: String -> Attribute
+```
+
+#### `label`
+
+``` purescript
+label :: String -> Attribute
+```
+
+#### `default`
+
+``` purescript
+default :: Boolean -> Attribute
+```
+
+#### `icon`
+
+``` purescript
+icon :: String -> Attribute
+```
+
+#### `radiogroup`
+
+``` purescript
+radiogroup :: String -> Attribute
+```
+
+#### `charset`
+
+``` purescript
+charset :: String -> Attribute
+```
+
+#### `content`
+
+``` purescript
+content :: String -> Attribute
+```
+
+
+#### `httpEquiv`
+
+``` purescript
+httpEquiv :: String -> Attribute
+```
+
+
+#### `high`
+
+``` purescript
+high :: Number -> Attribute
+```
+
+#### `low`
+
+``` purescript
+low :: Number -> Attribute
+```
+
+
+#### `optimum`
+
+``` purescript
+optimum :: Number -> Attribute
+```
+
+#### `data_`
+
+``` purescript
+data_ :: String -> Attribute
+```
+
+#### `reversed`
+
+``` purescript
+reversed :: Boolean -> Attribute
+```
+
+#### `start`
+
+``` purescript
+start :: Number -> Attribute
+```
+
+
+#### `selected`
+
+``` purescript
+selected :: Boolean -> Attribute
+```
+
+#### `async`
+
+``` purescript
+async :: Boolean -> Attribute
+```
+
+#### `defer`
+
+``` purescript
+defer :: Boolean -> Attribute
+```
+
+#### `scoped`
+
+``` purescript
+scoped :: Boolean -> Attribute
+```
+
+#### `colSpan`
+
+``` purescript
+colSpan :: Number -> Attribute
+```
+
+#### `headers`
+
+``` purescript
+headers :: String -> Attribute
+```
+
+
+#### `rowSpan`
+
+``` purescript
+rowSpan :: Number -> Attribute
+```
+
+
+#### `cols`
+
+``` purescript
+cols :: Number -> Attribute
+```
+
+#### `rows`
+
+``` purescript
+rows :: Number -> Attribute
+```
+
+#### `wrap`
+
+``` purescript
+wrap :: String -> Attribute
+```
+
+
+#### `abbr`
+
+``` purescript
+abbr :: String -> Attribute
+```
+
+#### `scope`
+
+``` purescript
+scope :: String -> Attribute
+```
+
+
+#### `kind`
+
+``` purescript
+kind :: String -> Attribute
+```
+
+#### `poster`
+
+``` purescript
+poster :: String -> Attribute
+```
 
 
 

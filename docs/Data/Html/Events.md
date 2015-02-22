@@ -2,116 +2,190 @@
 
 ## Module Data.Html.Events
 
-### Types
+#### `KeyEvent`
 
-    data Button where
-      Left :: Button
-      Middle :: Button
-      Right :: Button
-
-    type KeyEvent = I.KeyEvent
-
-    type MouseButtonEvent = I.MouseButtonEvent
-
-    type MouseHoverEvent = I.MouseHoverEvent
-
-    type Position = { y :: Number, x :: Number }
+``` purescript
+type KeyEvent = I.KeyEvent
+```
 
 
-### Type Classes
+#### `MouseButtonEvent`
 
-    class EventLike e where
-
-    class HasModifier a where
-      altKey :: a -> Boolean
-      ctrlKey :: a -> Boolean
-      metaKey :: a -> Boolean
-      shiftKey :: a -> Boolean
-
-    class HasPosition a where
-      client :: a -> Position
-      page :: a -> Position
-      screen :: a -> Position
+``` purescript
+type MouseButtonEvent = I.MouseButtonEvent
+```
 
 
-### Type Class Instances
+#### `MouseHoverEvent`
 
-    instance eventLikeEvent :: EventLike Event
-
-    instance eventLikeKeyEvent :: EventLike I.KeyEvent
-
-    instance eventLikeMouseButtonEvent :: EventLike I.MouseButtonEvent
-
-    instance eventLikeMouseHoverEvent :: EventLike I.MouseHoverEvent
-
-    instance keyEventHasModifier :: HasModifier I.KeyEvent
-
-    instance mouseButtonEventHasModifier :: HasModifier I.MouseButtonEvent
-
-    instance mouseButtonHasPosition :: HasPosition I.MouseButtonEvent
-
-    instance mouseHoverEventHasModifier :: HasModifier I.MouseHoverEvent
-
-    instance mouseHoverHasPosition :: HasPosition I.MouseHoverEvent
-
-    instance showButton :: Show Button
-
-    instance showKeyEvent :: Show I.KeyEvent
-
-    instance showMouseButtonEvent :: Show I.MouseButtonEvent
-
-    instance showMouseHoverEvent :: Show I.MouseHoverEvent
+``` purescript
+type MouseHoverEvent = I.MouseHoverEvent
+```
 
 
-### Values
+#### `EventLike`
 
-    button :: MouseButtonEvent -> Button
+``` purescript
+class EventLike e where
+```
 
-    keyCode :: KeyEvent -> Number
 
-    onBlur :: forall e. (Event -> Eff e Unit) -> Attribute
+#### `eventLikeEvent`
 
-    onChange :: (Event -> Eff _ Unit) -> Attribute
+``` purescript
+instance eventLikeEvent :: EventLike Event
+```
 
-    onClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
 
-    onContextMenu :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
+#### `eventLikeKeyEvent`
 
-    onDoubleClick :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
+``` purescript
+instance eventLikeKeyEvent :: EventLike I.KeyEvent
+```
 
-    onFocus :: (Event -> Eff _ Unit) -> Attribute
 
-    onFocusIn :: (Event -> Eff _ Unit) -> Attribute
+#### `eventLikeMouseButtonEvent`
 
-    onFocusOut :: (Event -> Eff _ Unit) -> Attribute
+``` purescript
+instance eventLikeMouseButtonEvent :: EventLike I.MouseButtonEvent
+```
 
-    onInput :: (Event -> Eff _ Unit) -> Attribute
 
-    onKeyDown :: (KeyEvent -> Eff _ Unit) -> Attribute
+#### `eventLikeMouseHoverEvent`
 
-    onKeyPress :: (KeyEvent -> Eff _ Unit) -> Attribute
+``` purescript
+instance eventLikeMouseHoverEvent :: EventLike I.MouseHoverEvent
+```
 
-    onKeyUp :: (KeyEvent -> Eff _ Unit) -> Attribute
 
-    onMouseDown :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
+#### `targetValue`
 
-    onMouseUp :: (MouseButtonEvent -> Eff _ Unit) -> Attribute
+``` purescript
+targetValue :: forall ev. (EventLike ev) => ev -> String
+```
 
-    onSelect :: (Event -> Eff _ Unit) -> Attribute
 
-    onSubmit :: (Event -> Eff _ Unit) -> Attribute
+#### `targetChecked`
 
-    onTouchCancel :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+``` purescript
+targetChecked :: forall ev. (EventLike ev) => ev -> Boolean
+```
 
-    onTouchEnd :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
 
-    onTouchStart :: (MouseHoverEvent -> Eff _ Unit) -> Attribute
+#### `Position`
 
-    onUnload :: (Event -> Eff _ Unit) -> Attribute
+``` purescript
+type Position = { y :: Number, x :: Number }
+```
 
-    targetChecked :: forall ev. (EventLike ev) => ev -> Boolean
 
-    targetValue :: forall ev. (EventLike ev) => ev -> String
+#### `Button`
+
+``` purescript
+data Button
+  = Left 
+  | Middle 
+  | Right 
+```
+
+
+#### `showKeyEvent`
+
+``` purescript
+instance showKeyEvent :: Show I.KeyEvent
+```
+
+
+#### `showButton`
+
+``` purescript
+instance showButton :: Show Button
+```
+
+
+#### `showMouseButtonEvent`
+
+``` purescript
+instance showMouseButtonEvent :: Show I.MouseButtonEvent
+```
+
+
+#### `showMouseHoverEvent`
+
+``` purescript
+instance showMouseHoverEvent :: Show I.MouseHoverEvent
+```
+
+
+#### `HasModifier`
+
+``` purescript
+class HasModifier a where
+  altKey :: a -> Boolean
+  ctrlKey :: a -> Boolean
+  metaKey :: a -> Boolean
+  shiftKey :: a -> Boolean
+```
+
+
+#### `keyEventHasModifier`
+
+``` purescript
+instance keyEventHasModifier :: HasModifier I.KeyEvent
+```
+
+
+#### `mouseButtonEventHasModifier`
+
+``` purescript
+instance mouseButtonEventHasModifier :: HasModifier I.MouseButtonEvent
+```
+
+
+#### `mouseHoverEventHasModifier`
+
+``` purescript
+instance mouseHoverEventHasModifier :: HasModifier I.MouseHoverEvent
+```
+
+
+#### `keyCode`
+
+``` purescript
+keyCode :: KeyEvent -> Number
+```
+
+
+#### `button`
+
+``` purescript
+button :: MouseButtonEvent -> Button
+```
+
+
+#### `HasPosition`
+
+``` purescript
+class HasPosition a where
+  client :: a -> Position
+  page :: a -> Position
+  screen :: a -> Position
+```
+
+
+#### `mouseButtonHasPosition`
+
+``` purescript
+instance mouseButtonHasPosition :: HasPosition I.MouseButtonEvent
+```
+
+
+#### `mouseHoverHasPosition`
+
+``` purescript
+instance mouseHoverHasPosition :: HasPosition I.MouseHoverEvent
+```
+
 
 
 
