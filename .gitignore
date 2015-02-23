@@ -4,6 +4,5 @@ output
 wrapper/bundle.js
 .psci
 wrapper/stringify.js
-wrapper/delegator-bundle.js
 tmp
-wrapper/virtualize.js
+docs/Data/Html/Internal

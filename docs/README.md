@@ -19,9 +19,3 @@ advanced modules
 ---
 * [Data.Html.Elements](Data/Html/Elements.md) -- generic elements functions
 * [Data.Html.Attributes](Data/Html/Attributes.md) -- generic attribute functions
-
-internal modules
----
-**don't touch them.**
-
-* [Data.Html.Internal.*](Data/Html/Internal)

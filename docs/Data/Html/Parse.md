@@ -2,13 +2,6 @@
 
 ## Module Data.Html.Parse
 
-#### `parseDOM`
-
-``` purescript
-parseDOM :: Node -> VTree
-```
-
-
 #### `parseString`
 
 ``` purescript

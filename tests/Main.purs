@@ -2,6 +2,7 @@ module Test.Main where
 
 import Data.Html
 import Data.Html.Stringify
+import Data.Html.Parse
 import qualified Data.Html.Elements as E
 import qualified Data.Html.Attributes as A
 
@@ -38,3 +39,7 @@ main = runMocha $ do
     it "should be softhooked" $
       show (E.vnode "input" [A.stringAttribute "value" "neko"] [])
       @?= "<input value=\"neko\" />"
+
+    let test = "<div style=\"color: black; margin-bottom: 200;\"><input value=\"neko\" /><a href=\"#\" title=\"neko\">nyan</a></div>"
+    it "should inverse function parse and show" $
+      show (parseString test) @?= test

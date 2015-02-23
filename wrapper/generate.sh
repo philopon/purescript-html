@@ -44,17 +44,17 @@ cat <<EOC >> $OUT
 EOC
 
 ####################
-$WEBPACK --output-library virtualize vdom-virtualize virtualize.js   1>&2
+$WEBPACK --output-library htmlToVDom html-to-vdom.js bundle.js 1>&2
 
-OUT=../src/Data/Html/Internal/Virtualize.purs
+OUT=../src/Data/Html/Internal/HtmlToVDom.purs
 
 cat <<EOC > $OUT
-module Data.Html.Internal.Virtualize(virtualize) where
+module Data.Html.Internal.HtmlToVDom(htmlToVDom) where
 
-foreign import virtualize """
+foreign import htmlToVDom """
 EOC
 
-cat virtualize.js | tr -d '\r' >> $OUT
+cat bundle.js | tr -d '\r' >> $OUT
 
 cat <<EOC >> $OUT
 """ :: forall a. a

@@ -1,11 +1,8 @@
 module Data.Html.Parse where
 
-import DOM
 import Data.Html.Elements
-import Data.Html.Internal.Virtualize
-
-parseDOM :: Node -> VTree
-parseDOM = virtualize
+import Data.Html.Internal.VirtualDOM
+import Data.Html.Internal.HtmlToVDom
 
 parseString :: String -> VTree
-parseString = virtualize.fromHTML
+parseString = htmlToVDom virtualDOM.vtext
