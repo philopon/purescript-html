@@ -16,6 +16,13 @@ style :: forall styles. {  | styles } -> Attribute
 ```
 
 
+#### `innerHTML`
+
+``` purescript
+innerHTML :: String -> Attribute
+```
+
+
 #### `accessKey`
 
 ``` purescript
