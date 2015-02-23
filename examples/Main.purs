@@ -5,6 +5,7 @@ module Main where
 import Data.Html
 import Data.Html.Events
 import Data.Html.Events.Delegator
+import Data.Html.Parse
 import qualified Data.Html.Elements.Html5 as E
 import qualified Data.Html.Attributes.Html5 as A
 
@@ -33,8 +34,14 @@ render ref count = E.div
   ]
   [E.text $ show count]
 
+parsingExample :: E.VTree
+parsingExample = parseString "<div style=\"background:red\">parsed element</div>"
+
 main :: forall e. EffHtml (ref :: Ref, timer :: Timer | e) Unit
 main = domDelegator $ do
+  p <- createElement parsingExample
+  getNode p >>= appendBody
+
   ref <- newRef 0
   html <- createElement $ render ref 0
   getNode html >>= appendBody

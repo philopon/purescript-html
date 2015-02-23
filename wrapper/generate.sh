@@ -42,3 +42,20 @@ cat stringify.js | tr -d '\r' >> $OUT
 cat <<EOC >> $OUT
 """ :: forall stringify. stringify
 EOC
+
+####################
+$WEBPACK --output-library virtualize vdom-virtualize virtualize.js   1>&2
+
+OUT=../src/Data/Html/Internal/Virtualize.purs
+
+cat <<EOC > $OUT
+module Data.Html.Internal.Virtualize(virtualize) where
+
+foreign import virtualize """
+EOC
+
+cat virtualize.js | tr -d '\r' >> $OUT
+
+cat <<EOC >> $OUT
+""" :: forall a. a
+EOC
