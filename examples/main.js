@@ -19718,10 +19718,12 @@ function mkEvent (fn) {
             return attribute("ev-" + ev)(mkEvent(fn));
         };
     };
+    var stringAttribute = attribute;
     var style = attribute("style");
     return {
         ev_: ev_, 
-        style: style
+        style: style, 
+        stringAttribute: stringAttribute
     };
 })();
 var PS = PS || {};
@@ -19730,7 +19732,9 @@ PS.Data_Html_Attributes_Html5 = (function () {
     var Data_Html_Attributes = PS.Data_Html_Attributes;
     var Prelude = PS.Prelude;
     var style = Data_Html_Attributes.style;
+    var innerHTML = Data_Html_Attributes.stringAttribute("innerHTML");
     return {
+        innerHTML: innerHTML, 
         style: style
     };
 })();
@@ -19905,21 +19909,24 @@ function appendBody (e) {
                 border: "1px solid red", 
                 width: Prelude.show(Prelude.showNumber)(100 + count) + "px", 
                 height: Prelude.show(Prelude.showNumber)(100 + count) + "px"
-            }), Data_Html_Events_Delegator.onClick(function (_260) {
+            }), Data_Html_Events_Delegator.onClick(function (_261) {
                 return Control_Monad_Eff_Ref.writeRef(ref)(0);
             }) ])([ Data_Html_Elements_Html5.text(Prelude.show(Prelude.showNumber)(count)) ]);
         };
     };
+    var rawHtmlExample = Data_Html_Elements_Html5.div([ Data_Html_Attributes_Html5.innerHTML("<div style=\"background:yellow\">raw element</div>") ])([  ]);
     var parsingExample = Data_Html_Parse.parseString("<div style=\"background:red\">parsed element</div>");
     var main = DOM_Delegator.domDelegator(function __do() {
-        var _8 = Data_Html.createElement(parsingExample)();
+        var _9 = Data_Html.createElement(parsingExample)();
+        Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_9))(appendBody)();
+        var _8 = Data_Html.createElement(rawHtmlExample)();
         Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_8))(appendBody)();
         var _7 = Control_Monad_Eff_Ref.newRef(0)();
         var _6 = Data_Html.createElement(render(_7)(0))();
         Prelude[">>="](Control_Monad_Eff.bindEff)(Data_Html.getNode(_6))(appendBody)();
         Control_Timer.interval(100)(function __do() {
-            var _5 = Control_Monad_Eff_Ref["modifyRef'"](_7)(function (r) {
-                var r$prime = r + 1;
+            var _5 = Control_Monad_Eff_Ref["modifyRef'"](_7)(function (r_1) {
+                var r$prime = r_1 + 1;
                 return {
                     retVal: r$prime, 
                     newState: r$prime
@@ -19932,6 +19939,7 @@ function appendBody (e) {
     return {
         main: main, 
         parsingExample: parsingExample, 
+        rawHtmlExample: rawHtmlExample, 
         render: render, 
         appendBody: appendBody
     };

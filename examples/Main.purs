@@ -34,6 +34,9 @@ render ref count = E.div
   ]
   [E.text $ show count]
 
+rawHtmlExample :: E.VTree
+rawHtmlExample = E.div [A.innerHTML "<div style=\"background:yellow\">raw element</div>"] []
+
 parsingExample :: E.VTree
 parsingExample = parseString "<div style=\"background:red\">parsed element</div>"
 
@@ -41,6 +44,9 @@ main :: forall e. EffHtml (ref :: Ref, timer :: Timer | e) Unit
 main = domDelegator $ do
   p <- createElement parsingExample
   getNode p >>= appendBody
+
+  r <- createElement rawHtmlExample 
+  getNode r >>= appendBody
 
   ref <- newRef 0
   html <- createElement $ render ref 0

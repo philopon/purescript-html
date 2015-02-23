@@ -7,6 +7,9 @@ type Attribute = A.Attribute
 style :: forall styles. {|styles} -> Attribute
 style = A.style
 
+innerHTML :: String -> Attribute
+innerHTML = A.stringAttribute "innerHTML"
+
 -- global attributes http://www.w3schools.com/tags/ref_standardattributes.asp
 accessKey :: String -> Attribute
 accessKey = A.stringAttribute "accessKey"
