@@ -15,6 +15,7 @@ module.exports = {
     library: "exports"
   },
   plugins: [
+    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.OccurenceOrderPlugin(true)
   ],
   module: {
