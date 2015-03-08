@@ -1,8 +1,8 @@
 module Data.Html.Parse where
 
 import Data.Html.Elements
-import Data.Html.Internal.VirtualDOM
-import Data.Html.Internal.HtmlToVDom
+import qualified Data.Html.Internal.VirtualDOM as VirtualDOM
+import qualified Data.Html.Internal.HtmlToVDom as HtmlToVDOM
 
 parseString :: String -> VTree
-parseString = htmlToVDom virtualDOM.vtext
+parseString = HtmlToVDOM.exports VirtualDOM.exports.vtext

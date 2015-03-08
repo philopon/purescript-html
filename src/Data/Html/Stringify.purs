@@ -4,7 +4,7 @@ module Data.Html.Stringify
 
 import Data.Html
 import qualified Data.Html.Elements as E
-import Data.Html.Internal.Stringify
+import qualified Data.Html.Internal.Stringify as Stringify
 
 import Data.Function
 
@@ -14,7 +14,7 @@ function stringifyVNodeImpl(stringify, opts, vnode){
 }""" :: forall stringify opts. Fn3 stringify {|opts} VTree String
 
 stringifyVNode :: forall opts. {|opts} -> VTree -> String
-stringifyVNode o v = runFn3 stringifyVNodeImpl stringify o v
+stringifyVNode o v = runFn3 stringifyVNodeImpl Stringify.exports o v
 
 instance showVTree :: Show E.VTree where
   show = stringifyVNode {}

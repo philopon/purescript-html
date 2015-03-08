@@ -11,7 +11,7 @@ import Data.Html.Elements hiding (VTree)
 import qualified Data.Html.Elements as E
 
 import Data.Html.Attributes
-import Data.Html.Internal.VirtualDOM
+import qualified Data.Html.Internal.VirtualDOM as VirtualDOM
 
 import Data.Function
 import DOM
@@ -31,7 +31,7 @@ function createElementImpl(create, vtree){
 }""" :: forall e create. Fn2 create VTree (EffHtml e Html)
 
 createElement :: VTree -> EffHtml _ Html
-createElement v = runFn2 createElementImpl virtualDOM.create v
+createElement v = runFn2 createElementImpl VirtualDOM.exports.create v
 
 foreign import createElementOptitionsImpl """
 function createElementOptitionsImpl(create, opts, vtree){
@@ -43,7 +43,7 @@ function createElementOptitionsImpl(create, opts, vtree){
 }""" :: forall e create opts. Fn3 create {|opts} VTree (EffHtml e Html)
 
 createElementOptions :: forall opts. { | opts } -> VTree -> EffHtml _ Html
-createElementOptions o v = runFn3 createElementOptitionsImpl virtualDOM.create o v
+createElementOptions o v = runFn3 createElementOptitionsImpl VirtualDOM.exports.create o v
 
 foreign import getNode """
 function getNode(html){
@@ -63,4 +63,4 @@ function patchImpl(fn, next, html){
 }""" :: forall fn e. Fn3 fn VTree Html (EffHtml e Unit)
 
 patch :: VTree -> Html -> EffHtml _ Unit
-patch v h = runFn3 patchImpl virtualDOM v h
+patch v h = runFn3 patchImpl VirtualDOM.exports v h

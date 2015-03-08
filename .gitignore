@@ -1,8 +1,7 @@
 bower_components
 node_modules
 output
-wrapper/bundle.js
 .psci
-wrapper/stringify.js
 tmp
 docs/Data/Html/Internal
+wrapper/bundle
