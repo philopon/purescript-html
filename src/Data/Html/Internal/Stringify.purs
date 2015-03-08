@@ -191,7 +191,7 @@ var stringify =
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "1"
+	module.exports = "2"
 
 
 /***/ },
