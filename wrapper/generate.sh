@@ -1,61 +1,10 @@
 #!/bin/bash
 
 cd `dirname $0`
-WEBPACK=../node_modules/webpack/bin/webpack.js
+../node_modules/webpack/bin/webpack.js
 
-$WEBPACK --output-library virtualDOM virtual-dom.js bundle.js 1>&2
+./wrap.sh Data.Html.Internal.VirtualDOM ./bundle/virtualDOM.js ../src/Data/Html/Internal/VirtualDOM.purs
 
-OUT=../src/Data/Html/Internal/VirtualDOM.purs
+./wrap.sh Data.Html.Internal.Stringify ./bundle/stringify.js ../src/Data/Html/Internal/Stringify.purs
 
-cat <<EOC > $OUT
-module Data.Html.Internal.VirtualDOM (virtualDOM) where
-
-foreign import virtualDOM """
-EOC
-
-cat bundle.js | tr -d '\r' >> $OUT
-
-cat <<EOC >> $OUT
-""" :: forall diff patch create vtext hyperscript.
-  { diff        :: diff
-  , patch       :: patch
-  , create      :: create
-  , vtext       :: vtext
-  , hyperscript :: hyperscript
-  }
-EOC
-
-##################
-
-$WEBPACK --output-library stringify virtual-dom-stringify/lib/stringify.js stringify.js 1>&2
-
-OUT=../src/Data/Html/Internal/Stringify.purs
-
-cat <<EOC > $OUT
-module Data.Html.Internal.Stringify (stringify) where
-
-foreign import stringify """
-EOC
-
-cat stringify.js | tr -d '\r' >> $OUT
-
-cat <<EOC >> $OUT
-""" :: forall stringify. stringify
-EOC
-
-####################
-$WEBPACK --output-library htmlToVDom html-to-vdom.js bundle.js 1>&2
-
-OUT=../src/Data/Html/Internal/HtmlToVDom.purs
-
-cat <<EOC > $OUT
-module Data.Html.Internal.HtmlToVDom(htmlToVDom) where
-
-foreign import htmlToVDom """
-EOC
-
-cat bundle.js | tr -d '\r' >> $OUT
-
-cat <<EOC >> $OUT
-""" :: forall a. a
-EOC
+./wrap.sh Data.Html.Internal.HtmlToVDom ./bundle/htmlToDOM.js ../src/Data/Html/Internal/HtmlToVDom.purs

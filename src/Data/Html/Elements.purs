@@ -4,7 +4,7 @@ module Data.Html.Elements
 
 import Control.Monad.Eff
 import Data.Html.Attributes
-import Data.Html.Internal.VirtualDOM
+import qualified Data.Html.Internal.VirtualDOM as VirtualDOM
 import Data.Function
 import DOM
 
@@ -29,7 +29,7 @@ function vnodeImpl (h, name, attrs, children) {
 }""" :: forall h. Fn4 h String [Attribute] [VTree] VTree
 
 vnode :: String -> [Attribute] -> [VTree] -> VTree
-vnode t a c = runFn4 vnodeImpl virtualDOM.hyperscript t a c
+vnode t a c = runFn4 vnodeImpl VirtualDOM.exports.hyperscript t a c
 
 foreign import vtextImpl """
 function vtextImpl(vtext, text){
@@ -37,4 +37,4 @@ function vtextImpl(vtext, text){
 }""" :: forall a. Fn2 a String VTree
 
 text :: String -> VTree
-text s = runFn2 vtextImpl virtualDOM.vtext s
+text s = runFn2 vtextImpl VirtualDOM.exports.vtext s
