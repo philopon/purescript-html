@@ -5,41 +5,41 @@ var htmlToVDom =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -48,7 +48,7 @@ var htmlToVDom =
 /* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var VNode = __webpack_require__(62);
+	var VNode = __webpack_require__(63);
 
 	module.exports = function(VText){
 	  return __webpack_require__(24)({VNode: VNode, VText: VText})
@@ -148,30 +148,11 @@ var htmlToVDom =
 	    f(xs[i], i);
 	  }
 	}
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
 /* 2 */
-/***/ function(module, exports, __webpack_require__) {
-
-	//Types of elements found in the DOM
-	module.exports = {
-		Text: "text", //Text
-		Directive: "directive", //<? ... ?>
-		Comment: "comment", //<!-- ... -->
-		Script: "script", //<script> tags
-		Style: "style", //<style> tags
-		Tag: "tag", //Any tag
-		CDATA: "cdata", //<![CDATA[ ... ]]>
-
-		isTag: function(elem){
-			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
-		}
-	};
-
-/***/ },
-/* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var Parser = __webpack_require__(13),
@@ -186,7 +167,7 @@ var htmlToVDom =
 	module.exports = {
 		Parser: Parser,
 		Tokenizer: __webpack_require__(14),
-		ElementType: __webpack_require__(2),
+		ElementType: __webpack_require__(3),
 		DomHandler: DomHandler,
 		get FeedHandler(){
 			return defineProp("FeedHandler", __webpack_require__(32));
@@ -245,6 +226,27 @@ var htmlToVDom =
 
 
 /***/ },
+/* 3 */
+/***/ function(module, exports, __webpack_require__) {
+
+	//Types of elements found in the DOM
+	module.exports = {
+		Text: "text", //Text
+		Directive: "directive", //<? ... ?>
+		Comment: "comment", //<!-- ... -->
+		Script: "script", //<script> tags
+		Style: "style", //<style> tags
+		Tag: "tag", //Any tag
+		CDATA: "cdata", //<![CDATA[ ... ]]>
+		Doctype: "doctype",
+
+		isTag: function(elem){
+			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
+		}
+	};
+
+
+/***/ },
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -255,16 +257,17 @@ var htmlToVDom =
 	 * @license  MIT
 	 */
 
-	var base64 = __webpack_require__(64)
-	var ieee754 = __webpack_require__(65)
-	var isArray = __webpack_require__(66)
+	var base64 = __webpack_require__(65)
+	var ieee754 = __webpack_require__(66)
+	var isArray = __webpack_require__(67)
 
 	exports.Buffer = Buffer
-	exports.SlowBuffer = Buffer
+	exports.SlowBuffer = SlowBuffer
 	exports.INSPECT_MAX_BYTES = 50
 	Buffer.poolSize = 8192 // not used by this implementation
 
 	var kMaxLength = 0x3fffffff
+	var rootParent = {}
 
 	/**
 	 * If `Buffer.TYPED_ARRAY_SUPPORT`:
@@ -293,7 +296,7 @@ var htmlToVDom =
 	    var buf = new ArrayBuffer(0)
 	    var arr = new Uint8Array(buf)
 	    arr.foo = function () { return 42 }
-	    return 42 === arr.foo() && // typed array instances can be augmented
+	    return arr.foo() === 42 && // typed array instances can be augmented
 	        typeof arr.subarray === 'function' && // chrome 9-10 lack `subarray`
 	        new Uint8Array(1).subarray(1, 1).byteLength === 0 // ie10 has broken `subarray`
 	  } catch (e) {
@@ -321,55 +324,72 @@ var htmlToVDom =
 
 	  // Find the length
 	  var length
-	  if (type === 'number')
-	    length = subject > 0 ? subject >>> 0 : 0
-	  else if (type === 'string') {
-	    if (encoding === 'base64')
-	      subject = base64clean(subject)
+	  if (type === 'number') {
+	    length = +subject
+	  } else if (type === 'string') {
 	    length = Buffer.byteLength(subject, encoding)
 	  } else if (type === 'object' && subject !== null) { // assume object is array-like
 	    if (subject.type === 'Buffer' && isArray(subject.data))
 	      subject = subject.data
-	    length = +subject.length > 0 ? Math.floor(+subject.length) : 0
-	  } else
+	    length = +subject.length
+	  } else {
 	    throw new TypeError('must start with number, buffer, array or string')
+	  }
 
-	  if (this.length > kMaxLength)
+	  if (length > kMaxLength)
 	    throw new RangeError('Attempt to allocate Buffer larger than maximum ' +
 	      'size: 0x' + kMaxLength.toString(16) + ' bytes')
 
-	  var buf
+	  if (length < 0)
+	    length = 0
+	  else
+	    length >>>= 0 // Coerce to uint32.
+
+	  var self = this
 	  if (Buffer.TYPED_ARRAY_SUPPORT) {
 	    // Preferred: Return an augmented `Uint8Array` instance for best performance
-	    buf = Buffer._augment(new Uint8Array(length))
+	    /*eslint-disable consistent-this */
+	    self = Buffer._augment(new Uint8Array(length))
+	    /*eslint-enable consistent-this */
 	  } else {
 	    // Fallback: Return THIS instance of Buffer (created by `new`)
-	    buf = this
-	    buf.length = length
-	    buf._isBuffer = true
+	    self.length = length
+	    self._isBuffer = true
 	  }
 
 	  var i
 	  if (Buffer.TYPED_ARRAY_SUPPORT && typeof subject.byteLength === 'number') {
 	    // Speed optimization -- use set if we're copying from a typed array
-	    buf._set(subject)
+	    self._set(subject)
 	  } else if (isArrayish(subject)) {
 	    // Treat array-ish objects as a byte array
 	    if (Buffer.isBuffer(subject)) {
 	      for (i = 0; i < length; i++)
-	        buf[i] = subject.readUInt8(i)
+	        self[i] = subject.readUInt8(i)
 	    } else {
 	      for (i = 0; i < length; i++)
-	        buf[i] = ((subject[i] % 256) + 256) % 256
+	        self[i] = ((subject[i] % 256) + 256) % 256
 	    }
 	  } else if (type === 'string') {
-	    buf.write(subject, 0, encoding)
+	    self.write(subject, 0, encoding)
 	  } else if (type === 'number' && !Buffer.TYPED_ARRAY_SUPPORT && !noZero) {
 	    for (i = 0; i < length; i++) {
-	      buf[i] = 0
+	      self[i] = 0
 	    }
 	  }
 
+	  if (length > 0 && length <= Buffer.poolSize)
+	    self.parent = rootParent
+
+	  return self
+	}
+
+	function SlowBuffer (subject, encoding, noZero) {
+	  if (!(this instanceof SlowBuffer))
+	    return new SlowBuffer(subject, encoding, noZero)
+
+	  var buf = new Buffer(subject, encoding, noZero)
+	  delete buf.parent
 	  return buf
 	}
 
@@ -380,6 +400,8 @@ var htmlToVDom =
 	Buffer.compare = function (a, b) {
 	  if (!Buffer.isBuffer(a) || !Buffer.isBuffer(b))
 	    throw new TypeError('Arguments must be Buffers')
+
+	  if (a === b) return 0
 
 	  var x = a.length
 	  var y = b.length
@@ -520,7 +542,8 @@ var htmlToVDom =
 	}
 
 	Buffer.prototype.equals = function (b) {
-	  if(!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (this === b) return true
 	  return Buffer.compare(this, b) === 0
 	}
 
@@ -537,6 +560,7 @@ var htmlToVDom =
 
 	Buffer.prototype.compare = function (b) {
 	  if (!Buffer.isBuffer(b)) throw new TypeError('Argument must be a Buffer')
+	  if (this === b) return 0
 	  return Buffer.compare(this, b)
 	}
 
@@ -580,7 +604,7 @@ var htmlToVDom =
 	}
 
 	function utf8Write (buf, string, offset, length) {
-	  var charsWritten = blitBuffer(utf8ToBytes(string), buf, offset, length)
+	  var charsWritten = blitBuffer(utf8ToBytes(string, buf.length - offset), buf, offset, length)
 	  return charsWritten
 	}
 
@@ -599,7 +623,7 @@ var htmlToVDom =
 	}
 
 	function utf16leWrite (buf, string, offset, length) {
-	  var charsWritten = blitBuffer(utf16leToBytes(string), buf, offset, length, 2)
+	  var charsWritten = blitBuffer(utf16leToBytes(string, buf.length - offset), buf, offset, length)
 	  return charsWritten
 	}
 
@@ -619,6 +643,10 @@ var htmlToVDom =
 	  }
 
 	  offset = Number(offset) || 0
+
+	  if (length < 0 || offset < 0 || offset > this.length)
+	    throw new RangeError('attempt to write outside buffer bounds')
+
 	  var remaining = this.length - offset
 	  if (!length) {
 	    length = remaining
@@ -697,13 +725,19 @@ var htmlToVDom =
 	  end = Math.min(buf.length, end)
 
 	  for (var i = start; i < end; i++) {
-	    ret += String.fromCharCode(buf[i])
+	    ret += String.fromCharCode(buf[i] & 0x7F)
 	  }
 	  return ret
 	}
 
 	function binarySlice (buf, start, end) {
-	  return asciiSlice(buf, start, end)
+	  var ret = ''
+	  end = Math.min(buf.length, end)
+
+	  for (var i = start; i < end; i++) {
+	    ret += String.fromCharCode(buf[i])
+	  }
+	  return ret
 	}
 
 	function hexSlice (buf, start, end) {
@@ -734,7 +768,7 @@ var htmlToVDom =
 	  end = end === undefined ? len : ~~end
 
 	  if (start < 0) {
-	    start += len;
+	    start += len
 	    if (start < 0)
 	      start = 0
 	  } else if (start > len) {
@@ -752,16 +786,21 @@ var htmlToVDom =
 	  if (end < start)
 	    end = start
 
+	  var newBuf
 	  if (Buffer.TYPED_ARRAY_SUPPORT) {
-	    return Buffer._augment(this.subarray(start, end))
+	    newBuf = Buffer._augment(this.subarray(start, end))
 	  } else {
 	    var sliceLen = end - start
-	    var newBuf = new Buffer(sliceLen, undefined, true)
+	    newBuf = new Buffer(sliceLen, undefined, true)
 	    for (var i = 0; i < sliceLen; i++) {
 	      newBuf[i] = this[i + start]
 	    }
-	    return newBuf
 	  }
+
+	  if (newBuf.length)
+	    newBuf.parent = this.parent || this
+
+	  return newBuf
 	}
 
 	/*
@@ -772,6 +811,35 @@ var htmlToVDom =
 	    throw new RangeError('offset is not uint')
 	  if (offset + ext > length)
 	    throw new RangeError('Trying to access beyond buffer length')
+	}
+
+	Buffer.prototype.readUIntLE = function (offset, byteLength, noAssert) {
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkOffset(offset, byteLength, this.length)
+
+	  var val = this[offset]
+	  var mul = 1
+	  var i = 0
+	  while (++i < byteLength && (mul *= 0x100))
+	    val += this[offset + i] * mul
+
+	  return val
+	}
+
+	Buffer.prototype.readUIntBE = function (offset, byteLength, noAssert) {
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkOffset(offset, byteLength, this.length)
+
+	  var val = this[offset + --byteLength]
+	  var mul = 1
+	  while (byteLength > 0 && (mul *= 0x100))
+	    val += this[offset + --byteLength] * mul
+
+	  return val
 	}
 
 	Buffer.prototype.readUInt8 = function (offset, noAssert) {
@@ -810,6 +878,44 @@ var htmlToVDom =
 	      ((this[offset + 1] << 16) |
 	      (this[offset + 2] << 8) |
 	      this[offset + 3])
+	}
+
+	Buffer.prototype.readIntLE = function (offset, byteLength, noAssert) {
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkOffset(offset, byteLength, this.length)
+
+	  var val = this[offset]
+	  var mul = 1
+	  var i = 0
+	  while (++i < byteLength && (mul *= 0x100))
+	    val += this[offset + i] * mul
+	  mul *= 0x80
+
+	  if (val >= mul)
+	    val -= Math.pow(2, 8 * byteLength)
+
+	  return val
+	}
+
+	Buffer.prototype.readIntBE = function (offset, byteLength, noAssert) {
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkOffset(offset, byteLength, this.length)
+
+	  var i = byteLength
+	  var mul = 1
+	  var val = this[offset + --i]
+	  while (i > 0 && (mul *= 0x100))
+	    val += this[offset + --i] * mul
+	  mul *= 0x80
+
+	  if (val >= mul)
+	    val -= Math.pow(2, 8 * byteLength)
+
+	  return val
 	}
 
 	Buffer.prototype.readInt8 = function (offset, noAssert) {
@@ -880,8 +986,40 @@ var htmlToVDom =
 
 	function checkInt (buf, value, offset, ext, max, min) {
 	  if (!Buffer.isBuffer(buf)) throw new TypeError('buffer must be a Buffer instance')
-	  if (value > max || value < min) throw new TypeError('value is out of bounds')
-	  if (offset + ext > buf.length) throw new TypeError('index out of range')
+	  if (value > max || value < min) throw new RangeError('value is out of bounds')
+	  if (offset + ext > buf.length) throw new RangeError('index out of range')
+	}
+
+	Buffer.prototype.writeUIntLE = function (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+	  var mul = 1
+	  var i = 0
+	  this[offset] = value & 0xFF
+	  while (++i < byteLength && (mul *= 0x100))
+	    this[offset + i] = (value / mul) >>> 0 & 0xFF
+
+	  return offset + byteLength
+	}
+
+	Buffer.prototype.writeUIntBE = function (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset >>> 0
+	  byteLength = byteLength >>> 0
+	  if (!noAssert)
+	    checkInt(this, value, offset, byteLength, Math.pow(2, 8 * byteLength), 0)
+
+	  var i = byteLength - 1
+	  var mul = 1
+	  this[offset + i] = value & 0xFF
+	  while (--i >= 0 && (mul *= 0x100))
+	    this[offset + i] = (value / mul) >>> 0 & 0xFF
+
+	  return offset + byteLength
 	}
 
 	Buffer.prototype.writeUInt8 = function (value, offset, noAssert) {
@@ -961,6 +1099,50 @@ var htmlToVDom =
 	  return offset + 4
 	}
 
+	Buffer.prototype.writeIntLE = function (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset >>> 0
+	  if (!noAssert) {
+	    checkInt(this,
+	             value,
+	             offset,
+	             byteLength,
+	             Math.pow(2, 8 * byteLength - 1) - 1,
+	             -Math.pow(2, 8 * byteLength - 1))
+	  }
+
+	  var i = 0
+	  var mul = 1
+	  var sub = value < 0 ? 1 : 0
+	  this[offset] = value & 0xFF
+	  while (++i < byteLength && (mul *= 0x100))
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+
+	  return offset + byteLength
+	}
+
+	Buffer.prototype.writeIntBE = function (value, offset, byteLength, noAssert) {
+	  value = +value
+	  offset = offset >>> 0
+	  if (!noAssert) {
+	    checkInt(this,
+	             value,
+	             offset,
+	             byteLength,
+	             Math.pow(2, 8 * byteLength - 1) - 1,
+	             -Math.pow(2, 8 * byteLength - 1))
+	  }
+
+	  var i = byteLength - 1
+	  var mul = 1
+	  var sub = value < 0 ? 1 : 0
+	  this[offset + i] = value & 0xFF
+	  while (--i >= 0 && (mul *= 0x100))
+	    this[offset + i] = ((value / mul) >> 0) - sub & 0xFF
+
+	  return offset + byteLength
+	}
+
 	Buffer.prototype.writeInt8 = function (value, offset, noAssert) {
 	  value = +value
 	  offset = offset >>> 0
@@ -1026,8 +1208,9 @@ var htmlToVDom =
 	}
 
 	function checkIEEE754 (buf, value, offset, ext, max, min) {
-	  if (value > max || value < min) throw new TypeError('value is out of bounds')
-	  if (offset + ext > buf.length) throw new TypeError('index out of range')
+	  if (value > max || value < min) throw new RangeError('value is out of bounds')
+	  if (offset + ext > buf.length) throw new RangeError('index out of range')
+	  if (offset < 0) throw new RangeError('index out of range')
 	}
 
 	function writeFloat (buf, value, offset, littleEndian, noAssert) {
@@ -1062,22 +1245,23 @@ var htmlToVDom =
 
 	// copy(targetBuffer, targetStart=0, sourceStart=0, sourceEnd=buffer.length)
 	Buffer.prototype.copy = function (target, target_start, start, end) {
-	  var source = this
+	  var self = this // source
 
 	  if (!start) start = 0
 	  if (!end && end !== 0) end = this.length
+	  if (target_start >= target.length) target_start = target.length
 	  if (!target_start) target_start = 0
+	  if (end > 0 && end < start) end = start
 
 	  // Copy 0 bytes; we're done
-	  if (end === start) return
-	  if (target.length === 0 || source.length === 0) return
+	  if (end === start) return 0
+	  if (target.length === 0 || self.length === 0) return 0
 
 	  // Fatal error conditions
-	  if (end < start) throw new TypeError('sourceEnd < sourceStart')
-	  if (target_start < 0 || target_start >= target.length)
-	    throw new TypeError('targetStart out of bounds')
-	  if (start < 0 || start >= source.length) throw new TypeError('sourceStart out of bounds')
-	  if (end < 0 || end > source.length) throw new TypeError('sourceEnd out of bounds')
+	  if (target_start < 0)
+	    throw new RangeError('targetStart out of bounds')
+	  if (start < 0 || start >= self.length) throw new RangeError('sourceStart out of bounds')
+	  if (end < 0) throw new RangeError('sourceEnd out of bounds')
 
 	  // Are we oob?
 	  if (end > this.length)
@@ -1094,6 +1278,8 @@ var htmlToVDom =
 	  } else {
 	    target._set(this.subarray(start, start + len), target_start)
 	  }
+
+	  return len
 	}
 
 	// fill(value, start=0, end=buffer.length)
@@ -1102,14 +1288,14 @@ var htmlToVDom =
 	  if (!start) start = 0
 	  if (!end) end = this.length
 
-	  if (end < start) throw new TypeError('end < start')
+	  if (end < start) throw new RangeError('end < start')
 
 	  // Fill 0 bytes; we're done
 	  if (end === start) return
 	  if (this.length === 0) return
 
-	  if (start < 0 || start >= this.length) throw new TypeError('start out of bounds')
-	  if (end < 0 || end > this.length) throw new TypeError('end out of bounds')
+	  if (start < 0 || start >= this.length) throw new RangeError('start out of bounds')
+	  if (end < 0 || end > this.length) throw new RangeError('end out of bounds')
 
 	  var i
 	  if (typeof value === 'number') {
@@ -1175,11 +1361,15 @@ var htmlToVDom =
 	  arr.compare = BP.compare
 	  arr.copy = BP.copy
 	  arr.slice = BP.slice
+	  arr.readUIntLE = BP.readUIntLE
+	  arr.readUIntBE = BP.readUIntBE
 	  arr.readUInt8 = BP.readUInt8
 	  arr.readUInt16LE = BP.readUInt16LE
 	  arr.readUInt16BE = BP.readUInt16BE
 	  arr.readUInt32LE = BP.readUInt32LE
 	  arr.readUInt32BE = BP.readUInt32BE
+	  arr.readIntLE = BP.readIntLE
+	  arr.readIntBE = BP.readIntBE
 	  arr.readInt8 = BP.readInt8
 	  arr.readInt16LE = BP.readInt16LE
 	  arr.readInt16BE = BP.readInt16BE
@@ -1190,10 +1380,14 @@ var htmlToVDom =
 	  arr.readDoubleLE = BP.readDoubleLE
 	  arr.readDoubleBE = BP.readDoubleBE
 	  arr.writeUInt8 = BP.writeUInt8
+	  arr.writeUIntLE = BP.writeUIntLE
+	  arr.writeUIntBE = BP.writeUIntBE
 	  arr.writeUInt16LE = BP.writeUInt16LE
 	  arr.writeUInt16BE = BP.writeUInt16BE
 	  arr.writeUInt32LE = BP.writeUInt32LE
 	  arr.writeUInt32BE = BP.writeUInt32BE
+	  arr.writeIntLE = BP.writeIntLE
+	  arr.writeIntBE = BP.writeIntBE
 	  arr.writeInt8 = BP.writeInt8
 	  arr.writeInt16LE = BP.writeInt16LE
 	  arr.writeInt16BE = BP.writeInt16BE
@@ -1210,11 +1404,13 @@ var htmlToVDom =
 	  return arr
 	}
 
-	var INVALID_BASE64_RE = /[^+\/0-9A-z]/g
+	var INVALID_BASE64_RE = /[^+\/0-9A-z\-]/g
 
 	function base64clean (str) {
 	  // Node strips out invalid characters like \n and \t from the string, base64-js does not
 	  str = stringtrim(str).replace(INVALID_BASE64_RE, '')
+	  // Node converts strings with length < 2 to ''
+	  if (str.length < 2) return ''
 	  // Node allows for non-padded base64 strings (missing trailing ===), base64-js does not
 	  while (str.length % 4 !== 0) {
 	    str = str + '='
@@ -1238,22 +1434,85 @@ var htmlToVDom =
 	  return n.toString(16)
 	}
 
-	function utf8ToBytes (str) {
-	  var byteArray = []
-	  for (var i = 0; i < str.length; i++) {
-	    var b = str.charCodeAt(i)
-	    if (b <= 0x7F) {
-	      byteArray.push(b)
-	    } else {
-	      var start = i
-	      if (b >= 0xD800 && b <= 0xDFFF) i++
-	      var h = encodeURIComponent(str.slice(start, i+1)).substr(1).split('%')
-	      for (var j = 0; j < h.length; j++) {
-	        byteArray.push(parseInt(h[j], 16))
+	function utf8ToBytes (string, units) {
+	  units = units || Infinity
+	  var codePoint
+	  var length = string.length
+	  var leadSurrogate = null
+	  var bytes = []
+	  var i = 0
+
+	  for (; i < length; i++) {
+	    codePoint = string.charCodeAt(i)
+
+	    // is surrogate component
+	    if (codePoint > 0xD7FF && codePoint < 0xE000) {
+	      // last char was a lead
+	      if (leadSurrogate) {
+	        // 2 leads in a row
+	        if (codePoint < 0xDC00) {
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	          leadSurrogate = codePoint
+	          continue
+	        } else {
+	          // valid surrogate pair
+	          codePoint = leadSurrogate - 0xD800 << 10 | codePoint - 0xDC00 | 0x10000
+	          leadSurrogate = null
+	        }
+	      } else {
+	        // no lead yet
+
+	        if (codePoint > 0xDBFF) {
+	          // unexpected trail
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	          continue
+	        } else if (i + 1 === length) {
+	          // unpaired lead
+	          if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	          continue
+	        } else {
+	          // valid lead
+	          leadSurrogate = codePoint
+	          continue
+	        }
 	      }
+	    } else if (leadSurrogate) {
+	      // valid bmp char, but last char was a lead
+	      if ((units -= 3) > -1) bytes.push(0xEF, 0xBF, 0xBD)
+	      leadSurrogate = null
+	    }
+
+	    // encode utf8
+	    if (codePoint < 0x80) {
+	      if ((units -= 1) < 0) break
+	      bytes.push(codePoint)
+	    } else if (codePoint < 0x800) {
+	      if ((units -= 2) < 0) break
+	      bytes.push(
+	        codePoint >> 0x6 | 0xC0,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else if (codePoint < 0x10000) {
+	      if ((units -= 3) < 0) break
+	      bytes.push(
+	        codePoint >> 0xC | 0xE0,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else if (codePoint < 0x200000) {
+	      if ((units -= 4) < 0) break
+	      bytes.push(
+	        codePoint >> 0x12 | 0xF0,
+	        codePoint >> 0xC & 0x3F | 0x80,
+	        codePoint >> 0x6 & 0x3F | 0x80,
+	        codePoint & 0x3F | 0x80
+	      )
+	    } else {
+	      throw new Error('Invalid code point')
 	    }
 	  }
-	  return byteArray
+
+	  return bytes
 	}
 
 	function asciiToBytes (str) {
@@ -1265,10 +1524,12 @@ var htmlToVDom =
 	  return byteArray
 	}
 
-	function utf16leToBytes (str) {
+	function utf16leToBytes (str, units) {
 	  var c, hi, lo
 	  var byteArray = []
 	  for (var i = 0; i < str.length; i++) {
+	    if ((units -= 2) < 0) break
+
 	    c = str.charCodeAt(i)
 	    hi = c >> 8
 	    lo = c % 256
@@ -1280,11 +1541,10 @@ var htmlToVDom =
 	}
 
 	function base64ToBytes (str) {
-	  return base64.toByteArray(str)
+	  return base64.toByteArray(base64clean(str))
 	}
 
-	function blitBuffer (src, dst, offset, length, unitSize) {
-	  if (unitSize) length -= length % unitSize;
+	function blitBuffer (src, dst, offset, length) {
 	  for (var i = 0; i < length; i++) {
 	    if ((i + offset >= dst.length) || (i >= src.length))
 	      break
@@ -1300,7 +1560,7 @@ var htmlToVDom =
 	    return String.fromCharCode(0xFFFD) // UTF 8 invalid char
 	  }
 	}
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4).Buffer))
 
 /***/ },
@@ -1452,69 +1712,40 @@ var htmlToVDom =
 	// shim for using process in browser
 
 	var process = module.exports = {};
+	var queue = [];
+	var draining = false;
 
-	process.nextTick = (function () {
-	    var canSetImmediate = typeof window !== 'undefined'
-	    && window.setImmediate;
-	    var canMutationObserver = typeof window !== 'undefined'
-	    && window.MutationObserver;
-	    var canPost = typeof window !== 'undefined'
-	    && window.postMessage && window.addEventListener
-	    ;
-
-	    if (canSetImmediate) {
-	        return function (f) { return window.setImmediate(f) };
+	function drainQueue() {
+	    if (draining) {
+	        return;
 	    }
-
-	    var queue = [];
-
-	    if (canMutationObserver) {
-	        var hiddenDiv = document.createElement("div");
-	        var observer = new MutationObserver(function () {
-	            var queueList = queue.slice();
-	            queue.length = 0;
-	            queueList.forEach(function (fn) {
-	                fn();
-	            });
-	        });
-
-	        observer.observe(hiddenDiv, { attributes: true });
-
-	        return function nextTick(fn) {
-	            if (!queue.length) {
-	                hiddenDiv.setAttribute('yes', 'no');
-	            }
-	            queue.push(fn);
-	        };
+	    draining = true;
+	    var currentQueue;
+	    var len = queue.length;
+	    while(len) {
+	        currentQueue = queue;
+	        queue = [];
+	        var i = -1;
+	        while (++i < len) {
+	            currentQueue[i]();
+	        }
+	        len = queue.length;
 	    }
-
-	    if (canPost) {
-	        window.addEventListener('message', function (ev) {
-	            var source = ev.source;
-	            if ((source === window || source === null) && ev.data === 'process-tick') {
-	                ev.stopPropagation();
-	                if (queue.length > 0) {
-	                    var fn = queue.shift();
-	                    fn();
-	                }
-	            }
-	        }, true);
-
-	        return function nextTick(fn) {
-	            queue.push(fn);
-	            window.postMessage('process-tick', '*');
-	        };
+	    draining = false;
+	}
+	process.nextTick = function (fun) {
+	    queue.push(fun);
+	    if (!draining) {
+	        setTimeout(drainQueue, 0);
 	    }
-
-	    return function nextTick(fn) {
-	        setTimeout(fn, 0);
-	    };
-	})();
+	};
 
 	process.title = 'browser';
 	process.browser = true;
 	process.env = {};
 	process.argv = [];
+	process.version = ''; // empty string to avoid regexp issues
+	process.versions = {};
 
 	function noop() {}
 
@@ -1535,6 +1766,7 @@ var htmlToVDom =
 	process.chdir = function (dir) {
 	    throw new Error('process.chdir is not supported');
 	};
+	process.umask = function() { return 0; };
 
 
 /***/ },
@@ -1565,14 +1797,14 @@ var htmlToVDom =
 	module.exports = Stream;
 
 	var EE = __webpack_require__(10).EventEmitter;
-	var inherits = __webpack_require__(73);
+	var inherits = __webpack_require__(74);
 
 	inherits(Stream, EE);
-	Stream.Readable = __webpack_require__(70);
-	Stream.Writable = __webpack_require__(72);
-	Stream.Duplex = __webpack_require__(67);
-	Stream.Transform = __webpack_require__(71);
-	Stream.PassThrough = __webpack_require__(69);
+	Stream.Readable = __webpack_require__(71);
+	Stream.Writable = __webpack_require__(73);
+	Stream.Duplex = __webpack_require__(68);
+	Stream.Transform = __webpack_require__(72);
+	Stream.PassThrough = __webpack_require__(70);
 
 	// Backwards-compat with node 0.4.x
 	Stream.Stream = Stream;
@@ -2199,7 +2431,7 @@ var htmlToVDom =
 	}
 	exports.isPrimitive = isPrimitive;
 
-	exports.isBuffer = __webpack_require__(75);
+	exports.isBuffer = __webpack_require__(76);
 
 	function objectToString(o) {
 	  return Object.prototype.toString.call(o);
@@ -2243,7 +2475,7 @@ var htmlToVDom =
 	 *     prototype.
 	 * @param {function} superCtor Constructor function to inherit prototype from.
 	 */
-	exports.inherits = __webpack_require__(74);
+	exports.inherits = __webpack_require__(75);
 
 	exports._extend = function(origin, add) {
 	  // Don't do anything if add isn't an object
@@ -2260,7 +2492,7 @@ var htmlToVDom =
 	function hasOwnProperty(obj, prop) {
 	  return Object.prototype.hasOwnProperty.call(obj, prop);
 	}
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(7)))
 
 /***/ },
@@ -3266,7 +3498,7 @@ var htmlToVDom =
 	  }
 	  state.ended = true;
 	}
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
@@ -3631,10 +3863,10 @@ var htmlToVDom =
 
 	module.exports = Tokenizer;
 
-	var decodeCodePoint = __webpack_require__(49),
-	    entityMap = __webpack_require__(55),
-	    legacyMap = __webpack_require__(56),
-	    xmlMap    = __webpack_require__(57),
+	var decodeCodePoint = __webpack_require__(50),
+	    entityMap = __webpack_require__(56),
+	    legacyMap = __webpack_require__(57),
+	    xmlMap    = __webpack_require__(58),
 
 	    i = 0,
 
@@ -4544,7 +4776,7 @@ var htmlToVDom =
 	module.exports = Stream;
 
 	var Parser = __webpack_require__(13),
-	    WritableStream = __webpack_require__(8).Writable || __webpack_require__(76).Writable;
+	    WritableStream = __webpack_require__(8).Writable || __webpack_require__(77).Writable;
 
 	function Stream(cbs, options){
 		var parser = this._parser = new Parser(cbs, options);
@@ -7296,8 +7528,8 @@ var htmlToVDom =
 		}
 
 	}(this));
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(63)(module), (function() { return this; }())))
+
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(64)(module), (function() { return this; }())))
 
 /***/ },
 /* 21 */
@@ -7379,7 +7611,7 @@ var htmlToVDom =
 	module.exports = Readable;
 
 	/*<replacement>*/
-	var isArray = __webpack_require__(68);
+	var isArray = __webpack_require__(69);
 	/*</replacement>*/
 
 
@@ -7408,7 +7640,7 @@ var htmlToVDom =
 
 
 	/*<replacement>*/
-	var debug = __webpack_require__(77);
+	var debug = __webpack_require__(78);
 	if (debug && debug.debuglog) {
 	  debug = debug.debuglog('stream');
 	} else {
@@ -8306,7 +8538,7 @@ var htmlToVDom =
 	  }
 	  return -1;
 	}
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ },
@@ -8643,11 +8875,13 @@ var htmlToVDom =
 	module.exports = function createConverter (VNode, VText) {
 	    var converter = {
 	        convert: function (node, getVNodeKey) {
-	            if (node.type === 'tag') {
+	            if (node.type === 'tag' || node.type === 'script' || node.type === 'style') {
 	                return converter.convertTag(node, getVNodeKey);
-	            }
-	            else if (node.type === 'text') {
+	            } else if (node.type === 'text') {
 	                return new VText(decode(node.data));
+	            } else {
+	                // converting an unsupported node, return an empty text node instead.
+	                return new VText('');
 	            }
 	        },
 	        convertTag: function (tag, getVNodeKey) {
@@ -8695,7 +8929,7 @@ var htmlToVDom =
 /* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var htmlparser = __webpack_require__(3);
+	var htmlparser = __webpack_require__(2);
 
 	var parseHTML = function parseHTML (html) {
 	    var handler = new htmlparser.DomHandler(function (error, dom) {
@@ -8716,7 +8950,7 @@ var htmlToVDom =
 /***/ function(module, exports, __webpack_require__) {
 
 	var punycode = __webpack_require__(20);
-	var entities = __webpack_require__(50);
+	var entities = __webpack_require__(51);
 
 	module.exports = decode;
 
@@ -8754,7 +8988,7 @@ var htmlToVDom =
 /***/ function(module, exports, __webpack_require__) {
 
 	var punycode = __webpack_require__(20);
-	var revEntities = __webpack_require__(51);
+	var revEntities = __webpack_require__(52);
 
 	module.exports = encode;
 
@@ -8813,7 +9047,7 @@ var htmlToVDom =
 		this.events = [];
 	}
 
-	var EVENTS = __webpack_require__(3).EVENTS;
+	var EVENTS = __webpack_require__(2).EVENTS;
 	Object.keys(EVENTS).forEach(function(name){
 		if(EVENTS[name] === 0){
 			name = "on" + name;
@@ -8867,7 +9101,7 @@ var htmlToVDom =
 /* 32 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var index = __webpack_require__(3),
+	var index = __webpack_require__(2),
 	    DomHandler = index.DomHandler,
 		DomUtils = index.DomUtils;
 
@@ -8974,7 +9208,7 @@ var htmlToVDom =
 		this._cbs = cbs || {};
 	}
 
-	var EVENTS = __webpack_require__(3).EVENTS;
+	var EVENTS = __webpack_require__(2).EVENTS;
 	Object.keys(EVENTS).forEach(function(name){
 		if(EVENTS[name] === 0){
 			name = "on" + name;
@@ -9016,7 +9250,7 @@ var htmlToVDom =
 		this.scope = scope;
 	}
 
-	var EVENTS = __webpack_require__(3).EVENTS;
+	var EVENTS = __webpack_require__(2).EVENTS;
 
 	Object.keys(EVENTS).forEach(function(name){
 		if(EVENTS[name] === 0){
@@ -9040,7 +9274,7 @@ var htmlToVDom =
 /* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(2);
+	var ElementType = __webpack_require__(3);
 
 	var re_whitespace = /\s+/g;
 	var NodePrototype = __webpack_require__(16);
@@ -9421,7 +9655,7 @@ var htmlToVDom =
 /* 39 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(2);
+	var ElementType = __webpack_require__(3);
 	var isTag = exports.isTag = ElementType.isTag;
 
 	exports.testElement = function(options, element){
@@ -9597,7 +9831,7 @@ var htmlToVDom =
 /* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var isTag = __webpack_require__(2).isTag;
+	var isTag = __webpack_require__(3).isTag;
 
 	module.exports = {
 		filter: filter,
@@ -9697,7 +9931,7 @@ var htmlToVDom =
 /* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var ElementType = __webpack_require__(2),
+	var ElementType = __webpack_require__(3),
 	    getOuterHTML = __webpack_require__(44),
 	    isTag = ElementType.isTag;
 
@@ -9758,8 +9992,8 @@ var htmlToVDom =
 	/*
 	  Module dependencies
 	*/
-	var ElementType = __webpack_require__(2);
-	var entities = __webpack_require__(45);
+	var ElementType = __webpack_require__(45);
+	var entities = __webpack_require__(46);
 
 	/*
 	  Boolean Attributes
@@ -9939,8 +10173,27 @@ var htmlToVDom =
 /* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var encode = __webpack_require__(48),
-	    decode = __webpack_require__(46);
+	//Types of elements found in the DOM
+	module.exports = {
+		Text: "text", //Text
+		Directive: "directive", //<? ... ?>
+		Comment: "comment", //<!-- ... -->
+		Script: "script", //<script> tags
+		Style: "style", //<style> tags
+		Tag: "tag", //Any tag
+		CDATA: "cdata", //<![CDATA[ ... ]]>
+
+		isTag: function(elem){
+			return elem.type === "tag" || elem.type === "script" || elem.type === "style";
+		}
+	};
+
+/***/ },
+/* 46 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var encode = __webpack_require__(49),
+	    decode = __webpack_require__(47);
 
 	exports.decode = function(data, level){
 		return (!level || level <= 0 ? decode.XML : decode.HTML)(data);
@@ -9975,13 +10228,13 @@ var htmlToVDom =
 
 
 /***/ },
-/* 46 */
+/* 47 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var entityMap = __webpack_require__(17),
-	    legacyMap = __webpack_require__(53),
+	    legacyMap = __webpack_require__(54),
 	    xmlMap    = __webpack_require__(18),
-	    decodeCodePoint = __webpack_require__(47);
+	    decodeCodePoint = __webpack_require__(48);
 
 	var decodeXMLStrict  = getStrictDecoder(xmlMap),
 	    decodeHTMLStrict = getStrictDecoder(entityMap);
@@ -10052,10 +10305,10 @@ var htmlToVDom =
 	};
 
 /***/ },
-/* 47 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var decodeMap = __webpack_require__(52);
+	var decodeMap = __webpack_require__(53);
 
 	module.exports = decodeCodePoint;
 
@@ -10084,7 +10337,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 48 */
+/* 49 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var inverseXML = getInverseObj(__webpack_require__(18)),
@@ -10163,10 +10416,10 @@ var htmlToVDom =
 
 
 /***/ },
-/* 49 */
+/* 50 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var decodeMap = __webpack_require__(54);
+	var decodeMap = __webpack_require__(55);
 
 	module.exports = decodeCodePoint;
 
@@ -10195,7 +10448,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 50 */
+/* 51 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -12433,7 +12686,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 51 */
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -13753,7 +14006,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 52 */
+/* 53 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -13788,7 +14041,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 53 */
+/* 54 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -13901,7 +14154,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 54 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -13936,7 +14189,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 55 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -16068,7 +16321,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 56 */
+/* 57 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -16181,7 +16434,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 57 */
+/* 58 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = {
@@ -16193,7 +16446,7 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 58 */
+/* 59 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isThunk
@@ -16204,7 +16457,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 59 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isHook
@@ -16217,7 +16470,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 60 */
+/* 61 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(19)
@@ -16230,7 +16483,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 61 */
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = isWidget
@@ -16241,14 +16494,14 @@ var htmlToVDom =
 
 
 /***/ },
-/* 62 */
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var version = __webpack_require__(19)
-	var isVNode = __webpack_require__(60)
-	var isWidget = __webpack_require__(61)
-	var isThunk = __webpack_require__(58)
-	var isVHook = __webpack_require__(59)
+	var isVNode = __webpack_require__(61)
+	var isWidget = __webpack_require__(62)
+	var isThunk = __webpack_require__(59)
+	var isVHook = __webpack_require__(60)
 
 	module.exports = VirtualNode
 
@@ -16319,7 +16572,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 63 */
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = function(module) {
@@ -16335,7 +16588,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 64 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var lookup = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
@@ -16352,12 +16605,16 @@ var htmlToVDom =
 		var NUMBER = '0'.charCodeAt(0)
 		var LOWER  = 'a'.charCodeAt(0)
 		var UPPER  = 'A'.charCodeAt(0)
+		var PLUS_URL_SAFE = '-'.charCodeAt(0)
+		var SLASH_URL_SAFE = '_'.charCodeAt(0)
 
 		function decode (elt) {
 			var code = elt.charCodeAt(0)
-			if (code === PLUS)
+			if (code === PLUS ||
+			    code === PLUS_URL_SAFE)
 				return 62 // '+'
-			if (code === SLASH)
+			if (code === SLASH ||
+			    code === SLASH_URL_SAFE)
 				return 63 // '/'
 			if (code < NUMBER)
 				return -1 //no match
@@ -16461,7 +16718,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 65 */
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports.read = function(buffer, offset, isLE, mLen, nBytes) {
@@ -16551,7 +16808,7 @@ var htmlToVDom =
 
 
 /***/ },
-/* 66 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -16590,14 +16847,14 @@ var htmlToVDom =
 
 
 /***/ },
-/* 67 */
+/* 68 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(1)
 
 
 /***/ },
-/* 68 */
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -16606,14 +16863,14 @@ var htmlToVDom =
 
 
 /***/ },
-/* 69 */
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(21)
 
 
 /***/ },
-/* 70 */
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(22);
@@ -16626,46 +16883,17 @@ var htmlToVDom =
 
 
 /***/ },
-/* 71 */
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(11)
 
 
 /***/ },
-/* 72 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__(12)
-
-
-/***/ },
 /* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
-	if (typeof Object.create === 'function') {
-	  // implementation from standard node.js 'util' module
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    ctor.prototype = Object.create(superCtor.prototype, {
-	      constructor: {
-	        value: ctor,
-	        enumerable: false,
-	        writable: true,
-	        configurable: true
-	      }
-	    });
-	  };
-	} else {
-	  // old school shim for old browsers
-	  module.exports = function inherits(ctor, superCtor) {
-	    ctor.super_ = superCtor
-	    var TempCtor = function () {}
-	    TempCtor.prototype = superCtor.prototype
-	    ctor.prototype = new TempCtor()
-	    ctor.prototype.constructor = ctor
-	  }
-	}
+	module.exports = __webpack_require__(12)
 
 
 /***/ },
@@ -16701,6 +16929,35 @@ var htmlToVDom =
 /* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
+	if (typeof Object.create === 'function') {
+	  // implementation from standard node.js 'util' module
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    ctor.prototype = Object.create(superCtor.prototype, {
+	      constructor: {
+	        value: ctor,
+	        enumerable: false,
+	        writable: true,
+	        configurable: true
+	      }
+	    });
+	  };
+	} else {
+	  // old school shim for old browsers
+	  module.exports = function inherits(ctor, superCtor) {
+	    ctor.super_ = superCtor
+	    var TempCtor = function () {}
+	    TempCtor.prototype = superCtor.prototype
+	    ctor.prototype = new TempCtor()
+	    ctor.prototype.constructor = ctor
+	  }
+	}
+
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
 	module.exports = function isBuffer(arg) {
 	  return arg && typeof arg === 'object'
 	    && typeof arg.copy === 'function'
@@ -16709,16 +16966,16 @@ var htmlToVDom =
 	}
 
 /***/ },
-/* 76 */
-/***/ function(module, exports, __webpack_require__) {
-
-	/* (ignored) */
-
-/***/ },
 /* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* (ignored) */
 
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* (ignored) */
+
 /***/ }
-/******/ ])""" :: forall a. a
+/******/ ]);""" :: forall a. a

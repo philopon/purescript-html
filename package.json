@@ -15,7 +15,7 @@
     "json-loader": "^0.5.1",
     "run-sequence": "^1.0.2",
     "virtual-dom": "^2.0.0",
-    "virtual-dom-stringify": "^2.1.0",
-    "webpack": "^1.5.3"
+    "virtual-dom-stringify": "^3.0.1",
+    "webpack": "^1.7.2"
   }
 }

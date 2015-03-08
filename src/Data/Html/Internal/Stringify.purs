@@ -5,41 +5,41 @@ var stringify =
 /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-/******/
+
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-/******/
+
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-/******/
+
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-/******/
+
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-/******/
+
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-/******/
+
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-/******/
-/******/
+
+
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-/******/
+
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
+
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-/******/
+
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -110,12 +110,18 @@ var stringify =
 	  }
 
 	  if (isVNode(node)) {
-	    var properties = node.properties.attributes || node.properties;
+	    var properties = node.properties;
+
+	    if (node.properties.attributes) {
+	      merge(properties, node.properties.attributes);
+	    }
 
 	    html.push('<' + node.tagName.toLowerCase());
 
 	    for (var key in properties) {
-	      var prop = options.attributes[camelCase(key)] || key;
+	      var split = key.split(':');
+	      var ns = (split.length > 1) ? (split[0] + ':') : '';
+	      var prop = options.attributes[camelCase(split.pop())] || key;
 	      var attrVal = properties[key];
 
 	      if (prop && prop !== 'innerHTML') {
@@ -131,11 +137,11 @@ var stringify =
 	            for (var styleProp in attrVal) {
 	              css.push(paramCase(styleProp) + ': ' + attrVal[styleProp] + ';');
 	            }
-	            attributes.push(prop + '="' + css.join(' ') + '"');
+	            attributes.push(ns + prop + '="' + css.join(' ') + '"');
 	          } else if (attrVal === "true" || attrVal === true) {
-	            attributes.push(prop);
+	            attributes.push(ns + prop);
 	          } else if (typeof attrVal !== 'function') {
-	            attributes.push(prop + '="' + encode(String(attrVal)) + '"');
+	            attributes.push(ns + prop + '="' + encode(String(attrVal)) + '"');
 	          }
 	        }
 	      }
@@ -549,7 +555,7 @@ var stringify =
 		}
 
 	}(this));
-	
+
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(15)(module), (function() { return this; }())))
 
 /***/ },
@@ -1177,4 +1183,4 @@ var stringify =
 
 
 /***/ }
-/******/ ])""" :: forall stringify. stringify
+/******/ ]);""" :: forall stringify. stringify
